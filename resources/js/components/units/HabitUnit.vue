@@ -1,5 +1,5 @@
 <template>
-    <div>test2</div>
+    <div>habit</div>
 </template>
 
 <script>
