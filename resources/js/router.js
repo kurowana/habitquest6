@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import GameUnit from "./components/organisms/GameUnit.vue";
+import TalkEventUnit from "./components/organisms/TalkEventUnit.vue";
 
 Vue.use(VueRouter);
 
@@ -10,7 +10,7 @@ const routes = [
         path: "/",
         name: "main",
         components: {
-            gameUnit: GameUnit
+            TalkEventUnit: TalkEventUnit
         }
     }
 ];

@@ -7,8 +7,8 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 Vue.use(BootstrapVue);
 
-import AppBase from "./components/pages/AppBase.vue";
-import WelcomeBase from "./components/pages/WelcomeBase.vue";
+import AppBase from "./components/AppBase.vue";
+import WelcomeBase from "./components/WelcomeBase.vue";
 
 const app = new Vue({
     el: "#app",

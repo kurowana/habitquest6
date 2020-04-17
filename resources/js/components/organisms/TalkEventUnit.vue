@@ -1,14 +1,18 @@
 <template>
   <div>
     <npc-viewer :displaying-npc="displayingNpc"></npc-viewer>
+    <msg-window></msg-window>
   </div>
 </template>
 
 <script>
 import NpcViewer from "../molecules/NpcViewer";
+import MsgWindow from "../molecules/MsgWindow";
+
 export default {
   components: {
-    "npc-viewer": NpcViewer
+    "npc-viewer": NpcViewer,
+    "msg-window": MsgWindow
   },
   data: function() {
     return {
@@ -21,28 +25,28 @@ export default {
           effect: "none"
         },
         LC: {
-          name: "あんな",
+          name: "エイル",
           opacity: 1,
           zIndex: 10,
           motion: "none",
           effect: "none"
         },
         C: {
-          name: "神",
+          name: "フリート",
           opacity: 1,
           zIndex: 10,
           motion: "none",
           effect: "none"
         },
         RC: {
-          name: "あああ",
+          name: "アイザック",
           opacity: 1,
           zIndex: 10,
           motion: "none",
           effect: "none"
         },
         R: {
-          name: "いいい",
+          name: "スフィア1",
           opacity: 1,
           zIndex: 10,
           motion: "none",
