@@ -3,6 +3,8 @@ import VueRouter from "vue-router";
 
 import TalkEventUnit from "./components/organisms/TalkEventUnit.vue";
 
+import Opening from "./components/events/Opening.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -10,7 +12,14 @@ const routes = [
         path: "/",
         name: "main",
         components: {
-            TalkEventUnit: TalkEventUnit
+            gameUnit: TalkEventUnit
+        }
+    },
+    {
+        path: "opening",
+        name: "opening",
+        components: {
+            gameUnit: Opening
         }
     }
 ];

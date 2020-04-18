@@ -1,50 +1,55 @@
 <template>
-  <div>
-    <b-container fluid>
-      <b-row>
-        {{this.windowWidth}}
-        <b-col md="12" lg="6">
-          <router-view name="TalkEventUnit"></router-view>
-        </b-col>
-        <b-col md="12" lg="6">
-          <router-view name="habitUnit"></router-view>
-        </b-col>
-      </b-row>
-    </b-container>
-  </div>
+    <div>
+        <router-link :to="{ name: 'main' }">トップ</router-link>
+        <router-link :to="{ name: 'opening' }">オープニング</router-link>
+        <b-container fluid>
+            <b-row>
+                {{ this.windowWidth }}
+                <b-col md="12" lg="6">
+                    <router-view name="gameUnit"></router-view>
+                </b-col>
+                <b-col md="12" lg="6">
+                    <router-view name="habitUnit"></router-view>
+                </b-col>
+            </b-row>
+        </b-container>
+    </div>
 </template>
 
 <script>
 import axios from "axios";
 import { mapGetters } from "vuex";
 
+import baseMixin from "../mixins/baseMixin";
+
 export default {
-  data: function() {
-    return {};
-  },
-  computed: {
-    ...mapGetters({
-      windowWidth: "getWindowWidth",
-      windowHeight: "getWindowHeight"
-    })
-  },
-  created: function() {
-    this.getWindowSize();
-  },
-  mounted: function() {
-    //   ウィンドウサイズ変更検知用にイベント追加
-    window.addEventListener("resize", this.getWindowSize);
-  },
-  beforeDestroy: function() {
-    windwow.addEventListener("resize", this.getWindowSize);
-  },
-  methods: {
-    //ウィンドウサイズを取得し、storeに保存
-    getWindowSize: function() {
-      this.$store.commit("setWindowWidth", window.innerWidth);
-      this.$store.commit("setWindowHeight", window.innerHeight);
+    mixins: [baseMixin],
+    data: function() {
+        return {};
+    },
+    computed: {
+        ...mapGetters({
+            windowWidth: "getWindowWidth",
+            windowHeight: "getWindowHeight"
+        })
+    },
+    created: function() {
+        this.getWindowSize();
+    },
+    mounted: function() {
+        //   ウィンドウサイズ変更検知用にイベント追加
+        window.addEventListener("resize", this.getWindowSize);
+    },
+    beforeDestroy: function() {
+        windwow.addEventListener("resize", this.getWindowSize);
+    },
+    methods: {
+        //ウィンドウサイズを取得し、storeに保存
+        getWindowSize: function() {
+            this.$store.commit("setWindowWidth", window.innerWidth);
+            this.$store.commit("setWindowHeight", window.innerHeight);
+        }
     }
-  }
 };
 </script>
 
