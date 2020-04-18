@@ -1,23 +1,49 @@
 <template>
-  <div class="textContent">
-    {{text}}
-    aaa
-  </div>
+    <div>
+        <vue-typer
+            class="text-content"
+            :text="msgText"
+            :repeat="0"
+            :type-delay="delayTime"
+            @completed="onCompleted"
+        >
+        </vue-typer>
+    </div>
 </template>
 
 <script>
+import { VueTyper } from "vue-typer";
+
 export default {
-  props: {
-    text: {
-      type: String,
-      required: true
+    components: {
+        "vue-typer": VueTyper
+    },
+    data: function() {
+        return {
+            delayTime: 30
+        };
+    },
+    props: {
+        msgText: {
+            type: String,
+            required: true
+        }
+    },
+    methods: {
+        onCompleted: function() {
+            console.log("emit");
+            this.$emit("msg-completed");
+        }
     }
-  }
 };
 </script>
 
-<style scoped>
-.textContent {
-  color: white;
+<style>
+/* vue-typer用のCSS */
+.char.custom.typed {
+    color: white;
+    font-size: 20px;
 }
 </style>
+
+<style scoped></style>

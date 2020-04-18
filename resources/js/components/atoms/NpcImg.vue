@@ -219,8 +219,8 @@ export default {
 /* レティナスマホ用 */
 @media screen and (min-width: 480px) and (max-width: 768px) {
   .img-size {
-    width: 300px;
-    height: 400px;
+    width: 150px;
+    height: 200px;
   }
 }
 /* タブレット用 */
@@ -233,8 +233,8 @@ export default {
 /* PC画面用 */
 @media screen and (min-width: 1280px) {
   .img-size {
-    width: 600px;
-    height: 800px;
+    width: 300px;
+    height: 400px;
   }
 }
 </style>
