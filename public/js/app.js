@@ -2078,7 +2078,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     onCompleted: function onCompleted() {
-      console.log("emit");
       this.$emit("msg-completed");
     }
   }
@@ -2309,56 +2308,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _templates_TalkEvent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../templates/TalkEvent */ "./resources/js/components/templates/TalkEvent.vue");
 //
 //
 //
 //
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    "talk-event": _templates_TalkEvent__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   data: function data() {
     return {
-      eventState: {
-        message: {
-          name: "",
-          text: ""
-        },
-        npc: {
-          charL: {
-            name: "",
-            opacity: 1,
-            zIndex: 10,
-            motion: "none",
-            effect: "none"
-          },
-          charLC: {
-            name: "",
-            opacity: 1,
-            zIndex: 10,
-            motion: "none",
-            effect: "none"
-          },
-          charC: {
-            name: "",
-            opacity: 1,
-            zIndex: 10,
-            motion: "none",
-            effect: "none"
-          },
-          charRC: {
-            name: "",
-            opacity: 1,
-            zIndex: 10,
-            motion: "none",
-            effect: "none"
-          },
-          charR: {
-            name: "",
-            opacity: 1,
-            zIndex: 10,
-            motion: "none",
-            effect: "none"
-          }
-        }
-      },
       eventObj: [function () {}, function () {}]
     };
   }
@@ -2446,6 +2410,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2489,6 +2473,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _molecules_NpcViewer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../molecules/NpcViewer */ "./resources/js/components/molecules/NpcViewer.vue");
 /* harmony import */ var _molecules_MsgWindow__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../molecules/MsgWindow */ "./resources/js/components/molecules/MsgWindow.vue");
+//
+//
 //
 //
 //
@@ -2544,6 +2530,78 @@ __webpack_require__.r(__webpack_exports__);
           zIndex: 10,
           motion: "none",
           effect: "none"
+        }
+      }
+    };
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/templates/TalkEvent.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/templates/TalkEvent.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _organisms_TalkEventUnit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../organisms/TalkEventUnit */ "./resources/js/components/organisms/TalkEventUnit.vue");
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    "talk-event-unit": _organisms_TalkEventUnit__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  data: function data() {
+    return {
+      eventState: {
+        message: {
+          name: "",
+          text: ""
+        },
+        npc: {
+          charL: {
+            name: "",
+            opacity: 1,
+            zIndex: 10,
+            motion: "none",
+            effect: "none"
+          },
+          charLC: {
+            name: "",
+            opacity: 1,
+            zIndex: 10,
+            motion: "none",
+            effect: "none"
+          },
+          charC: {
+            name: "",
+            opacity: 1,
+            zIndex: 10,
+            motion: "none",
+            effect: "none"
+          },
+          charRC: {
+            name: "",
+            opacity: 1,
+            zIndex: 10,
+            motion: "none",
+            effect: "none"
+          },
+          charR: {
+            name: "",
+            opacity: 1,
+            zIndex: 10,
+            motion: "none",
+            effect: "none"
+          }
         }
       }
     };
@@ -42533,7 +42591,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* vue-typer用のCSS */\n.char.custom.typed {\r\n    color: white;\r\n    font-size: 20px;\n}\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* vue-typer用のCSS */\n.char.custom.typed {\r\n    color: white;\r\n    font-size: 20px;\n}\r\n", ""]);
 
 // exports
 
@@ -42591,7 +42649,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* スマホ画面用 */\n@media screen and (max-width: 480px) {\n.img-pos-l[data-v-3a9d18d6] {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\n}\n.img-pos-lc[data-v-3a9d18d6] {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 50px;\n}\n.img-pos-c[data-v-3a9d18d6] {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 100px;\n}\n.img-pos-rc[data-v-3a9d18d6] {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 150px;\n}\n.img-pos-r[data-v-3a9d18d6] {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 200px;\n}\n}\r\n/* レティナスマホ用 */\n@media screen and (min-width: 480px) and (max-width: 768px) {\n.img-pos-l[data-v-3a9d18d6] {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\n}\n.img-pos-lc[data-v-3a9d18d6] {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 100px;\n}\n.img-pos-c[data-v-3a9d18d6] {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 150px;\n}\n.img-pos-rc[data-v-3a9d18d6] {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 200px;\n}\n.img-pos-r[data-v-3a9d18d6] {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 250px;\n}\n}\r\n/* タブレット用 */\n@media screen and (min-width: 768px) and (max-width: 1280px) {\n.img-pos-l[data-v-3a9d18d6] {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\n}\n.img-pos-lc[data-v-3a9d18d6] {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 150px;\n}\n.img-pos-c[data-v-3a9d18d6] {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 300px;\n}\n.img-pos-rc[data-v-3a9d18d6] {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 450px;\n}\n.img-pos-r[data-v-3a9d18d6] {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 600px;\n}\n}\r\n/* PC画面用 */\n@media screen and (min-width: 1280px) {\n.img-pos-l[data-v-3a9d18d6] {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\n}\n.img-pos-lc[data-v-3a9d18d6] {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 150px;\n}\n.img-pos-c[data-v-3a9d18d6] {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 300px;\n}\n.img-pos-rc[data-v-3a9d18d6] {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 450px;\n}\n.img-pos-r[data-v-3a9d18d6] {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 600px;\n}\n}\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* スマホ画面用 */\n@media screen and (max-width: 480px) {\n.img-pos-l[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 0;\n}\n.img-pos-lc[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 50px;\n}\n.img-pos-c[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 100px;\n}\n.img-pos-rc[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 150px;\n}\n.img-pos-r[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 200px;\n}\n}\r\n/* レティナスマホ用 */\n@media screen and (min-width: 480px) and (max-width: 768px) {\n.img-pos-l[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 0;\n}\n.img-pos-lc[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 100px;\n}\n.img-pos-c[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 150px;\n}\n.img-pos-rc[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 200px;\n}\n.img-pos-r[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 250px;\n}\n}\r\n/* タブレット用 */\n@media screen and (min-width: 768px) and (max-width: 1280px) {\n.img-pos-l[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 0;\n}\n.img-pos-lc[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 150px;\n}\n.img-pos-c[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 300px;\n}\n.img-pos-rc[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 450px;\n}\n.img-pos-r[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 600px;\n}\n}\r\n/* PC画面用 */\n@media screen and (min-width: 1280px) {\n.img-pos-l[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 100px;\r\n        left: -20px;\n}\n.img-pos-lc[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 100px;\r\n        left: 150px;\n}\n.img-pos-c[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 100px;\r\n        left: 300px;\n}\n.img-pos-rc[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 100px;\r\n        left: 450px;\n}\n.img-pos-r[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 100px;\r\n        left: 600px;\n}\n}\r\n", ""]);
 
 // exports
 
@@ -42605,12 +42663,13 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+var escape = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/url/escape.js */ "./node_modules/css-loader/lib/url/escape.js");
 exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* スマホ画面用 */\n@media screen and (max-width: 480px) {\n.char-img-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 0;\n}\n.msg-window-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 200px;\n}\n}\r\n/* レティナスマホ用 */\n@media screen and (min-width: 480px) and (max-width: 768px) {\n.char-img-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 0;\n}\n.msg-window-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 200px;\n}\n}\r\n/* タブレット用 */\n@media screen and (min-width: 768px) and (max-width: 1280px) {\n.char-img-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 0;\n}\n.msg-window-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 400px;\n}\n}\r\n/* PC画面用 */\n@media screen and (min-width: 1280px) {\n.char-img-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 0;\n}\n.msg-window-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 400px;\n}\n}\r\n", ""]);
+exports.push([module.i, "\n.event-container[data-v-20b515a9] {\r\n    position: relative;\r\n    width: 800px;\r\n    height: 600px;\r\n    background: url(" + escape(__webpack_require__(/*! ../../../../public/images/bg/shinden.jpg */ "./public/images/bg/shinden.jpg")) + ");\n}\r\n/* スマホ画面用 */\n@media screen and (max-width: 480px) {\n.char-img-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 0;\n}\n.msg-window-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 200px;\n}\n}\r\n/* レティナスマホ用 */\n@media screen and (min-width: 480px) and (max-width: 768px) {\n.char-img-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 0;\n}\n.msg-window-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 200px;\n}\n}\r\n/* タブレット用 */\n@media screen and (min-width: 768px) and (max-width: 1280px) {\n.char-img-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 0;\n}\n.msg-window-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 400px;\n}\n}\r\n/* PC画面用 */\n@media screen and (min-width: 1280px) {\n.char-img-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 0;\n}\n.msg-window-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 400px;\n}\n}\r\n", ""]);
 
 // exports
 
@@ -47443,7 +47502,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("オープニング")])
+  return _c("div", [_vm._v("\n    オープニング\n    "), _c("talk-event")], 1)
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -47568,15 +47627,41 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c(
-      "div",
-      { staticClass: "char-img-container" },
-      [_c("npc-viewer", { attrs: { "displaying-npc": _vm.displayingNpc } })],
-      1
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "msg-window-container" }, [_c("msg-window")], 1)
+    _c("div", { staticClass: "event-container" }, [
+      _c(
+        "div",
+        { staticClass: "char-img-container" },
+        [_c("npc-viewer", { attrs: { "displaying-npc": _vm.displayingNpc } })],
+        1
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "msg-window-container" }, [_c("msg-window")], 1)
+    ])
   ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/templates/TalkEvent.vue?vue&type=template&id=3388e7dd&scoped=true&":
+/*!**********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/templates/TalkEvent.vue?vue&type=template&id=3388e7dd&scoped=true& ***!
+  \**********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [_c("talk-event-unit")], 1)
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -63728,6 +63813,17 @@ module.exports = g;
 
 /***/ }),
 
+/***/ "./public/images/bg/shinden.jpg":
+/*!**************************************!*\
+  !*** ./public/images/bg/shinden.jpg ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/shinden.jpg?f37e0d4df742dbe0cef74d82d655b035";
+
+/***/ }),
+
 /***/ "./public/images/ui/msg-window.png":
 /*!*****************************************!*\
   !*** ./public/images/ui/msg-window.png ***!
@@ -64609,6 +64705,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TalkEventUnit_vue_vue_type_template_id_20b515a9_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TalkEventUnit_vue_vue_type_template_id_20b515a9_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/templates/TalkEvent.vue":
+/*!*********************************************************!*\
+  !*** ./resources/js/components/templates/TalkEvent.vue ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _TalkEvent_vue_vue_type_template_id_3388e7dd_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TalkEvent.vue?vue&type=template&id=3388e7dd&scoped=true& */ "./resources/js/components/templates/TalkEvent.vue?vue&type=template&id=3388e7dd&scoped=true&");
+/* harmony import */ var _TalkEvent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TalkEvent.vue?vue&type=script&lang=js& */ "./resources/js/components/templates/TalkEvent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _TalkEvent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _TalkEvent_vue_vue_type_template_id_3388e7dd_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _TalkEvent_vue_vue_type_template_id_3388e7dd_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "3388e7dd",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/templates/TalkEvent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/templates/TalkEvent.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/templates/TalkEvent.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TalkEvent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./TalkEvent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/templates/TalkEvent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TalkEvent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/templates/TalkEvent.vue?vue&type=template&id=3388e7dd&scoped=true&":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/components/templates/TalkEvent.vue?vue&type=template&id=3388e7dd&scoped=true& ***!
+  \****************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TalkEvent_vue_vue_type_template_id_3388e7dd_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./TalkEvent.vue?vue&type=template&id=3388e7dd&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/templates/TalkEvent.vue?vue&type=template&id=3388e7dd&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TalkEvent_vue_vue_type_template_id_3388e7dd_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TalkEvent_vue_vue_type_template_id_3388e7dd_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

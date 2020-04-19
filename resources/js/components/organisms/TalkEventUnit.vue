@@ -1,10 +1,12 @@
 <template>
     <div>
-        <div class="char-img-container">
-            <npc-viewer :displaying-npc="displayingNpc"></npc-viewer>
-        </div>
-        <div class="msg-window-container">
-            <msg-window></msg-window>
+        <div class="event-container">
+            <div class="char-img-container">
+                <npc-viewer :displaying-npc="displayingNpc"></npc-viewer>
+            </div>
+            <div class="msg-window-container">
+                <msg-window></msg-window>
+            </div>
         </div>
     </div>
 </template>
@@ -63,6 +65,12 @@ export default {
 </script>
 
 <style scoped>
+.event-container {
+    position: relative;
+    width: 800px;
+    height: 600px;
+    background: url(../../../../public/images/bg/shinden.jpg);
+}
 /* スマホ画面用 */
 @media screen and (max-width: 480px) {
     .char-img-container {

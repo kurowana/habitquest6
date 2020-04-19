@@ -31,7 +31,6 @@ export default {
     },
     methods: {
         onCompleted: function() {
-            console.log("emit");
             this.$emit("msg-completed");
         }
     }
