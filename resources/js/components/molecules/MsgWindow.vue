@@ -2,11 +2,11 @@
     <div class="msg-container">
         <msg-speaker-name
             class="name-area"
-            :speakerName="speakerName"
+            :speaker-name="displayingMessage.name"
         ></msg-speaker-name>
         <msg-text
             class="text-area"
-            :msgText="msgText"
+            :msg-text="displayingMessage.text"
             @msg-completed="changeTextEndFlag"
         ></msg-text>
         <msg-next-icon class="next-icon" :isTextEnd="isTextEnd"></msg-next-icon>
@@ -28,11 +28,17 @@ export default {
         "msg-next-icon": MsgNextIcon
     },
     mixins: [baseMixin],
+    props: {
+        displayingMessage: {
+            type: Object,
+            required: true
+        }
+    },
     data: function() {
         return {
-            msgText:
-                "あいうえお、かきくけこ。\nさしすせて、たちつて\nさしすせて、たちつて",
-            speakerName: "名前",
+            // msgText:
+            //     "あいうえお、かきくけこ。\nさしすせて、たちつて\nさしすせて、たちつて",
+            // speakerName: "名前",
             isTextEnd: false
         };
     },
