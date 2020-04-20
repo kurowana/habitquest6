@@ -150,27 +150,27 @@ export default {
     .img-pos-l {
         position: absolute;
         top: 100px;
-        left: -20px;
+        left: -50px;
     }
     .img-pos-lc {
         position: absolute;
         top: 100px;
-        left: 150px;
+        left: 100px;
     }
     .img-pos-c {
         position: absolute;
         top: 100px;
-        left: 300px;
+        left: 250px;
     }
     .img-pos-rc {
         position: absolute;
         top: 100px;
-        left: 450px;
+        left: 400px;
     }
     .img-pos-r {
         position: absolute;
         top: 100px;
-        left: 600px;
+        left: 550px;
     }
 }
 </style>

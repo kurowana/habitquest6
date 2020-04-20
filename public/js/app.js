@@ -2309,6 +2309,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _templates_TalkEvent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../templates/TalkEvent */ "./resources/js/components/templates/TalkEvent.vue");
+/* harmony import */ var _mixins_eventMixin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../mixins/eventMixin */ "./resources/js/mixins/eventMixin.js");
+//
 //
 //
 //
@@ -2317,14 +2319,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     "talk-event": _templates_TalkEvent__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
+  mixins: [_mixins_eventMixin__WEBPACK_IMPORTED_MODULE_1__["default"]],
   data: function data() {
     return {
-      eventObj: [function () {}, function () {}]
+      eventObj: [function () {
+        this.$_test();
+        this.eventState.message.text = "あいうえおかきくけこ\maaaaaaaa";
+      }, function () {
+        this.$_test();
+        this.eventState.message.name = "名前";
+        this.eventState.message.text = "かきくけこああああああ\nまみまいまい";
+        this.eventState.npc.LC.name = "ナタ";
+      }],
+      sceneNo: 0
     };
+  },
+  computed: {
+    currentEvent: function currentEvent() {
+      return this.eventObj[this.sceneNo];
+    }
+  },
+  methods: {
+    testFunc: function testFunc() {
+      this.sceneNo++;
+    }
   }
 });
 
@@ -2370,10 +2393,17 @@ __webpack_require__.r(__webpack_exports__);
     "msg-next-icon": _atoms_MsgNextIcon__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   mixins: [_mixins_baseMixin__WEBPACK_IMPORTED_MODULE_3__["default"]],
+  props: {
+    displayingMessage: {
+      type: Object,
+      required: true
+    }
+  },
   data: function data() {
     return {
-      msgText: "あいうえお、かきくけこ。\nさしすせて、たちつて\nさしすせて、たちつて",
-      speakerName: "名前",
+      // msgText:
+      //     "あいうえお、かきくけこ。\nさしすせて、たちつて\nさしすせて、たちつて",
+      // speakerName: "名前",
       isTextEnd: false
     };
   },
@@ -2486,6 +2516,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2493,45 +2526,50 @@ __webpack_require__.r(__webpack_exports__);
     "npc-viewer": _molecules_NpcViewer__WEBPACK_IMPORTED_MODULE_0__["default"],
     "msg-window": _molecules_MsgWindow__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
+  props: {
+    eventState: {
+      type: Object,
+      required: true
+    }
+  },
   data: function data() {
-    return {
-      displayingNpc: {
-        L: {
-          name: "ヤナギ",
-          opacity: 1,
-          zIndex: 10,
-          motion: "none",
-          effect: "none"
-        },
-        LC: {
-          name: "エイル",
-          opacity: 1,
-          zIndex: 10,
-          motion: "none",
-          effect: "none"
-        },
-        C: {
-          name: "フリート",
-          opacity: 1,
-          zIndex: 10,
-          motion: "none",
-          effect: "none"
-        },
-        RC: {
-          name: "アイザック",
-          opacity: 1,
-          zIndex: 10,
-          motion: "none",
-          effect: "none"
-        },
-        R: {
-          name: "スフィア1",
-          opacity: 1,
-          zIndex: 10,
-          motion: "none",
-          effect: "none"
-        }
-      }
+    return {// displayingNpc: {
+      //     L: {
+      //         name: "ヤナギ",
+      //         opacity: 1,
+      //         zIndex: 10,
+      //         motion: "none",
+      //         effect: "none"
+      //     },
+      //     LC: {
+      //         name: "エイル",
+      //         opacity: 1,
+      //         zIndex: 10,
+      //         motion: "none",
+      //         effect: "none"
+      //     },
+      //     C: {
+      //         name: "フリート",
+      //         opacity: 1,
+      //         zIndex: 10,
+      //         motion: "none",
+      //         effect: "none"
+      //     },
+      //     RC: {
+      //         name: "アイザック",
+      //         opacity: 1,
+      //         zIndex: 10,
+      //         motion: "none",
+      //         effect: "none"
+      //     },
+      //     R: {
+      //         name: "スフィア1",
+      //         opacity: 1,
+      //         zIndex: 10,
+      //         motion: "none",
+      //         effect: "none"
+      //     }
+      // }
     };
   }
 });
@@ -2548,6 +2586,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _organisms_TalkEventUnit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../organisms/TalkEventUnit */ "./resources/js/components/organisms/TalkEventUnit.vue");
+/* harmony import */ var _mixins_eventMixin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../mixins/eventMixin */ "./resources/js/mixins/eventMixin.js");
+//
+//
 //
 //
 //
@@ -2555,47 +2596,55 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     "talk-event-unit": _organisms_TalkEventUnit__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  mixins: [_mixins_eventMixin__WEBPACK_IMPORTED_MODULE_1__["default"]],
+  props: {
+    currentEvent: {
+      type: Function,
+      required: true
+    }
   },
   data: function data() {
     return {
       eventState: {
         message: {
-          name: "",
-          text: ""
+          name: "test",
+          text: "aaaaaa"
         },
         npc: {
-          charL: {
+          L: {
+            name: "ヤナギ",
+            opacity: 1,
+            zIndex: 10,
+            motion: "none",
+            effect: "none"
+          },
+          LC: {
             name: "",
             opacity: 1,
             zIndex: 10,
             motion: "none",
             effect: "none"
           },
-          charLC: {
+          C: {
             name: "",
             opacity: 1,
             zIndex: 10,
             motion: "none",
             effect: "none"
           },
-          charC: {
+          RC: {
             name: "",
             opacity: 1,
             zIndex: 10,
             motion: "none",
             effect: "none"
           },
-          charRC: {
-            name: "",
-            opacity: 1,
-            zIndex: 10,
-            motion: "none",
-            effect: "none"
-          },
-          charR: {
+          R: {
             name: "",
             opacity: 1,
             zIndex: 10,
@@ -2605,6 +2654,14 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
     };
+  },
+  mounted: function mounted() {
+    this.currentEvent();
+  },
+  watch: {
+    currentEvent: function currentEvent() {
+      this.currentEvent();
+    }
   }
 });
 
@@ -42649,7 +42706,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* スマホ画面用 */\n@media screen and (max-width: 480px) {\n.img-pos-l[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 0;\n}\n.img-pos-lc[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 50px;\n}\n.img-pos-c[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 100px;\n}\n.img-pos-rc[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 150px;\n}\n.img-pos-r[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 200px;\n}\n}\r\n/* レティナスマホ用 */\n@media screen and (min-width: 480px) and (max-width: 768px) {\n.img-pos-l[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 0;\n}\n.img-pos-lc[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 100px;\n}\n.img-pos-c[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 150px;\n}\n.img-pos-rc[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 200px;\n}\n.img-pos-r[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 250px;\n}\n}\r\n/* タブレット用 */\n@media screen and (min-width: 768px) and (max-width: 1280px) {\n.img-pos-l[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 0;\n}\n.img-pos-lc[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 150px;\n}\n.img-pos-c[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 300px;\n}\n.img-pos-rc[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 450px;\n}\n.img-pos-r[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 600px;\n}\n}\r\n/* PC画面用 */\n@media screen and (min-width: 1280px) {\n.img-pos-l[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 100px;\r\n        left: -20px;\n}\n.img-pos-lc[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 100px;\r\n        left: 150px;\n}\n.img-pos-c[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 100px;\r\n        left: 300px;\n}\n.img-pos-rc[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 100px;\r\n        left: 450px;\n}\n.img-pos-r[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 100px;\r\n        left: 600px;\n}\n}\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* スマホ画面用 */\n@media screen and (max-width: 480px) {\n.img-pos-l[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 0;\n}\n.img-pos-lc[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 50px;\n}\n.img-pos-c[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 100px;\n}\n.img-pos-rc[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 150px;\n}\n.img-pos-r[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 200px;\n}\n}\r\n/* レティナスマホ用 */\n@media screen and (min-width: 480px) and (max-width: 768px) {\n.img-pos-l[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 0;\n}\n.img-pos-lc[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 100px;\n}\n.img-pos-c[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 150px;\n}\n.img-pos-rc[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 200px;\n}\n.img-pos-r[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 250px;\n}\n}\r\n/* タブレット用 */\n@media screen and (min-width: 768px) and (max-width: 1280px) {\n.img-pos-l[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 0;\n}\n.img-pos-lc[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 150px;\n}\n.img-pos-c[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 300px;\n}\n.img-pos-rc[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 450px;\n}\n.img-pos-r[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 0;\r\n        left: 600px;\n}\n}\r\n/* PC画面用 */\n@media screen and (min-width: 1280px) {\n.img-pos-l[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 100px;\r\n        left: -50px;\n}\n.img-pos-lc[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 100px;\r\n        left: 100px;\n}\n.img-pos-c[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 100px;\r\n        left: 250px;\n}\n.img-pos-rc[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 100px;\r\n        left: 400px;\n}\n.img-pos-r[data-v-3a9d18d6] {\r\n        position: absolute;\r\n        top: 100px;\r\n        left: 550px;\n}\n}\r\n", ""]);
 
 // exports
 
@@ -42669,7 +42726,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.event-container[data-v-20b515a9] {\r\n    position: relative;\r\n    width: 800px;\r\n    height: 600px;\r\n    background: url(" + escape(__webpack_require__(/*! ../../../../public/images/bg/shinden.jpg */ "./public/images/bg/shinden.jpg")) + ");\n}\r\n/* スマホ画面用 */\n@media screen and (max-width: 480px) {\n.char-img-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 0;\n}\n.msg-window-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 200px;\n}\n}\r\n/* レティナスマホ用 */\n@media screen and (min-width: 480px) and (max-width: 768px) {\n.char-img-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 0;\n}\n.msg-window-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 200px;\n}\n}\r\n/* タブレット用 */\n@media screen and (min-width: 768px) and (max-width: 1280px) {\n.char-img-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 0;\n}\n.msg-window-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 400px;\n}\n}\r\n/* PC画面用 */\n@media screen and (min-width: 1280px) {\n.char-img-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 0;\n}\n.msg-window-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 400px;\n}\n}\r\n", ""]);
+exports.push([module.i, "\n.event-container[data-v-20b515a9] {\r\n    position: relative;\r\n    width: 800px;\r\n    height: 600px;\r\n    background: url(" + escape(__webpack_require__(/*! ../../../../public/images/bg/shinden.jpg */ "./public/images/bg/shinden.jpg")) + ");\r\n    overflow: hidden;\n}\r\n/* スマホ画面用 */\n@media screen and (max-width: 480px) {\n.char-img-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 0;\n}\n.msg-window-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 200px;\n}\n}\r\n/* レティナスマホ用 */\n@media screen and (min-width: 480px) and (max-width: 768px) {\n.char-img-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 0;\n}\n.msg-window-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 200px;\n}\n}\r\n/* タブレット用 */\n@media screen and (min-width: 768px) and (max-width: 1280px) {\n.char-img-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 0;\n}\n.msg-window-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 400px;\n}\n}\r\n/* PC画面用 */\n@media screen and (min-width: 1280px) {\n.char-img-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 0;\n}\n.msg-window-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 425px;\n}\n}\r\n", ""]);
 
 // exports
 
@@ -47502,7 +47559,16 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("\n    オープニング\n    "), _c("talk-event")], 1)
+  return _c(
+    "div",
+    [
+      _vm._v("\n    オープニング\n    "),
+      _c("talk-event", { attrs: { "current-event": _vm.currentEvent } }),
+      _vm._v(" "),
+      _c("button", { on: { click: _vm.testFunc } }, [_vm._v("test")])
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -47532,12 +47598,12 @@ var render = function() {
     [
       _c("msg-speaker-name", {
         staticClass: "name-area",
-        attrs: { speakerName: _vm.speakerName }
+        attrs: { "speaker-name": _vm.displayingMessage.name }
       }),
       _vm._v(" "),
       _c("msg-text", {
         staticClass: "text-area",
-        attrs: { msgText: _vm.msgText },
+        attrs: { "msg-text": _vm.displayingMessage.text },
         on: { "msg-completed": _vm.changeTextEndFlag }
       }),
       _vm._v(" "),
@@ -47631,11 +47697,21 @@ var render = function() {
       _c(
         "div",
         { staticClass: "char-img-container" },
-        [_c("npc-viewer", { attrs: { "displaying-npc": _vm.displayingNpc } })],
+        [_c("npc-viewer", { attrs: { "displaying-npc": _vm.eventState.npc } })],
         1
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "msg-window-container" }, [_c("msg-window")], 1)
+      _c(
+        "div",
+        { staticClass: "msg-window-container" },
+        [
+          _c("msg-window", {
+            attrs: { "displaying-message": _vm.eventState.message }
+          })
+        ],
+        1
+      ),
+      _vm._v("\n        aaa\n    ")
     ])
   ])
 }
@@ -47661,7 +47737,20 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_c("talk-event-unit")], 1)
+  return _c(
+    "div",
+    [
+      _c("talk-event-unit", { attrs: { "event-state": _vm.eventState } }),
+      _vm._v(
+        "\n    " +
+          _vm._s(_vm.currentEvent) +
+          "\n    " +
+          _vm._s(_vm.eventState.message.text) +
+          "\n"
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -64794,6 +64883,25 @@ __webpack_require__.r(__webpack_exports__);
       return new Promise(function (resolve) {
         return setTimeout(resolve, time);
       });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/mixins/eventMixin.js":
+/*!*******************************************!*\
+  !*** ./resources/js/mixins/eventMixin.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  methods: {
+    $_test: function $_test() {
+      console.log("testaaa");
     }
   }
 });
