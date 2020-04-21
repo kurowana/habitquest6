@@ -1,8 +1,6 @@
 <template>
     <div>
-        オープニング
-        <talk-event :current-event="currentEvent"></talk-event>
-        <button @click="testFunc">test</button>
+        <talk-event :event-obj="eventObj"></talk-event>
     </div>
 </template>
 
@@ -19,31 +17,27 @@ export default {
     data: function() {
         return {
             eventObj: [
-                function() {
-                    this.$_test();
-                    this.eventState.message.text =
-                        "あいうえおかきくけこ\maaaaaaaa";
+                // 引数vmは、子コンポーネントのthis
+                function(vm) {
+                    vm.$_setMessage("ヤナギ", "登場コメントをここに");
+                    vm.$_setNpcImg("ヤナギ", "L");
                 },
-                function() {
-                    this.$_test();
-                    this.eventState.message.name = "名前";
-                    this.eventState.message.text =
-                        "かきくけこああああああ\nまみまいまい";
-                    this.eventState.npc.LC.name = "ナタ";
+                function(vm) {
+                    vm.$_setMessage("ナタ", "キャラクター追加");
+                    vm.$_setNpcImg("ナタ", "LC");
+                },
+                function(vm) {
+                    vm.$_setMessage("ゼノビア", "左右判定テスト");
+                    vm.$_setNpcImg("ゼノビア", "R");
+                },
+                function(vm) {
+                    vm.$_resetNpcImg();
+                    vm.$_resetMessage();
                 }
-            ],
-            sceneNo: 0
+            ]
         };
     },
-    computed: {
-        currentEvent: function() {
-            return this.eventObj[this.sceneNo];
-        }
-    },
-    methods: {
-        testFunc: function() {
-            this.sceneNo++;
-        }
-    }
+    computed: {},
+    methods: {}
 };
 </script>
