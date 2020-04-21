@@ -2316,8 +2316,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2327,28 +2325,24 @@ __webpack_require__.r(__webpack_exports__);
   mixins: [_mixins_eventMixin__WEBPACK_IMPORTED_MODULE_1__["default"]],
   data: function data() {
     return {
-      eventObj: [function () {
-        this.$_test();
-        this.eventState.message.text = "あいうえおかきくけこ\maaaaaaaa";
-      }, function () {
-        this.$_test();
-        this.eventState.message.name = "名前";
-        this.eventState.message.text = "かきくけこああああああ\nまみまいまい";
-        this.eventState.npc.LC.name = "ナタ";
-      }],
-      sceneNo: 0
+      eventObj: [// 引数vmは、子コンポーネントのthis
+      function (vm) {
+        vm.$_setMessage("ヤナギ", "登場コメントをここに");
+        vm.$_setNpcImg("ヤナギ", "L");
+      }, function (vm) {
+        vm.$_setMessage("ナタ", "キャラクター追加");
+        vm.$_setNpcImg("ナタ", "LC");
+      }, function (vm) {
+        vm.$_setMessage("ゼノビア", "左右判定テスト");
+        vm.$_setNpcImg("ゼノビア", "R");
+      }, function (vm) {
+        vm.$_resetNpcImg();
+        vm.$_resetMessage();
+      }]
     };
   },
-  computed: {
-    currentEvent: function currentEvent() {
-      return this.eventObj[this.sceneNo];
-    }
-  },
-  methods: {
-    testFunc: function testFunc() {
-      this.sceneNo++;
-    }
-  }
+  computed: {},
+  methods: {}
 });
 
 /***/ }),
@@ -2593,8 +2587,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2603,64 +2595,31 @@ __webpack_require__.r(__webpack_exports__);
   },
   mixins: [_mixins_eventMixin__WEBPACK_IMPORTED_MODULE_1__["default"]],
   props: {
-    currentEvent: {
-      type: Function,
+    eventObj: {
+      type: Array,
       required: true
     }
   },
   data: function data() {
     return {
-      eventState: {
-        message: {
-          name: "test",
-          text: "aaaaaa"
-        },
-        npc: {
-          L: {
-            name: "ヤナギ",
-            opacity: 1,
-            zIndex: 10,
-            motion: "none",
-            effect: "none"
-          },
-          LC: {
-            name: "",
-            opacity: 1,
-            zIndex: 10,
-            motion: "none",
-            effect: "none"
-          },
-          C: {
-            name: "",
-            opacity: 1,
-            zIndex: 10,
-            motion: "none",
-            effect: "none"
-          },
-          RC: {
-            name: "",
-            opacity: 1,
-            zIndex: 10,
-            motion: "none",
-            effect: "none"
-          },
-          R: {
-            name: "",
-            opacity: 1,
-            zIndex: 10,
-            motion: "none",
-            effect: "none"
-          }
-        }
-      }
+      sceneNo: 0
     };
   },
   mounted: function mounted() {
     this.currentEvent();
   },
   watch: {
-    currentEvent: function currentEvent() {
+    sceneNo: function sceneNo() {
       this.currentEvent();
+    }
+  },
+  methods: {
+    clickEventViewer: function clickEventViewer() {
+      this.sceneNo++;
+    },
+    currentEvent: function currentEvent() {
+      var vm = this;
+      this.eventObj[this.sceneNo](vm);
     }
   }
 });
@@ -47561,12 +47520,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    [
-      _vm._v("\n    オープニング\n    "),
-      _c("talk-event", { attrs: { "current-event": _vm.currentEvent } }),
-      _vm._v(" "),
-      _c("button", { on: { click: _vm.testFunc } }, [_vm._v("test")])
-    ],
+    [_c("talk-event", { attrs: { "event-obj": _vm.eventObj } })],
     1
   )
 }
@@ -47739,15 +47693,11 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { on: { click: _vm.clickEventViewer } },
     [
-      _c("talk-event-unit", { attrs: { "event-state": _vm.eventState } }),
-      _vm._v(
-        "\n    " +
-          _vm._s(_vm.currentEvent) +
-          "\n    " +
-          _vm._s(_vm.eventState.message.text) +
-          "\n"
-      )
+      _c("talk-event-unit", {
+        attrs: { "event-state": _vm.$data.$_eventState }
+      })
     ],
     1
   )
@@ -64899,9 +64849,76 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      $_eventState: {
+        message: {
+          name: " ",
+          text: " "
+        },
+        npc: {
+          L: {
+            name: "",
+            opacity: 1,
+            zIndex: 10,
+            motion: "none",
+            effect: "none"
+          },
+          LC: {
+            name: "",
+            opacity: 1,
+            zIndex: 10,
+            motion: "none",
+            effect: "none"
+          },
+          C: {
+            name: "",
+            opacity: 1,
+            zIndex: 10,
+            motion: "none",
+            effect: "none"
+          },
+          RC: {
+            name: "",
+            opacity: 1,
+            zIndex: 10,
+            motion: "none",
+            effect: "none"
+          },
+          R: {
+            name: "",
+            opacity: 1,
+            zIndex: 10,
+            motion: "none",
+            effect: "none"
+          }
+        }
+      }
+    };
+  },
   methods: {
-    $_test: function $_test() {
-      console.log("testaaa");
+    // メッセージ表示関係
+    $_setMessage: function $_setMessage(name, text) {
+      this.$data.$_eventState.message.name = name;
+      this.$data.$_eventState.message.text = text;
+    },
+    $_resetMessage: function $_resetMessage() {
+      this.$data.$_eventState.message.name = " ";
+      this.$data.$_eventState.message.text = " ";
+    },
+    // NPC画像表示系
+    $_setNpcImg: function $_setNpcImg(name, pos) {
+      this.$data.$_eventState.npc[pos].name = name;
+    },
+    $_resetNpcImg: function $_resetNpcImg() {
+      for (var _i = 0, _Object$keys = Object.keys(this.$data.$_eventState.npc); _i < _Object$keys.length; _i++) {
+        var k = _Object$keys[_i];
+        this.$data.$_eventState.npc[k].name = "";
+        this.$data.$_eventState.npc[k].opacity = 1;
+        this.$data.$_eventState.npc[k].zIndex = 10;
+        this.$data.$_eventState.npc[k].motion = "none";
+        this.$data.$_eventState.npc[k].effect = 1;
+      }
     }
   }
 });
@@ -64920,9 +64937,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
-/* harmony import */ var _components_organisms_TalkEventUnit_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/organisms/TalkEventUnit.vue */ "./resources/js/components/organisms/TalkEventUnit.vue");
-/* harmony import */ var _components_events_Opening_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/events/Opening.vue */ "./resources/js/components/events/Opening.vue");
-
+/* harmony import */ var _components_events_Opening_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/events/Opening.vue */ "./resources/js/components/events/Opening.vue");
 
 
 
@@ -64931,13 +64946,13 @@ var routes = [{
   path: "/",
   name: "main",
   components: {
-    gameUnit: _components_organisms_TalkEventUnit_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    gameUnit: _components_events_Opening_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   }
 }, {
-  path: "opening",
+  path: "/opening",
   name: "opening",
   components: {
-    gameUnit: _components_events_Opening_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+    gameUnit: _components_events_Opening_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   }
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
