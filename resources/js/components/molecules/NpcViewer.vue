@@ -1,27 +1,27 @@
 <template>
     <div class="charImgContainer">
         <npc-img
-            :target-npc="npcNameL"
+            :target-npc="npcL"
             direction="left"
             class="img-pos-l"
         ></npc-img>
         <npc-img
-            :target-npc="npcNameLC"
+            :target-npc="npcLC"
             direction="left"
             class="img-pos-lc"
         ></npc-img>
         <npc-img
-            :target-npc="npcNameC"
+            :target-npc="npcC"
             direction="left"
             class="img-pos-c"
         ></npc-img>
         <npc-img
-            :target-npc="npcNameRC"
+            :target-npc="npcRC"
             direction="right"
             class="img-pos-rc"
         ></npc-img>
         <npc-img
-            :target-npc="npcNameR"
+            :target-npc="npcR"
             direction="right"
             class="img-pos-r"
         ></npc-img>
@@ -41,20 +41,20 @@ export default {
         }
     },
     computed: {
-        npcNameL: function() {
-            return this.displayingNpc.L.name;
+        npcL: function() {
+            return this.displayingNpc.L;
         },
-        npcNameLC: function() {
-            return this.displayingNpc.LC.name;
+        npcLC: function() {
+            return this.displayingNpc.LC;
         },
-        npcNameC: function() {
-            return this.displayingNpc.C.name;
+        npcC: function() {
+            return this.displayingNpc.C;
         },
-        npcNameRC: function() {
-            return this.displayingNpc.RC.name;
+        npcRC: function() {
+            return this.displayingNpc.RC;
         },
-        npcNameR: function() {
-            return this.displayingNpc.R.name;
+        npcR: function() {
+            return this.displayingNpc.R;
         }
     }
 };
