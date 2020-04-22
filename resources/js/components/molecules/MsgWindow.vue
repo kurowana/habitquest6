@@ -10,7 +10,6 @@
             @msg-completed="changeTextEndFlag"
         ></msg-text>
         <msg-next-icon class="next-icon" :isTextEnd="isTextEnd"></msg-next-icon>
-        {{ isTextEnd }}
     </div>
 </template>
 
@@ -36,9 +35,6 @@ export default {
     },
     data: function() {
         return {
-            // msgText:
-            //     "あいうえお、かきくけこ。\nさしすせて、たちつて\nさしすせて、たちつて",
-            // speakerName: "名前",
             isTextEnd: false
         };
     },
@@ -54,8 +50,11 @@ export default {
 
 <style scoped>
 .msg-container {
+    position: relative;
+    z-index: 50;
     background-image: url(../../../../public/images/ui/msg-window.png);
 }
+
 /* スマホ画面用 */
 @media screen and (max-width: 480px) {
     .msg-container {
@@ -95,8 +94,8 @@ export default {
     }
     .next-icon {
         position: absolute;
-        top: 135px;
-        left: 700px;
+        top: 130px;
+        left: 720px;
     }
 }
 </style>

@@ -57,6 +57,19 @@ export default {
             this.$data.$_eventState.message.name = " ";
             this.$data.$_eventState.message.text = " ";
         },
+        $_setTalk(name, text) {
+            for (let k of Object.keys(this.$data.$_eventState.npc)) {
+                if (this.$data.$_eventState.npc[k].name === name) {
+                    this.$data.$_eventState.npc[k].opacity = 1;
+                    this.$data.$_eventState.npc[k].zIndex = 10;
+                    this.$data.$_eventState.message.name = name;
+                    this.$data.$_eventState.message.text = text;
+                } else {
+                    this.$data.$_eventState.npc[k].opacity = 0.8;
+                    this.$data.$_eventState.npc[k].zIndex = 5;
+                }
+            }
+        },
 
         // NPC画像表示系
         $_setNpcImg(name, pos) {
@@ -70,6 +83,28 @@ export default {
                 this.$data.$_eventState.npc[k].zIndex = 10;
                 this.$data.$_eventState.npc[k].motion = "none";
                 this.$data.$_eventState.npc[k].effect = 1;
+            }
+        },
+        $_setOpacity(pos, value) {
+            this.$data.$_eventState.npc[pos].opacity = value;
+        },
+        $_resetOpacity(pos) {
+            this.$data.$_eventState.npc[pos].opacity = 1;
+        },
+        $_resetAllOpacitye() {
+            for (let k of Object.keys(this.$data.$_eventState.npc)) {
+                this.$data.$_eventState.npc[k].opacity = 1;
+            }
+        },
+        $_setZIndex(pos, value) {
+            this.$data.$_eventState.npc[pos].zIndex = value;
+        },
+        $_resetZIndex(pos) {
+            this.$data.$_eventState.npc[pos].zIndex = 10;
+        },
+        $_resetAllZIndex() {
+            for (let k of Object.keys(this.$data.$_eventState.npc)) {
+                this.$data.$_eventState.npc[k].zIndex = 10;
             }
         }
     }

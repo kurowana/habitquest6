@@ -9,7 +9,6 @@
                     :displaying-message="eventState.message"
                 ></msg-window>
             </div>
-            aaa
         </div>
     </div>
 </template>
@@ -30,45 +29,7 @@ export default {
         }
     },
     data: function() {
-        return {
-            // displayingNpc: {
-            //     L: {
-            //         name: "ヤナギ",
-            //         opacity: 1,
-            //         zIndex: 10,
-            //         motion: "none",
-            //         effect: "none"
-            //     },
-            //     LC: {
-            //         name: "エイル",
-            //         opacity: 1,
-            //         zIndex: 10,
-            //         motion: "none",
-            //         effect: "none"
-            //     },
-            //     C: {
-            //         name: "フリート",
-            //         opacity: 1,
-            //         zIndex: 10,
-            //         motion: "none",
-            //         effect: "none"
-            //     },
-            //     RC: {
-            //         name: "アイザック",
-            //         opacity: 1,
-            //         zIndex: 10,
-            //         motion: "none",
-            //         effect: "none"
-            //     },
-            //     R: {
-            //         name: "スフィア1",
-            //         opacity: 1,
-            //         zIndex: 10,
-            //         motion: "none",
-            //         effect: "none"
-            //     }
-            // }
-        };
+        return {};
     }
 };
 </script>
@@ -122,7 +83,7 @@ export default {
     }
     .msg-window-container {
         position: absolute;
-        top: 425px;
+        top: 420px;
     }
 }
 </style>

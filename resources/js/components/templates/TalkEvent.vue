@@ -26,18 +26,18 @@ export default {
         };
     },
     mounted: function() {
-        this.currentEvent();
+        this.getCurrentEvent();
     },
     watch: {
         sceneNo: function() {
-            this.currentEvent();
+            this.getCurrentEvent();
         }
     },
     methods: {
         clickEventViewer: function() {
             this.sceneNo++;
         },
-        currentEvent: function() {
+        getCurrentEvent: function() {
             const vm = this;
             this.eventObj[this.sceneNo](vm);
         }

@@ -5,15 +5,12 @@
 </template>
 
 <script>
-import TalkEvent from "../templates/TalkEvent";
-
-import eventMixin from "../../mixins/eventMixin";
+import TalkEvent from "../../templates/TalkEvent";
 
 export default {
     components: {
         "talk-event": TalkEvent
     },
-    mixins: [eventMixin],
     data: function() {
         return {
             eventObj: [
@@ -29,6 +26,12 @@ export default {
                 function(vm) {
                     vm.$_setMessage("ゼノビア", "左右判定テスト");
                     vm.$_setNpcImg("ゼノビア", "R");
+                },
+                function(vm) {
+                    vm.$_setTalk("ゼノビア", "トーク関数テスト");
+                },
+                function(vm) {
+                    vm.$_setTalk("ヤナギ", "トーク関数テスト、切り替え");
                 },
                 function(vm) {
                     vm.$_resetNpcImg();

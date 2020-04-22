@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import Opening from "./components/events/Opening.vue";
+import Opening from "./components/pages/events/Opening.vue";
 
 Vue.use(VueRouter);
 
@@ -23,7 +23,7 @@ const routes = [
 ];
 
 const router = new VueRouter({
-    // mode: "history",
+    mode: "history",
     routes
 });
 
