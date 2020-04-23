@@ -1,17 +1,24 @@
 <template>
-    <div @click="clickEventViewer">
-        <talk-event-unit :event-state="$data.$_eventState"></talk-event-unit>
+    <div>
+        <game-menu></game-menu>
+        <div @click="clickEventViewer">
+            <talk-event-unit
+                :event-state="$data.$_eventState"
+            ></talk-event-unit>
+        </div>
     </div>
 </template>
 
 <script>
 import TalkEventUnit from "../organisms/TalkEventUnit";
+import GameMenu from "../molecules/GameMenu";
 
 import eventMixin from "../../mixins/eventMixin";
 
 export default {
     components: {
-        "talk-event-unit": TalkEventUnit
+        "talk-event-unit": TalkEventUnit,
+        "game-menu": GameMenu
     },
     mixins: [eventMixin],
     props: {
