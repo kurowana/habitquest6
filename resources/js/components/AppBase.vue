@@ -2,17 +2,12 @@
     <div>
         <router-link :to="{ name: 'main' }">トップ</router-link>
         <router-link :to="{ name: 'opening' }">オープニング</router-link>
-        <b-container fluid>
-            <b-row>
-                {{ this.windowWidth }}
-                <b-col md="12" lg="6">
-                    <router-view name="gameUnit"></router-view>
-                </b-col>
-                <b-col md="12" lg="6">
-                    <router-view name="habitUnit"></router-view>
-                </b-col>
-            </b-row>
-        </b-container>
+
+        {{ this.windowWidth }}
+
+        <router-view name="gameUnit"></router-view>
+
+        <router-view name="habitUnit"></router-view>
     </div>
 </template>
 
