@@ -16,8 +16,8 @@ export default {
             eventObj: [
                 // 引数vmは、子コンポーネントのthis
                 function(vm) {
-                    vm.$_setMessage("ヤナギ", "登場コメントをここに");
-                    vm.$_setNpcImg("ヤナギ", "L");
+                    vm.$_setMessage("スフィア", "登場コメントをここに");
+                    vm.$_setNpcImg("スフィア1", "L");
                 },
                 function(vm) {
                     vm.$_setMessage("ナタ", "キャラクター追加");
@@ -28,7 +28,6 @@ export default {
                     vm.$_setNpcImg("ゼノビア", "R");
                 },
                 function(vm) {
-                    vm.$_setEventPlace("小屋");
                     vm.$_setTalk("ゼノビア", "トーク関数テスト");
                 },
                 function(vm) {
