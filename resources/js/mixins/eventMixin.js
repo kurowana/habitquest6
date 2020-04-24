@@ -43,7 +43,9 @@ export default {
                         effect: "none"
                     }
                 }
-            }
+            },
+            $_eventPlace: "神殿",
+            $_isDisplay: true
         };
     },
     methods: {
@@ -77,7 +79,7 @@ export default {
         },
 
         $_resetNpcImg() {
-            for (let k of Object.keys(this.$data.$_eventState.npc)) {
+            for (let k of Object.keys(this.$_eventState.npc)) {
                 this.$data.$_eventState.npc[k].name = "";
                 this.$data.$_eventState.npc[k].opacity = 1;
                 this.$data.$_eventState.npc[k].zIndex = 10;
@@ -92,7 +94,7 @@ export default {
             this.$data.$_eventState.npc[pos].opacity = 1;
         },
         $_resetAllOpacitye() {
-            for (let k of Object.keys(this.$data.$_eventState.npc)) {
+            for (let k of Object.keys(this.$_eventState.npc)) {
                 this.$data.$_eventState.npc[k].opacity = 1;
             }
         },
@@ -103,9 +105,17 @@ export default {
             this.$data.$_eventState.npc[pos].zIndex = 10;
         },
         $_resetAllZIndex() {
-            for (let k of Object.keys(this.$data.$_eventState.npc)) {
+            for (let k of Object.keys(this.$_eventState.npc)) {
                 this.$data.$_eventState.npc[k].zIndex = 10;
             }
+        },
+
+        // 舞台演出関連
+        async $_setEventPlace(place) {
+            this.$data.$_isDisplay = false;
+            this.$data.$_eventPlace = place;
+            await this.$_sleep(1000);
+            this.$data.$_isDisplay = true;
         }
     }
 };

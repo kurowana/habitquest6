@@ -1,9 +1,11 @@
 <template>
     <div>
         <game-menu></game-menu>
+        {{ $data.$_isDisplay }}
         <div @click="clickEventViewer">
             <talk-event-unit
                 :event-state="$data.$_eventState"
+                :event-place="$data.$_eventPlace"
             ></talk-event-unit>
         </div>
     </div>
@@ -13,6 +15,7 @@
 import TalkEventUnit from "../organisms/TalkEventUnit";
 import GameMenu from "../molecules/GameMenu";
 
+import baseMixin from "../../mixins/baseMixin";
 import eventMixin from "../../mixins/eventMixin";
 
 export default {
@@ -20,7 +23,7 @@ export default {
         "talk-event-unit": TalkEventUnit,
         "game-menu": GameMenu
     },
-    mixins: [eventMixin],
+    mixins: [baseMixin, eventMixin],
     props: {
         eventObj: {
             type: Array,

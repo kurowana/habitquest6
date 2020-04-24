@@ -21,9 +21,11 @@ export default {
 
 <style scoped>
 .menu-button {
-    color: white;
+    display: inline-block;
+    padding: 5px 10px;
     background: black;
     border: 1px solid gold;
+    color: white;
 }
 /* スマホ画面用 */
 @media screen and (max-width: 480px) {
