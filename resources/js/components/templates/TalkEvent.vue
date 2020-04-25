@@ -2,12 +2,16 @@
     <div>
         <game-menu></game-menu>
         {{ $data.$_isDisplay }}
-        <div @click="clickEventViewer">
-            <talk-event-unit
-                :event-state="$data.$_eventState"
-                :event-place="$data.$_eventPlace"
-            ></talk-event-unit>
-        </div>
+        <transition name="fade">
+            <div v-show="$data.$_isDisplay">
+                <div @click="clickEventViewer">
+                    <talk-event-unit
+                        :event-state="$data.$_eventState"
+                        :event-place="$data.$_eventPlace"
+                    ></talk-event-unit>
+                </div>
+            </div>
+        </transition>
     </div>
 </template>
 
@@ -55,4 +59,13 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.2s;
+}
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}
+</style>

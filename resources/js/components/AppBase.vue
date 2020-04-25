@@ -1,12 +1,8 @@
 <template>
     <div>
-        <router-link :to="{ name: 'main' }">トップ</router-link>
-        <router-link :to="{ name: 'opening' }">オープニング</router-link>
-
         {{ this.windowWidth }}
 
         <router-view name="gameUnit"></router-view>
-
         <router-view name="habitUnit"></router-view>
     </div>
 </template>

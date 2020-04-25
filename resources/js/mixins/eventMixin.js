@@ -113,8 +113,9 @@ export default {
         // 舞台演出関連
         async $_setEventPlace(place) {
             this.$data.$_isDisplay = false;
+            await this.$_sleep(300);
             this.$data.$_eventPlace = place;
-            await this.$_sleep(1000);
+            await this.$_sleep(300);
             this.$data.$_isDisplay = true;
         }
     }
