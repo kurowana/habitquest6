@@ -2148,6 +2148,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -2331,6 +2332,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     imgZIndex: function imgZIndex() {
       return this.targetNpc.zIndex;
+    },
+    motionClass: function motionClass() {
+      return this.targetNpc.motion;
     }
   })
 });
@@ -2690,6 +2694,7 @@ __webpack_require__.r(__webpack_exports__);
       }, function (vm) {
         vm.$_setMessage("ゼノビア", "左右判定テスト");
         vm.$_setNpcImg("ゼノビア", "R");
+        vm.$_setNpcMotion("right-slide", "L");
       }, function (vm) {
         vm.$_setTalk("ゼノビア", "トーク関数テスト");
       }, function (vm) {
@@ -2744,6 +2749,9 @@ __webpack_require__.r(__webpack_exports__);
         vm.$_setTalk("ゼノビア", "トーク関数テスト");
       }, function (vm) {
         vm.$_setTalk("ヤナギ", "トーク関数テスト、切り替え");
+        vm.$_resetAllZIndex();
+      }, function (vm) {
+        vm.$_resetAllOpacitye();
       }, function (vm) {
         vm.$_resetNpcImg();
         vm.$_resetMessage();
@@ -42847,7 +42855,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.npc-img[data-v-6256aafa] {\r\n    position: relative;\n}\n.fade-enter-active[data-v-6256aafa],\r\n.fade-leave-active[data-v-6256aafa] {\r\n    transition: opacity 0.2s;\n}\n.fade-enter[data-v-6256aafa],\r\n.fade-leave-to[data-v-6256aafa] {\r\n    opacity: 0;\n}\r\n\r\n/* スマホ画面用 */\n@media screen and (max-width: 480px) {\n.img-size[data-v-6256aafa] {\r\n        width: 150px;\r\n        height: 200px;\n}\n}\r\n/* レティナスマホ用 */\n@media screen and (min-width: 480px) and (max-width: 768px) {\n.img-size[data-v-6256aafa] {\r\n        width: 150px;\r\n        height: 200px;\n}\n}\r\n/* タブレット用 */\n@media screen and (min-width: 768px) and (max-width: 1280px) {\n.img-size[data-v-6256aafa] {\r\n        width: 300px;\r\n        height: 400px;\n}\n}\r\n/* PC画面用 */\n@media screen and (min-width: 1280px) {\n.img-size[data-v-6256aafa] {\r\n        width: 300px;\r\n        height: 400px;\n}\n}\r\n", ""]);
+exports.push([module.i, "\n.npc-img[data-v-6256aafa] {\r\n  position: relative;\n}\n.fade-enter-active[data-v-6256aafa],\r\n.fade-leave-active[data-v-6256aafa] {\r\n  transition: opacity 0.2s;\n}\n.fade-enter[data-v-6256aafa],\r\n.fade-leave-to[data-v-6256aafa] {\r\n  opacity: 0;\n}\r\n\r\n/* 立ち絵モーション系 */\n.motionBase[data-v-6256aafa] {\r\n  transition: all 0.5s 0s ease;\n}\n.tremble[data-v-6256aafa] {\r\n  -webkit-animation: tremble-data-v-6256aafa 0.2s linear 0s infinite;\r\n          animation: tremble-data-v-6256aafa 0.2s linear 0s infinite;\n}\n.jumpRepeat[data-v-6256aafa] {\r\n  -webkit-animation: jump-data-v-6256aafa 0.5s ease-in-out 0s infinite;\r\n          animation: jump-data-v-6256aafa 0.5s ease-in-out 0s infinite;\n}\n.jump[data-v-6256aafa] {\r\n  -webkit-animation: jump-data-v-6256aafa 0.4s ease-in-out 0s 2;\r\n          animation: jump-data-v-6256aafa 0.4s ease-in-out 0s 2;\n}\n.close[data-v-6256aafa] {\r\n  transform: scale(1.2);\r\n  opacity: 1;\n}\n.sit[data-v-6256aafa] {\r\n  transform: translateY(50px);\r\n  opacity: 1;\n}\n.leave[data-v-6256aafa] {\r\n  transform: scale(0.8);\r\n  opacity: 1;\n}\n.attack[data-v-6256aafa] {\r\n  -webkit-animation: attack-data-v-6256aafa 1s ease-in-out 0s 1;\r\n          animation: attack-data-v-6256aafa 1s ease-in-out 0s 1;\n}\n.left-attack[data-v-6256aafa] {\r\n  -webkit-animation: left-attack-data-v-6256aafa 1s ease-in-out 0.5s 1;\r\n          animation: left-attack-data-v-6256aafa 1s ease-in-out 0.5s 1;\n}\n.right-attack[data-v-6256aafa] {\r\n  -webkit-animation: right-attack-data-v-6256aafa 1s ease-in-out 0s 1;\r\n          animation: right-attack-data-v-6256aafa 1s ease-in-out 0s 1;\n}\n.left-attack-loop[data-v-6256aafa] {\r\n  -webkit-animation: left-attack-data-v-6256aafa 1s ease-in-out 0.5s infinite;\r\n          animation: left-attack-data-v-6256aafa 1s ease-in-out 0.5s infinite;\n}\n.right-attack-loop[data-v-6256aafa] {\r\n  -webkit-animation: right-attack-data-v-6256aafa 1s ease-in-out 0s infinite;\r\n          animation: right-attack-data-v-6256aafa 1s ease-in-out 0s infinite;\n}\n.left-slide[data-v-6256aafa] {\r\n  -webkit-animation: left-slide-data-v-6256aafa 1.5s ease-in-out 0s;\r\n          animation: left-slide-data-v-6256aafa 1.5s ease-in-out 0s;\n}\n.right-slide[data-v-6256aafa] {\r\n  -webkit-animation: right-slide-data-v-6256aafa 1.5s ease-in-out 0s;\r\n          animation: right-slide-data-v-6256aafa 1.5s ease-in-out 0s;\n}\n.left-slide-loop[data-v-6256aafa] {\r\n  -webkit-animation: left-slide-data-v-6256aafa 1.5s ease-in-out 0s infinite alternate;\r\n          animation: left-slide-data-v-6256aafa 1.5s ease-in-out 0s infinite alternate;\n}\n.right-slide-loop[data-v-6256aafa] {\r\n  -webkit-animation: right-slide-data-v-6256aafa 1.5s ease-in-out 0s infinite alternate;\r\n          animation: right-slide-data-v-6256aafa 1.5s ease-in-out 0s infinite alternate;\n}\n@-webkit-keyframes tremble-data-v-6256aafa {\n0% {\r\n    left: 0;\n}\n25% {\r\n    left: 5px;\n}\n75% {\r\n    left: -5px;\n}\n100% {\r\n    left: 0;\n}\n}\n@keyframes tremble-data-v-6256aafa {\n0% {\r\n    left: 0;\n}\n25% {\r\n    left: 5px;\n}\n75% {\r\n    left: -5px;\n}\n100% {\r\n    left: 0;\n}\n}\n@-webkit-keyframes jump-data-v-6256aafa {\n0% {\r\n    bottom: 0;\n}\n50% {\r\n    bottom: 50px;\n}\n100% {\r\n    bottom: 0px;\n}\n}\n@keyframes jump-data-v-6256aafa {\n0% {\r\n    bottom: 0;\n}\n50% {\r\n    bottom: 50px;\n}\n100% {\r\n    bottom: 0px;\n}\n}\n@-webkit-keyframes attack-data-v-6256aafa {\n30% {\r\n    transform: scale(0.8) rotate(-5deg);\n}\n50% {\r\n    transform: scale(1.2) rotate(5deg);\r\n    opacity: 1;\n}\n100% {\r\n    transform: scale(1);\r\n    opacity: 1;\n}\n}\n@keyframes attack-data-v-6256aafa {\n30% {\r\n    transform: scale(0.8) rotate(-5deg);\n}\n50% {\r\n    transform: scale(1.2) rotate(5deg);\r\n    opacity: 1;\n}\n100% {\r\n    transform: scale(1);\r\n    opacity: 1;\n}\n}\n@-webkit-keyframes left-attack-data-v-6256aafa {\n30% {\r\n    transform: translateX(50px) rotate(5deg);\n}\n50% {\r\n    transform: translateX(-150px) rotate(-5deg);\n}\n100% {\n}\n}\n@keyframes left-attack-data-v-6256aafa {\n30% {\r\n    transform: translateX(50px) rotate(5deg);\n}\n50% {\r\n    transform: translateX(-150px) rotate(-5deg);\n}\n100% {\n}\n}\n@-webkit-keyframes right-attack-data-v-6256aafa {\n30% {\r\n    transform: translateX(-50px) rotate(-5deg);\n}\n50% {\r\n    transform: translateX(150px) rotate(5deg);\n}\n100% {\n}\n}\n@keyframes right-attack-data-v-6256aafa {\n30% {\r\n    transform: translateX(-50px) rotate(-5deg);\n}\n50% {\r\n    transform: translateX(150px) rotate(5deg);\n}\n100% {\n}\n}\n@-webkit-keyframes right-slide-data-v-6256aafa {\n0% {\r\n    left: 0px;\r\n    top: 0px;\n}\n10% {\r\n    left: 30px;\r\n    top: -10px;\n}\n15% {\r\n    left: 60px;\r\n    top: 0px;\n}\n20% {\r\n    left: 90px;\r\n    top: -10px;\n}\n30% {\r\n    left: 120px;\r\n    top: 0px;\n}\n70% {\r\n    left: 120px;\r\n    top: 0px;\n}\n80% {\r\n    left: 90px;\r\n    top: -10px;\n}\n85% {\r\n    left: 60px;\r\n    top: 0px;\n}\n90% {\r\n    left: 30px;\r\n    top: -10px;\n}\n100% {\r\n    left: 0px;\r\n    top: 0px;\n}\n}\n@keyframes right-slide-data-v-6256aafa {\n0% {\r\n    left: 0px;\r\n    top: 0px;\n}\n10% {\r\n    left: 30px;\r\n    top: -10px;\n}\n15% {\r\n    left: 60px;\r\n    top: 0px;\n}\n20% {\r\n    left: 90px;\r\n    top: -10px;\n}\n30% {\r\n    left: 120px;\r\n    top: 0px;\n}\n70% {\r\n    left: 120px;\r\n    top: 0px;\n}\n80% {\r\n    left: 90px;\r\n    top: -10px;\n}\n85% {\r\n    left: 60px;\r\n    top: 0px;\n}\n90% {\r\n    left: 30px;\r\n    top: -10px;\n}\n100% {\r\n    left: 0px;\r\n    top: 0px;\n}\n}\n@-webkit-keyframes left-slide-data-v-6256aafa {\n0% {\r\n    left: 0px;\r\n    top: 0px;\n}\n10% {\r\n    left: -30px;\r\n    top: -10px;\n}\n15% {\r\n    left: -60px;\r\n    top: 0px;\n}\n20% {\r\n    left: -90px;\r\n    top: -10px;\n}\n30% {\r\n    left: -120px;\r\n    top: 0px;\n}\n70% {\r\n    left: -120px;\r\n    top: 0px;\n}\n80% {\r\n    left: -90px;\r\n    top: -10px;\n}\n85% {\r\n    left: -60px;\r\n    top: 0px;\n}\n90% {\r\n    left: -30px;\r\n    top: -10px;\n}\n100% {\r\n    left: 0px;\r\n    top: 0px;\n}\n}\n@keyframes left-slide-data-v-6256aafa {\n0% {\r\n    left: 0px;\r\n    top: 0px;\n}\n10% {\r\n    left: -30px;\r\n    top: -10px;\n}\n15% {\r\n    left: -60px;\r\n    top: 0px;\n}\n20% {\r\n    left: -90px;\r\n    top: -10px;\n}\n30% {\r\n    left: -120px;\r\n    top: 0px;\n}\n70% {\r\n    left: -120px;\r\n    top: 0px;\n}\n80% {\r\n    left: -90px;\r\n    top: -10px;\n}\n85% {\r\n    left: -60px;\r\n    top: 0px;\n}\n90% {\r\n    left: -30px;\r\n    top: -10px;\n}\n100% {\r\n    left: 0px;\r\n    top: 0px;\n}\n}\r\n\r\n/* スマホ画面用 */\n@media screen and (max-width: 480px) {\n.img-size[data-v-6256aafa] {\r\n    width: 150px;\r\n    height: 200px;\n}\n}\r\n/* レティナスマホ用 */\n@media screen and (min-width: 480px) and (max-width: 768px) {\n.img-size[data-v-6256aafa] {\r\n    width: 150px;\r\n    height: 200px;\n}\n}\r\n/* タブレット用 */\n@media screen and (min-width: 768px) and (max-width: 1280px) {\n.img-size[data-v-6256aafa] {\r\n    width: 300px;\r\n    height: 400px;\n}\n}\r\n/* PC画面用 */\n@media screen and (min-width: 1280px) {\n.img-size[data-v-6256aafa] {\r\n    width: 300px;\r\n    height: 400px;\n}\n}\r\n", ""]);
 
 // exports
 
@@ -48579,6 +48587,7 @@ var render = function() {
           ? _c("div", [
               _c("img", {
                 staticClass: "npc-img img-size",
+                class: _vm.motionClass,
                 style: { opacity: _vm.imgOpacity, zIndex: _vm.imgZIndex },
                 attrs: { src: this.imgSrc }
               })
@@ -66275,7 +66284,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
     $_sleep: function $_sleep(time) {
-      console.log(123);
       return new Promise(function (resolve) {
         return setTimeout(resolve, time);
       });
@@ -66382,7 +66390,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.$data.$_eventState.npc[pos].name = name;
     },
     $_resetNpcImg: function $_resetNpcImg() {
-      for (var _i2 = 0, _Object$keys2 = Object.keys(this.$_eventState.npc); _i2 < _Object$keys2.length; _i2++) {
+      for (var _i2 = 0, _Object$keys2 = Object.keys(this.$data.$_eventState.npc); _i2 < _Object$keys2.length; _i2++) {
         var k = _Object$keys2[_i2];
         this.$data.$_eventState.npc[k].name = "";
         this.$data.$_eventState.npc[k].opacity = 1;
@@ -66398,7 +66406,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.$data.$_eventState.npc[pos].opacity = 1;
     },
     $_resetAllOpacitye: function $_resetAllOpacitye() {
-      for (var _i3 = 0, _Object$keys3 = Object.keys(this.$_eventState.npc); _i3 < _Object$keys3.length; _i3++) {
+      for (var _i3 = 0, _Object$keys3 = Object.keys(this.$data.$_eventState.npc); _i3 < _Object$keys3.length; _i3++) {
         var k = _Object$keys3[_i3];
         this.$data.$_eventState.npc[k].opacity = 1;
       }
@@ -66410,7 +66418,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.$data.$_eventState.npc[pos].zIndex = 10;
     },
     $_resetAllZIndex: function $_resetAllZIndex() {
-      for (var _i4 = 0, _Object$keys4 = Object.keys(this.$_eventState.npc); _i4 < _Object$keys4.length; _i4++) {
+      for (var _i4 = 0, _Object$keys4 = Object.keys(this.$data.$_eventState.npc); _i4 < _Object$keys4.length; _i4++) {
         var k = _Object$keys4[_i4];
         this.$data.$_eventState.npc[k].zIndex = 10;
       }
@@ -66443,6 +66451,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee);
       }))();
+    },
+    //NPC画像のモーション
+    $_setNpcMotion: function $_setNpcMotion(motion, pos) {
+      for (var _i5 = 0, _Object$keys5 = Object.keys(this.$data.$_eventState.npc); _i5 < _Object$keys5.length; _i5++) {
+        var k = _Object$keys5[_i5];
+        this.$data.$_eventState.npc[k].zIndex = 10;
+      }
+
+      this.$data.$_eventState.npc[pos].zIndex = 20;
+      this.$data.$_eventState.npc[pos].motion = motion;
     }
   }
 });

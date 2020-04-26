@@ -79,7 +79,7 @@ export default {
         },
 
         $_resetNpcImg() {
-            for (let k of Object.keys(this.$_eventState.npc)) {
+            for (let k of Object.keys(this.$data.$_eventState.npc)) {
                 this.$data.$_eventState.npc[k].name = "";
                 this.$data.$_eventState.npc[k].opacity = 1;
                 this.$data.$_eventState.npc[k].zIndex = 10;
@@ -94,7 +94,7 @@ export default {
             this.$data.$_eventState.npc[pos].opacity = 1;
         },
         $_resetAllOpacitye() {
-            for (let k of Object.keys(this.$_eventState.npc)) {
+            for (let k of Object.keys(this.$data.$_eventState.npc)) {
                 this.$data.$_eventState.npc[k].opacity = 1;
             }
         },
@@ -105,7 +105,7 @@ export default {
             this.$data.$_eventState.npc[pos].zIndex = 10;
         },
         $_resetAllZIndex() {
-            for (let k of Object.keys(this.$_eventState.npc)) {
+            for (let k of Object.keys(this.$data.$_eventState.npc)) {
                 this.$data.$_eventState.npc[k].zIndex = 10;
             }
         },
@@ -117,6 +117,15 @@ export default {
             this.$data.$_eventPlace = place;
             await this.$_sleep(300);
             this.$data.$_isDisplay = true;
+        },
+
+        //NPC画像のモーション
+        $_setNpcMotion(motion, pos) {
+            for (let k of Object.keys(this.$data.$_eventState.npc)) {
+                this.$data.$_eventState.npc[k].zIndex = 10;
+            }
+            this.$data.$_eventState.npc[pos].zIndex = 20;
+            this.$data.$_eventState.npc[pos].motion = motion;
         }
     }
 };
