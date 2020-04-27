@@ -45,8 +45,18 @@ export default {
                 }
             },
             $_eventPlace: "神殿",
+            $_sceneNo: 0,
+            $_isSceneEnd: false,
             $_isDisplay: true
         };
+    },
+    mounted: function() {
+        this.getCurrentEvent();
+    },
+    watch: {
+        sceneNo: function() {
+            this.getCurrentEvent();
+        }
     },
     methods: {
         // メッセージ表示関係
@@ -126,6 +136,21 @@ export default {
             }
             this.$data.$_eventState.npc[pos].zIndex = 20;
             this.$data.$_eventState.npc[pos].motion = motion;
+        },
+
+        //イベント進行管理
+        clickEventViewer() {
+            if (this.$data.$_isSceneEnd) {
+                this.$data.$_sceneNo++;
+                this.$data.$_isSceneEnd = false;
+            }
+        },
+        onSceneFlag() {
+            this.$data.$_isSceneEnd = true;
+        },
+        getCurrentEvent() {
+            const vm = this;
+            this.eventObj[this.$data.$_sceneNo](vm);
         }
     }
 };
