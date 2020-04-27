@@ -1,18 +1,20 @@
 <template>
-    <div>
-        <game-menu></game-menu>
-        {{ $data.$_isDisplay }}
-        <transition name="fade">
-            <div v-show="$data.$_isDisplay">
-                <div @click="clickEventViewer">
-                    <talk-event-unit
-                        :event-state="$data.$_eventState"
-                        :event-place="$data.$_eventPlace"
-                    ></talk-event-unit>
-                </div>
-            </div>
-        </transition>
-    </div>
+  <div>
+    <game-menu></game-menu>
+    {{ $data.$_isDisplay }}
+    <transition name="fade">
+      <div v-show="$data.$_isDisplay">
+        <div @click="clickEventViewer">
+          <talk-event-unit
+            :event-state="$data.$_eventState"
+            :event-place="$data.$_eventPlace"
+            :is-scene-end="$data.$_isSceneEnd"
+            @msg-completed="onSceneFlag"
+          ></talk-event-unit>
+        </div>
+      </div>
+    </transition>
+  </div>
 </template>
 
 <script>
@@ -23,49 +25,32 @@ import baseMixin from "../../mixins/baseMixin";
 import eventMixin from "../../mixins/eventMixin";
 
 export default {
-    components: {
-        "talk-event-unit": TalkEventUnit,
-        "game-menu": GameMenu
-    },
-    mixins: [baseMixin, eventMixin],
-    props: {
-        eventObj: {
-            type: Array,
-            required: true
-        }
-    },
-    data: function() {
-        return {
-            sceneNo: 0
-        };
-    },
-    mounted: function() {
-        this.getCurrentEvent();
-    },
-    watch: {
-        sceneNo: function() {
-            this.getCurrentEvent();
-        }
-    },
-    methods: {
-        clickEventViewer: function() {
-            this.sceneNo++;
-        },
-        getCurrentEvent: function() {
-            const vm = this;
-            this.eventObj[this.sceneNo](vm);
-        }
+  components: {
+    "talk-event-unit": TalkEventUnit,
+    "game-menu": GameMenu
+  },
+  mixins: [baseMixin, eventMixin],
+  props: {
+    eventObj: {
+      type: Array,
+      required: true
     }
+  },
+  data: function() {
+    return {};
+  },
+
+  methods: {}
 };
 </script>
 
 <style scoped>
 .fade-enter-active,
 .fade-leave-active {
-    transition: opacity 0.2s;
+  transition: opacity 0.2s;
 }
 .fade-enter,
 .fade-leave-to {
-    opacity: 0;
+  opacity: 0;
 }
 </style>

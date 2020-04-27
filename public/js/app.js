@@ -2092,7 +2092,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2107,6 +2106,11 @@ __webpack_require__.r(__webpack_exports__);
     msgText: {
       type: String,
       required: true
+    }
+  },
+  watch: {
+    msgText: function msgText() {
+      this.$emit("msg-changed");
     }
   },
   methods: {
@@ -2408,8 +2412,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 
@@ -2433,12 +2435,17 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    changeTextEndFlag: function changeTextEndFlag() {
+    onTextEndFlag: function onTextEndFlag() {
       var _this = this;
 
       setTimeout(function () {
         _this.isTextEnd = true;
+
+        _this.$emit("msg-completed");
       }, 500);
+    },
+    offTextEndFlag: function offTextEndFlag() {
+      this.isTextEnd = false;
     }
   }
 });
@@ -2541,8 +2548,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2557,6 +2562,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     eventPlace: {
       type: String,
+      required: true
+    },
+    isSceneEnd: {
+      type: Boolean,
       required: true
     }
   },
@@ -2655,6 +2664,11 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       return "url(" + basePath + imgPath + ")";
+    }
+  },
+  methods: {
+    transferMsgEnd: function transferMsgEnd() {
+      this.$emit("msg-completed");
     }
   }
 });
@@ -2794,6 +2808,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -2811,27 +2827,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   data: function data() {
-    return {
-      sceneNo: 0
-    };
+    return {};
   },
-  mounted: function mounted() {
-    this.getCurrentEvent();
-  },
-  watch: {
-    sceneNo: function sceneNo() {
-      this.getCurrentEvent();
-    }
-  },
-  methods: {
-    clickEventViewer: function clickEventViewer() {
-      this.sceneNo++;
-    },
-    getCurrentEvent: function getCurrentEvent() {
-      var vm = this;
-      this.eventObj[this.sceneNo](vm);
-    }
-  }
+  methods: {}
 });
 
 /***/ }),
@@ -42836,7 +42834,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* vue-typer用のCSS */\n.char.custom.typed {\r\n    color: white;\r\n    font-size: 20px;\n}\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* vue-typer用のCSS */\n.char.custom.typed {\r\n  color: white;\r\n  font-size: 20px;\n}\r\n", ""]);
 
 // exports
 
@@ -42894,7 +42892,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.msg-container[data-v-76365854] {\r\n    position: relative;\r\n    z-index: 50;\r\n    background-image: url(" + escape(__webpack_require__(/*! ../../../../public/images/ui/msg-window.png */ "./public/images/ui/msg-window.png")) + ");\n}\r\n\r\n/* スマホ画面用 */\n@media screen and (max-width: 480px) {\n.msg-container[data-v-76365854] {\r\n        width: 800px;\r\n        height: 175px;\n}\n}\r\n/* レティナスマホ用 */\n@media screen and (min-width: 480px) and (max-width: 768px) {\n.msg-container[data-v-76365854] {\r\n        width: 800px;\r\n        height: 175px;\n}\n}\r\n/* タブレット用 */\n@media screen and (min-width: 768px) and (max-width: 1280px) {\n.msg-container[data-v-76365854] {\r\n        width: 800px;\r\n        height: 175px;\n}\n}\r\n/* PC画面用 */\n@media screen and (min-width: 1280px) {\n.msg-container[data-v-76365854] {\r\n        width: 800px;\r\n        height: 175px;\n}\n.name-area[data-v-76365854] {\r\n        position: absolute;\r\n        top: 14px;\r\n        left: 30px;\n}\n.text-area[data-v-76365854] {\r\n        position: absolute;\r\n        top: 60px;\r\n        left: 60px;\n}\n.next-icon[data-v-76365854] {\r\n        position: absolute;\r\n        top: 130px;\r\n        left: 720px;\n}\n}\r\n", ""]);
+exports.push([module.i, "\n.msg-container[data-v-76365854] {\r\n  position: relative;\r\n  z-index: 50;\r\n  background-image: url(" + escape(__webpack_require__(/*! ../../../../public/images/ui/msg-window.png */ "./public/images/ui/msg-window.png")) + ");\n}\r\n\r\n/* スマホ画面用 */\n@media screen and (max-width: 480px) {\n.msg-container[data-v-76365854] {\r\n    width: 800px;\r\n    height: 175px;\n}\n}\r\n/* レティナスマホ用 */\n@media screen and (min-width: 480px) and (max-width: 768px) {\n.msg-container[data-v-76365854] {\r\n    width: 800px;\r\n    height: 175px;\n}\n}\r\n/* タブレット用 */\n@media screen and (min-width: 768px) and (max-width: 1280px) {\n.msg-container[data-v-76365854] {\r\n    width: 800px;\r\n    height: 175px;\n}\n}\r\n/* PC画面用 */\n@media screen and (min-width: 1280px) {\n.msg-container[data-v-76365854] {\r\n    width: 800px;\r\n    height: 175px;\n}\n.name-area[data-v-76365854] {\r\n    position: absolute;\r\n    top: 14px;\r\n    left: 30px;\n}\n.text-area[data-v-76365854] {\r\n    position: absolute;\r\n    top: 60px;\r\n    left: 60px;\n}\n.next-icon[data-v-76365854] {\r\n    position: absolute;\r\n    top: 130px;\r\n    left: 720px;\n}\n}\r\n", ""]);
 
 // exports
 
@@ -42932,7 +42930,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.event-container[data-v-20b515a9] {\r\n    position: relative;\r\n    width: 800px;\r\n    height: 600px;\r\n    /* background: url(../../../../public/images/bg/shinden.jpg); */\r\n    overflow: hidden;\n}\r\n\r\n/* スマホ画面用 */\n@media screen and (max-width: 480px) {\n.char-img-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 0;\n}\n.msg-window-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 200px;\n}\n}\r\n/* レティナスマホ用 */\n@media screen and (min-width: 480px) and (max-width: 768px) {\n.char-img-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 0;\n}\n.msg-window-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 200px;\n}\n}\r\n/* タブレット用 */\n@media screen and (min-width: 768px) and (max-width: 1280px) {\n.char-img-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 0;\n}\n.msg-window-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 400px;\n}\n}\r\n/* PC画面用 */\n@media screen and (min-width: 1280px) {\n.char-img-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 0;\n}\n.msg-window-container[data-v-20b515a9] {\r\n        position: absolute;\r\n        top: 420px;\n}\n}\r\n", ""]);
+exports.push([module.i, "\n.event-container[data-v-20b515a9] {\r\n  position: relative;\r\n  width: 800px;\r\n  height: 600px;\r\n  /* background: url(../../../../public/images/bg/shinden.jpg); */\r\n  overflow: hidden;\n}\r\n\r\n/* スマホ画面用 */\n@media screen and (max-width: 480px) {\n.char-img-container[data-v-20b515a9] {\r\n    position: absolute;\r\n    top: 0;\n}\n.msg-window-container[data-v-20b515a9] {\r\n    position: absolute;\r\n    top: 200px;\n}\n}\r\n/* レティナスマホ用 */\n@media screen and (min-width: 480px) and (max-width: 768px) {\n.char-img-container[data-v-20b515a9] {\r\n    position: absolute;\r\n    top: 0;\n}\n.msg-window-container[data-v-20b515a9] {\r\n    position: absolute;\r\n    top: 200px;\n}\n}\r\n/* タブレット用 */\n@media screen and (min-width: 768px) and (max-width: 1280px) {\n.char-img-container[data-v-20b515a9] {\r\n    position: absolute;\r\n    top: 0;\n}\n.msg-window-container[data-v-20b515a9] {\r\n    position: absolute;\r\n    top: 400px;\n}\n}\r\n/* PC画面用 */\n@media screen and (min-width: 1280px) {\n.char-img-container[data-v-20b515a9] {\r\n    position: absolute;\r\n    top: 0;\n}\n.msg-window-container[data-v-20b515a9] {\r\n    position: absolute;\r\n    top: 420px;\n}\n}\r\n", ""]);
 
 // exports
 
@@ -42951,7 +42949,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.fade-enter-active[data-v-3388e7dd],\r\n.fade-leave-active[data-v-3388e7dd] {\r\n    transition: opacity 0.2s;\n}\n.fade-enter[data-v-3388e7dd],\r\n.fade-leave-to[data-v-3388e7dd] {\r\n    opacity: 0;\n}\r\n", ""]);
+exports.push([module.i, "\n.fade-enter-active[data-v-3388e7dd],\r\n.fade-leave-active[data-v-3388e7dd] {\r\n  transition: opacity 0.2s;\n}\n.fade-enter[data-v-3388e7dd],\r\n.fade-leave-to[data-v-3388e7dd] {\r\n  opacity: 0;\n}\r\n", ""]);
 
 // exports
 
@@ -48669,12 +48667,15 @@ var render = function() {
       _c("msg-text", {
         staticClass: "text-area",
         attrs: { "msg-text": _vm.displayingMessage.text },
-        on: { "msg-completed": _vm.changeTextEndFlag }
+        on: {
+          "msg-changed": _vm.offTextEndFlag,
+          "msg-completed": _vm.onTextEndFlag
+        }
       }),
       _vm._v(" "),
       _c("msg-next-icon", {
         staticClass: "next-icon",
-        attrs: { isTextEnd: _vm.isTextEnd }
+        attrs: { "is-text-end": _vm.isTextEnd }
       })
     ],
     1
@@ -48780,7 +48781,8 @@ var render = function() {
           { staticClass: "msg-window-container" },
           [
             _c("msg-window", {
-              attrs: { "displaying-message": _vm.eventState.message }
+              attrs: { "displaying-message": _vm.eventState.message },
+              on: { "msg-completed": _vm.transferMsgEnd }
             })
           ],
           1
@@ -48871,7 +48873,7 @@ var render = function() {
     "div",
     [
       _c("game-menu"),
-      _vm._v("\n    " + _vm._s(_vm.$data.$_isDisplay) + "\n    "),
+      _vm._v("\n  " + _vm._s(_vm.$data.$_isDisplay) + "\n  "),
       _c("transition", { attrs: { name: "fade" } }, [
         _c(
           "div",
@@ -48893,8 +48895,10 @@ var render = function() {
                 _c("talk-event-unit", {
                   attrs: {
                     "event-state": _vm.$data.$_eventState,
-                    "event-place": _vm.$data.$_eventPlace
-                  }
+                    "event-place": _vm.$data.$_eventPlace,
+                    "is-scene-end": _vm.$data.$_isSceneEnd
+                  },
+                  on: { "msg-completed": _vm.onSceneFlag }
                 })
               ],
               1
@@ -66357,8 +66361,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
       },
       $_eventPlace: "神殿",
+      $_sceneNo: 0,
+      $_isSceneEnd: false,
       $_isDisplay: true
     };
+  },
+  mounted: function mounted() {
+    this.getCurrentEvent();
+  },
+  watch: {
+    sceneNo: function sceneNo() {
+      this.getCurrentEvent();
+    }
   },
   methods: {
     // メッセージ表示関係
@@ -66461,6 +66475,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       this.$data.$_eventState.npc[pos].zIndex = 20;
       this.$data.$_eventState.npc[pos].motion = motion;
+    },
+    //イベント進行管理
+    clickEventViewer: function clickEventViewer() {
+      if (this.$data.$_isSceneEnd) {
+        this.$data.$_sceneNo++;
+        this.$data.$_isSceneEnd = false;
+      }
+    },
+    onSceneFlag: function onSceneFlag() {
+      this.$data.$_isSceneEnd = true;
+    },
+    getCurrentEvent: function getCurrentEvent() {
+      var vm = this;
+      this.eventObj[this.$data.$_sceneNo](vm);
     }
   }
 });
