@@ -4,10 +4,10 @@
     <msg-text
       class="text-area"
       :msg-text="displayingMessage.text"
-      @msg-changed="offTextEndFlag"
-      @msg-completed="onTextEndFlag"
+      @msg-changed="hasChangedText"
+      @msg-completed="hasCompletedText"
     ></msg-text>
-    <msg-next-icon class="next-icon" :is-text-end="isTextEnd"></msg-next-icon>
+    <msg-next-icon class="next-icon" :is-scene-end="isSceneEnd"></msg-next-icon>
   </div>
 </template>
 
@@ -29,22 +29,23 @@ export default {
     displayingMessage: {
       type: Object,
       required: true
+    },
+    isSceneEnd: {
+      type: Boolean,
+      required: true
     }
   },
   data: function() {
-    return {
-      isTextEnd: false
-    };
+    return {};
   },
   methods: {
-    onTextEndFlag: function() {
+    hasCompletedText: function() {
       setTimeout(() => {
-        this.isTextEnd = true;
         this.$emit("msg-completed");
       }, 500);
     },
-    offTextEndFlag: function() {
-      this.isTextEnd = false;
+    hasChangedText: function() {
+      this.$emit("msg-changed");
     }
   }
 };

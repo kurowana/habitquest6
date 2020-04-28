@@ -5,7 +5,7 @@
       :text="msgText"
       :repeat="0"
       :type-delay="delayTime"
-      @completed="onCompleted"
+      @completed="hasCompletedText"
     ></vue-typer>
   </div>
 </template>
@@ -34,7 +34,7 @@ export default {
     }
   },
   methods: {
-    onCompleted: function() {
+    hasCompletedText: function() {
       this.$emit("msg-completed");
     }
   }
