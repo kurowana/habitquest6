@@ -1,7 +1,7 @@
 export default {
     data: function() {
         return {
-            $_eventState: {
+            eventState: {
                 message: {
                     name: " ",
                     text: " "
@@ -44,113 +44,106 @@ export default {
                     }
                 }
             },
-            $_eventPlace: "神殿",
-            $_sceneNo: 0,
-            $_isSceneEnd: false,
-            $_isDisplay: true
+            eventPlace: "神殿",
+            sceneNo: 0,
+            isSceneEnd: false,
+            isMessageEnd: false,
+            isDisplay: true
         };
-    },
-    mounted: function() {
-        this.getCurrentEvent();
-    },
-    watch: {
-        sceneNo: function() {
-            this.getCurrentEvent();
-        }
     },
     methods: {
         // メッセージ表示関係
         $_setMessage(name, text) {
-            this.$data.$_eventState.message.name = name;
-            this.$data.$_eventState.message.text = text;
+            this.eventState.message.name = name;
+            this.eventState.message.text = text;
         },
 
         $_resetMessage() {
-            this.$data.$_eventState.message.name = " ";
-            this.$data.$_eventState.message.text = " ";
+            this.eventState.message.name = " ";
+            this.eventState.message.text = " ";
         },
         $_setTalk(name, text) {
-            for (let k of Object.keys(this.$data.$_eventState.npc)) {
-                if (this.$data.$_eventState.npc[k].name === name) {
-                    this.$data.$_eventState.npc[k].opacity = 1;
-                    this.$data.$_eventState.npc[k].zIndex = 10;
-                    this.$data.$_eventState.message.name = name;
-                    this.$data.$_eventState.message.text = text;
+            for (let k of Object.keys(this.eventState.npc)) {
+                if (this.eventState.npc[k].name === name) {
+                    this.eventState.npc[k].opacity = 1;
+                    this.eventState.npc[k].zIndex = 10;
+                    this.eventState.message.name = name;
+                    this.eventState.message.text = text;
                 } else {
-                    this.$data.$_eventState.npc[k].opacity = 0.8;
-                    this.$data.$_eventState.npc[k].zIndex = 5;
+                    this.eventState.npc[k].opacity = 0.8;
+                    this.eventState.npc[k].zIndex = 5;
                 }
             }
         },
 
         // NPC画像表示系
         $_setNpcImg(name, pos) {
-            this.$data.$_eventState.npc[pos].name = name;
+            this.eventState.npc[pos].name = name;
         },
 
         $_resetNpcImg() {
-            for (let k of Object.keys(this.$data.$_eventState.npc)) {
-                this.$data.$_eventState.npc[k].name = "";
-                this.$data.$_eventState.npc[k].opacity = 1;
-                this.$data.$_eventState.npc[k].zIndex = 10;
-                this.$data.$_eventState.npc[k].motion = "none";
-                this.$data.$_eventState.npc[k].effect = 1;
+            for (let k of Object.keys(this.eventState.npc)) {
+                this.eventState.npc[k].name = "";
+                this.eventState.npc[k].opacity = 1;
+                this.eventState.npc[k].zIndex = 10;
+                this.eventState.npc[k].motion = "none";
+                this.eventState.npc[k].effect = 1;
             }
         },
         $_setOpacity(pos, value) {
-            this.$data.$_eventState.npc[pos].opacity = value;
+            this.eventState.npc[pos].opacity = value;
         },
         $_resetOpacity(pos) {
-            this.$data.$_eventState.npc[pos].opacity = 1;
+            this.eventState.npc[pos].opacity = 1;
         },
         $_resetAllOpacitye() {
-            for (let k of Object.keys(this.$data.$_eventState.npc)) {
-                this.$data.$_eventState.npc[k].opacity = 1;
+            for (let k of Object.keys(this.eventState.npc)) {
+                this.eventState.npc[k].opacity = 1;
             }
         },
         $_setZIndex(pos, value) {
-            this.$data.$_eventState.npc[pos].zIndex = value;
+            this.eventState.npc[pos].zIndex = value;
         },
         $_resetZIndex(pos) {
-            this.$data.$_eventState.npc[pos].zIndex = 10;
+            this.eventState.npc[pos].zIndex = 10;
         },
         $_resetAllZIndex() {
-            for (let k of Object.keys(this.$data.$_eventState.npc)) {
-                this.$data.$_eventState.npc[k].zIndex = 10;
+            for (let k of Object.keys(this.eventState.npc)) {
+                this.eventState.npc[k].zIndex = 10;
             }
         },
 
         // 舞台演出関連
         async $_setEventPlace(place) {
-            this.$data.$_isDisplay = false;
+            this.isDisplay = false;
             await this.$_sleep(300);
-            this.$data.$_eventPlace = place;
+            this.eventPlace = place;
             await this.$_sleep(300);
-            this.$data.$_isDisplay = true;
+            this.isDisplay = true;
         },
 
         //NPC画像のモーション
         $_setNpcMotion(motion, pos) {
-            for (let k of Object.keys(this.$data.$_eventState.npc)) {
-                this.$data.$_eventState.npc[k].zIndex = 10;
+            for (let k of Object.keys(this.eventState.npc)) {
+                this.eventState.npc[k].zIndex = 10;
             }
-            this.$data.$_eventState.npc[pos].zIndex = 20;
-            this.$data.$_eventState.npc[pos].motion = motion;
+            this.eventState.npc[pos].zIndex = 20;
+            this.eventState.npc[pos].motion = motion;
         },
 
         //イベント進行管理
-        clickEventViewer() {
-            if (this.$data.$_isSceneEnd) {
-                this.$data.$_sceneNo++;
-                this.$data.$_isSceneEnd = false;
+        $_clickEventViewer() {
+            if (this.isSceneEnd) {
+                this.sceneNo++;
+                this.isSceneEnd = false;
             }
         },
-        onSceneFlag() {
-            this.$data.$_isSceneEnd = true;
-        },
-        getCurrentEvent() {
-            const vm = this;
-            this.eventObj[this.$data.$_sceneNo](vm);
+
+        $_changeMessageEndFlag(boolean) {
+            this.isMessageEnd = boolean;
+            if (boolean) {
+                this.isSceneEnd = boolean;
+            }
         }
     }
 };

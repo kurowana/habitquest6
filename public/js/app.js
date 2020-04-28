@@ -2036,7 +2036,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
-    isTextEnd: {
+    isSceneEnd: {
       type: Boolean,
       required: true
     }
@@ -2114,7 +2114,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    onCompleted: function onCompleted() {
+    hasCompletedText: function hasCompletedText() {
       this.$emit("msg-completed");
     }
   }
@@ -2427,25 +2427,25 @@ __webpack_require__.r(__webpack_exports__);
     displayingMessage: {
       type: Object,
       required: true
+    },
+    isSceneEnd: {
+      type: Boolean,
+      required: true
     }
   },
   data: function data() {
-    return {
-      isTextEnd: false
-    };
+    return {};
   },
   methods: {
-    onTextEndFlag: function onTextEndFlag() {
+    hasCompletedText: function hasCompletedText() {
       var _this = this;
 
       setTimeout(function () {
-        _this.isTextEnd = true;
-
         _this.$emit("msg-completed");
       }, 500);
     },
-    offTextEndFlag: function offTextEndFlag() {
-      this.isTextEnd = false;
+    hasChangedText: function hasChangedText() {
+      this.$emit("msg-changed");
     }
   }
 });
@@ -2535,6 +2535,11 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _molecules_NpcViewer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../molecules/NpcViewer */ "./resources/js/components/molecules/NpcViewer.vue");
 /* harmony import */ var _molecules_MsgWindow__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../molecules/MsgWindow */ "./resources/js/components/molecules/MsgWindow.vue");
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2667,8 +2672,11 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    transferMsgEnd: function transferMsgEnd() {
+    hasCompletedText: function hasCompletedText() {
       this.$emit("msg-completed");
+    },
+    hasChangedText: function hasChangedText() {
+      this.$emit("msg-changed");
     }
   }
 });
@@ -2826,10 +2834,72 @@ __webpack_require__.r(__webpack_exports__);
       required: true
     }
   },
-  data: function data() {
-    return {};
+  //   data: function() {
+  //     return {
+  //       eventState: {
+  //         message: {
+  //           name: " ",
+  //           text: " "
+  //         },
+  //         npc: {
+  //           L: {
+  //             name: "",
+  //             opacity: 1,
+  //             zIndex: 10,
+  //             motion: "none",
+  //             effect: "none"
+  //           },
+  //           LC: {
+  //             name: "",
+  //             opacity: 1,
+  //             zIndex: 10,
+  //             motion: "none",
+  //             effect: "none"
+  //           },
+  //           C: {
+  //             name: "",
+  //             opacity: 1,
+  //             zIndex: 10,
+  //             motion: "none",
+  //             effect: "none"
+  //           },
+  //           RC: {
+  //             name: "",
+  //             opacity: 1,
+  //             zIndex: 10,
+  //             motion: "none",
+  //             effect: "none"
+  //           },
+  //           R: {
+  //             name: "",
+  //             opacity: 1,
+  //             zIndex: 10,
+  //             motion: "none",
+  //             effect: "none"
+  //           }
+  //         }
+  //       },
+  //       eventPlace: "神殿",
+  //       sceneNo: 0,
+  //       isSceneEnd: false,
+  //       isMessageEnd: false,
+  //       isDisplay: true
+  //     };
+  //   },
+  mounted: function mounted() {
+    this.$_getCurrentEvent();
   },
-  methods: {}
+  watch: {
+    sceneNo: function sceneNo() {
+      this.$_getCurrentEvent();
+    }
+  },
+  methods: {
+    $_getCurrentEvent: function $_getCurrentEvent() {
+      var vm = this;
+      this.eventObj[this.sceneNo](vm);
+    }
+  }
 });
 
 /***/ }),
@@ -42796,7 +42866,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.next-icon[data-v-69fa36f6] {\r\n    color: gold;\r\n    font-size: 20px;\r\n    font-weight: bold;\r\n    -webkit-animation: updown-icon-data-v-69fa36f6 0.8s infinite;\r\n            animation: updown-icon-data-v-69fa36f6 0.8s infinite;\n}\r\n\r\n/* アニメーション */\n@-webkit-keyframes updown-icon-data-v-69fa36f6 {\n0% {\r\n        transform: translate(0, 0);\n}\n50% {\r\n        transform: translate(0, 5px);\r\n        opacity: 0.5;\n}\n100% {\r\n        transform: translate(0, 0);\n}\n}\n@keyframes updown-icon-data-v-69fa36f6 {\n0% {\r\n        transform: translate(0, 0);\n}\n50% {\r\n        transform: translate(0, 5px);\r\n        opacity: 0.5;\n}\n100% {\r\n        transform: translate(0, 0);\n}\n}\r\n", ""]);
+exports.push([module.i, "\n.next-icon[data-v-69fa36f6] {\r\n  color: gold;\r\n  font-size: 20px;\r\n  font-weight: bold;\r\n  -webkit-animation: updown-icon-data-v-69fa36f6 0.8s infinite;\r\n          animation: updown-icon-data-v-69fa36f6 0.8s infinite;\n}\r\n\r\n/* アニメーション */\n@-webkit-keyframes updown-icon-data-v-69fa36f6 {\n0% {\r\n    transform: translate(0, 0);\n}\n50% {\r\n    transform: translate(0, 5px);\r\n    opacity: 0.5;\n}\n100% {\r\n    transform: translate(0, 0);\n}\n}\n@keyframes updown-icon-data-v-69fa36f6 {\n0% {\r\n    transform: translate(0, 0);\n}\n50% {\r\n    transform: translate(0, 5px);\r\n    opacity: 0.5;\n}\n100% {\r\n    transform: translate(0, 0);\n}\n}\r\n", ""]);
 
 // exports
 
@@ -48490,7 +48560,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm.isTextEnd
+    _vm.isSceneEnd
       ? _c("span", { staticClass: "next-icon" }, [_vm._v("▼")])
       : _vm._e()
   ])
@@ -48549,7 +48619,7 @@ var render = function() {
       _c("vue-typer", {
         staticClass: "text-content",
         attrs: { text: _vm.msgText, repeat: 0, "type-delay": _vm.delayTime },
-        on: { completed: _vm.onCompleted }
+        on: { completed: _vm.hasCompletedText }
       })
     ],
     1
@@ -48668,14 +48738,14 @@ var render = function() {
         staticClass: "text-area",
         attrs: { "msg-text": _vm.displayingMessage.text },
         on: {
-          "msg-changed": _vm.offTextEndFlag,
-          "msg-completed": _vm.onTextEndFlag
+          "msg-changed": _vm.hasChangedText,
+          "msg-completed": _vm.hasCompletedText
         }
       }),
       _vm._v(" "),
       _c("msg-next-icon", {
         staticClass: "next-icon",
-        attrs: { "is-text-end": _vm.isTextEnd }
+        attrs: { "is-scene-end": _vm.isSceneEnd }
       })
     ],
     1
@@ -48781,8 +48851,14 @@ var render = function() {
           { staticClass: "msg-window-container" },
           [
             _c("msg-window", {
-              attrs: { "displaying-message": _vm.eventState.message },
-              on: { "msg-completed": _vm.transferMsgEnd }
+              attrs: {
+                "displaying-message": _vm.eventState.message,
+                "is-scene-end": _vm.isSceneEnd
+              },
+              on: {
+                "msg-changed": _vm.hasChangedText,
+                "msg-completed": _vm.hasCompletedText
+              }
             })
           ],
           1
@@ -48873,7 +48949,7 @@ var render = function() {
     "div",
     [
       _c("game-menu"),
-      _vm._v("\n  " + _vm._s(_vm.$data.$_isDisplay) + "\n  "),
+      _vm._v(" "),
       _c("transition", { attrs: { name: "fade" } }, [
         _c(
           "div",
@@ -48882,23 +48958,30 @@ var render = function() {
               {
                 name: "show",
                 rawName: "v-show",
-                value: _vm.$data.$_isDisplay,
-                expression: "$data.$_isDisplay"
+                value: _vm.isDisplay,
+                expression: "isDisplay"
               }
             ]
           },
           [
             _c(
               "div",
-              { on: { click: _vm.clickEventViewer } },
+              { on: { click: _vm.$_clickEventViewer } },
               [
                 _c("talk-event-unit", {
                   attrs: {
-                    "event-state": _vm.$data.$_eventState,
-                    "event-place": _vm.$data.$_eventPlace,
-                    "is-scene-end": _vm.$data.$_isSceneEnd
+                    "event-state": _vm.eventState,
+                    "event-place": _vm.eventPlace,
+                    "is-scene-end": _vm.isSceneEnd
                   },
-                  on: { "msg-completed": _vm.onSceneFlag }
+                  on: {
+                    "msg-changed": function($event) {
+                      return _vm.$_changeMessageEndFlag(false)
+                    },
+                    "msg-completed": function($event) {
+                      return _vm.$_changeMessageEndFlag(true)
+                    }
+                  }
                 })
               ],
               1
@@ -66317,7 +66400,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      $_eventState: {
+      eventState: {
         message: {
           name: " ",
           text: " "
@@ -66360,81 +66443,74 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }
       },
-      $_eventPlace: "神殿",
-      $_sceneNo: 0,
-      $_isSceneEnd: false,
-      $_isDisplay: true
+      eventPlace: "神殿",
+      sceneNo: 0,
+      isSceneEnd: false,
+      isMessageEnd: false,
+      isDisplay: true
     };
-  },
-  mounted: function mounted() {
-    this.getCurrentEvent();
-  },
-  watch: {
-    sceneNo: function sceneNo() {
-      this.getCurrentEvent();
-    }
   },
   methods: {
     // メッセージ表示関係
     $_setMessage: function $_setMessage(name, text) {
-      this.$data.$_eventState.message.name = name;
-      this.$data.$_eventState.message.text = text;
+      this.eventState.message.name = name;
+      this.eventState.message.text = text;
     },
     $_resetMessage: function $_resetMessage() {
-      this.$data.$_eventState.message.name = " ";
-      this.$data.$_eventState.message.text = " ";
+      this.eventState.message.name = " ";
+      this.eventState.message.text = " ";
     },
     $_setTalk: function $_setTalk(name, text) {
-      for (var _i = 0, _Object$keys = Object.keys(this.$data.$_eventState.npc); _i < _Object$keys.length; _i++) {
+      for (var _i = 0, _Object$keys = Object.keys(this.eventState.npc); _i < _Object$keys.length; _i++) {
         var k = _Object$keys[_i];
 
-        if (this.$data.$_eventState.npc[k].name === name) {
-          this.$data.$_eventState.npc[k].opacity = 1;
-          this.$data.$_eventState.npc[k].zIndex = 10;
-          this.$data.$_eventState.message.name = name;
-          this.$data.$_eventState.message.text = text;
+        if (this.eventState.npc[k].name === name) {
+          this.eventState.npc[k].opacity = 1;
+          this.eventState.npc[k].zIndex = 10;
+          this.eventState.message.name = name;
+          this.eventState.message.text = text;
         } else {
-          this.$data.$_eventState.npc[k].opacity = 0.8;
-          this.$data.$_eventState.npc[k].zIndex = 5;
+          this.eventState.npc[k].opacity = 0.8;
+          this.eventState.npc[k].zIndex = 5;
         }
       }
     },
     // NPC画像表示系
     $_setNpcImg: function $_setNpcImg(name, pos) {
-      this.$data.$_eventState.npc[pos].name = name;
+      this.eventState.npc[pos].name = name;
     },
     $_resetNpcImg: function $_resetNpcImg() {
-      for (var _i2 = 0, _Object$keys2 = Object.keys(this.$data.$_eventState.npc); _i2 < _Object$keys2.length; _i2++) {
+      for (var _i2 = 0, _Object$keys2 = Object.keys(this.eventState.npc); _i2 < _Object$keys2.length; _i2++) {
         var k = _Object$keys2[_i2];
-        this.$data.$_eventState.npc[k].name = "";
-        this.$data.$_eventState.npc[k].opacity = 1;
-        this.$data.$_eventState.npc[k].zIndex = 10;
-        this.$data.$_eventState.npc[k].motion = "none";
-        this.$data.$_eventState.npc[k].effect = 1;
+        this.eventState.npc[k].name = "";
+        this.eventState.npc[k].opacity = 1;
+        this.eventState.npc[k].zIndex = 10;
+        this.eventState.npc[k].motion = "none";
+        this.eventState.npc[k].effect = 1;
       }
     },
     $_setOpacity: function $_setOpacity(pos, value) {
-      this.$data.$_eventState.npc[pos].opacity = value;
+      this.eventState.npc[pos].opacity = value;
     },
     $_resetOpacity: function $_resetOpacity(pos) {
-      this.$data.$_eventState.npc[pos].opacity = 1;
+      this.eventState.npc[pos].opacity = 1;
     },
     $_resetAllOpacitye: function $_resetAllOpacitye() {
-      for (var _i3 = 0, _Object$keys3 = Object.keys(this.$data.$_eventState.npc); _i3 < _Object$keys3.length; _i3++) {
+      for (var _i3 = 0, _Object$keys3 = Object.keys(this.eventState.npc); _i3 < _Object$keys3.length; _i3++) {
         var k = _Object$keys3[_i3];
-        this.$data.$_eventState.npc[k].opacity = 1;
+        this.eventState.npc[k].opacity = 1;
       }
     },
     $_setZIndex: function $_setZIndex(pos, value) {
-      this.$data.$_eventState.npc[pos].zIndex = value;
+      this.eventState.npc[pos].zIndex = value;
     },
     $_resetZIndex: function $_resetZIndex(pos) {
-      this.$data.$_eventState.npc[pos].zIndex = 10;
+      this.eventState.npc[pos].zIndex = 10;
     },
     $_resetAllZIndex: function $_resetAllZIndex() {
-      for (var _i4 = 0, _Object$keys4 = Object.keys(this.$data.$_eventState.npc); _i4 < _Object$keys4.length; _i4++) {
+      for (var _i4 = 0, _Object$keys4 = Object.keys(this.eventState.npc); _i4 < _Object$keys4.length; _i4++) {
         var k = _Object$keys4[_i4];
-        this.$data.$_eventState.npc[k].zIndex = 10;
+        this.eventState.npc[k].zIndex = 10;
       }
     },
     // 舞台演出関連
@@ -66446,17 +66522,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this.$data.$_isDisplay = false;
+                _this.isDisplay = false;
                 _context.next = 3;
                 return _this.$_sleep(300);
 
               case 3:
-                _this.$data.$_eventPlace = place;
+                _this.eventPlace = place;
                 _context.next = 6;
                 return _this.$_sleep(300);
 
               case 6:
-                _this.$data.$_isDisplay = true;
+                _this.isDisplay = true;
 
               case 7:
               case "end":
@@ -66468,27 +66544,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     //NPC画像のモーション
     $_setNpcMotion: function $_setNpcMotion(motion, pos) {
-      for (var _i5 = 0, _Object$keys5 = Object.keys(this.$data.$_eventState.npc); _i5 < _Object$keys5.length; _i5++) {
+      for (var _i5 = 0, _Object$keys5 = Object.keys(this.eventState.npc); _i5 < _Object$keys5.length; _i5++) {
         var k = _Object$keys5[_i5];
-        this.$data.$_eventState.npc[k].zIndex = 10;
+        this.eventState.npc[k].zIndex = 10;
       }
 
-      this.$data.$_eventState.npc[pos].zIndex = 20;
-      this.$data.$_eventState.npc[pos].motion = motion;
+      this.eventState.npc[pos].zIndex = 20;
+      this.eventState.npc[pos].motion = motion;
     },
     //イベント進行管理
-    clickEventViewer: function clickEventViewer() {
-      if (this.$data.$_isSceneEnd) {
-        this.$data.$_sceneNo++;
-        this.$data.$_isSceneEnd = false;
+    $_clickEventViewer: function $_clickEventViewer() {
+      if (this.isSceneEnd) {
+        this.sceneNo++;
+        this.isSceneEnd = false;
       }
     },
-    onSceneFlag: function onSceneFlag() {
-      this.$data.$_isSceneEnd = true;
-    },
-    getCurrentEvent: function getCurrentEvent() {
-      var vm = this;
-      this.eventObj[this.$data.$_sceneNo](vm);
+    $_changeMessageEndFlag: function $_changeMessageEndFlag(_boolean) {
+      this.isMessageEnd = _boolean;
+
+      if (_boolean) {
+        this.isSceneEnd = _boolean;
+      }
     }
   }
 });

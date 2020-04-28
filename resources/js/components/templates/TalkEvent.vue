@@ -1,15 +1,15 @@
 <template>
   <div>
     <game-menu></game-menu>
-    {{ $data.$_isDisplay }}
     <transition name="fade">
-      <div v-show="$data.$_isDisplay">
-        <div @click="clickEventViewer">
+      <div v-show="isDisplay">
+        <div @click="$_clickEventViewer">
           <talk-event-unit
-            :event-state="$data.$_eventState"
-            :event-place="$data.$_eventPlace"
-            :is-scene-end="$data.$_isSceneEnd"
-            @msg-completed="onSceneFlag"
+            :event-state="eventState"
+            :event-place="eventPlace"
+            :is-scene-end="isSceneEnd"
+            @msg-changed="$_changeMessageEndFlag(false)"
+            @msg-completed="$_changeMessageEndFlag(true)"
           ></talk-event-unit>
         </div>
       </div>
@@ -36,11 +36,72 @@ export default {
       required: true
     }
   },
-  data: function() {
-    return {};
+  //   data: function() {
+  //     return {
+  //       eventState: {
+  //         message: {
+  //           name: " ",
+  //           text: " "
+  //         },
+  //         npc: {
+  //           L: {
+  //             name: "",
+  //             opacity: 1,
+  //             zIndex: 10,
+  //             motion: "none",
+  //             effect: "none"
+  //           },
+  //           LC: {
+  //             name: "",
+  //             opacity: 1,
+  //             zIndex: 10,
+  //             motion: "none",
+  //             effect: "none"
+  //           },
+  //           C: {
+  //             name: "",
+  //             opacity: 1,
+  //             zIndex: 10,
+  //             motion: "none",
+  //             effect: "none"
+  //           },
+  //           RC: {
+  //             name: "",
+  //             opacity: 1,
+  //             zIndex: 10,
+  //             motion: "none",
+  //             effect: "none"
+  //           },
+  //           R: {
+  //             name: "",
+  //             opacity: 1,
+  //             zIndex: 10,
+  //             motion: "none",
+  //             effect: "none"
+  //           }
+  //         }
+  //       },
+  //       eventPlace: "神殿",
+  //       sceneNo: 0,
+  //       isSceneEnd: false,
+  //       isMessageEnd: false,
+  //       isDisplay: true
+  //     };
+  //   },
+  mounted: function() {
+    this.$_getCurrentEvent();
   },
-
-  methods: {}
+  watch: {
+    sceneNo: function() {
+      this.$_getCurrentEvent();
+    }
+  },
+  methods: {
+    $_getCurrentEvent() {
+      const vm = this;
+      this.eventObj[this.sceneNo](vm);
+    }
+  }
 };
 </script>
 

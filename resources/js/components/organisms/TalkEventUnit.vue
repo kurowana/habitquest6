@@ -5,7 +5,12 @@
         <npc-viewer :displaying-npc="eventState.npc"></npc-viewer>
       </div>
       <div class="msg-window-container">
-        <msg-window :displaying-message="eventState.message" @msg-completed="transferMsgEnd"></msg-window>
+        <msg-window
+          :displaying-message="eventState.message"
+          :is-scene-end="isSceneEnd"
+          @msg-changed="hasChangedText"
+          @msg-completed="hasCompletedText"
+        ></msg-window>
       </div>
     </div>
   </div>
@@ -110,8 +115,11 @@ export default {
     }
   },
   methods: {
-    transferMsgEnd: function() {
+    hasCompletedText: function() {
       this.$emit("msg-completed");
+    },
+    hasChangedText: function() {
+      this.$emit("msg-changed");
     }
   }
 };
