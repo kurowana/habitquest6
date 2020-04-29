@@ -2553,6 +2553,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2564,15 +2566,15 @@ __webpack_require__.r(__webpack_exports__);
     eventState: {
       type: Object,
       required: true
-    },
-    eventPlace: {
-      type: String,
-      required: true
-    },
-    isSceneEnd: {
-      type: Boolean,
-      required: true
-    }
+    } // eventPlace: {
+    //   type: String,
+    //   required: true
+    // },
+    // isSceneEnd: {
+    //   type: Boolean,
+    //   required: true
+    // }
+
   },
   data: function data() {
     return {};
@@ -2582,7 +2584,7 @@ __webpack_require__.r(__webpack_exports__);
       var basePath = "images/bg/";
       var imgPath = "";
 
-      switch (this.eventPlace) {
+      switch (this.eventState.place) {
         case "酒場":
           imgPath = "bar.jpg";
           break;
@@ -2813,11 +2815,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 
@@ -2834,72 +2831,19 @@ __webpack_require__.r(__webpack_exports__);
       required: true
     }
   },
-  //   data: function() {
-  //     return {
-  //       eventState: {
-  //         message: {
-  //           name: " ",
-  //           text: " "
-  //         },
-  //         npc: {
-  //           L: {
-  //             name: "",
-  //             opacity: 1,
-  //             zIndex: 10,
-  //             motion: "none",
-  //             effect: "none"
-  //           },
-  //           LC: {
-  //             name: "",
-  //             opacity: 1,
-  //             zIndex: 10,
-  //             motion: "none",
-  //             effect: "none"
-  //           },
-  //           C: {
-  //             name: "",
-  //             opacity: 1,
-  //             zIndex: 10,
-  //             motion: "none",
-  //             effect: "none"
-  //           },
-  //           RC: {
-  //             name: "",
-  //             opacity: 1,
-  //             zIndex: 10,
-  //             motion: "none",
-  //             effect: "none"
-  //           },
-  //           R: {
-  //             name: "",
-  //             opacity: 1,
-  //             zIndex: 10,
-  //             motion: "none",
-  //             effect: "none"
-  //           }
-  //         }
-  //       },
-  //       eventPlace: "神殿",
-  //       sceneNo: 0,
-  //       isSceneEnd: false,
-  //       isMessageEnd: false,
-  //       isDisplay: true
-  //     };
-  //   },
   mounted: function mounted() {
+    // 親ページのイベントオブジェクトから現在シーンの処理を読み込み
+    // 読み込み処理についてはeventMixinに記載
     this.$_getCurrentEvent();
   },
   watch: {
-    sceneNo: function sceneNo() {
+    // シーンが変わる度に処理を読み込み直す
+    // 読み込み処理についてはeventMixinに記載
+    "eventState.sceneNo": function eventStateSceneNo() {
       this.$_getCurrentEvent();
     }
   },
-  methods: {
-    $_getCurrentEvent: function $_getCurrentEvent() {
-      var vm = this;
-      this.eventObj[this.sceneNo](vm);
-    }
-  }
+  methods: {}
 });
 
 /***/ }),
@@ -43000,26 +42944,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.event-container[data-v-20b515a9] {\r\n  position: relative;\r\n  width: 800px;\r\n  height: 600px;\r\n  /* background: url(../../../../public/images/bg/shinden.jpg); */\r\n  overflow: hidden;\n}\r\n\r\n/* スマホ画面用 */\n@media screen and (max-width: 480px) {\n.char-img-container[data-v-20b515a9] {\r\n    position: absolute;\r\n    top: 0;\n}\n.msg-window-container[data-v-20b515a9] {\r\n    position: absolute;\r\n    top: 200px;\n}\n}\r\n/* レティナスマホ用 */\n@media screen and (min-width: 480px) and (max-width: 768px) {\n.char-img-container[data-v-20b515a9] {\r\n    position: absolute;\r\n    top: 0;\n}\n.msg-window-container[data-v-20b515a9] {\r\n    position: absolute;\r\n    top: 200px;\n}\n}\r\n/* タブレット用 */\n@media screen and (min-width: 768px) and (max-width: 1280px) {\n.char-img-container[data-v-20b515a9] {\r\n    position: absolute;\r\n    top: 0;\n}\n.msg-window-container[data-v-20b515a9] {\r\n    position: absolute;\r\n    top: 400px;\n}\n}\r\n/* PC画面用 */\n@media screen and (min-width: 1280px) {\n.char-img-container[data-v-20b515a9] {\r\n    position: absolute;\r\n    top: 0;\n}\n.msg-window-container[data-v-20b515a9] {\r\n    position: absolute;\r\n    top: 420px;\n}\n}\r\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/templates/TalkEvent.vue?vue&type=style&index=0&id=3388e7dd&scoped=true&lang=css&":
-/*!*************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/templates/TalkEvent.vue?vue&type=style&index=0&id=3388e7dd&scoped=true&lang=css& ***!
-  \*************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n.fade-enter-active[data-v-3388e7dd],\r\n.fade-leave-active[data-v-3388e7dd] {\r\n  transition: opacity 0.2s;\n}\n.fade-enter[data-v-3388e7dd],\r\n.fade-leave-to[data-v-3388e7dd] {\r\n  opacity: 0;\n}\r\n", ""]);
+exports.push([module.i, "\n.event-container[data-v-20b515a9] {\r\n  position: relative;\r\n  width: 800px;\r\n  height: 600px;\r\n  background: black;\r\n  /* background: url(../../../../public/images/bg/shinden.jpg); */\r\n  overflow: hidden;\n}\n.fade-enter-active[data-v-20b515a9],\r\n.fade-leave-active[data-v-20b515a9] {\r\n  transition: opacity 0.2s;\n}\n.fade-enter[data-v-20b515a9],\r\n.fade-leave-to[data-v-20b515a9] {\r\n  opacity: 0;\n}\r\n\r\n/* スマホ画面用 */\n@media screen and (max-width: 480px) {\n.char-img-container[data-v-20b515a9] {\r\n    position: absolute;\r\n    top: 0;\n}\n.msg-window-container[data-v-20b515a9] {\r\n    position: absolute;\r\n    top: 200px;\n}\n}\r\n/* レティナスマホ用 */\n@media screen and (min-width: 480px) and (max-width: 768px) {\n.char-img-container[data-v-20b515a9] {\r\n    position: absolute;\r\n    top: 0;\n}\n.msg-window-container[data-v-20b515a9] {\r\n    position: absolute;\r\n    top: 200px;\n}\n}\r\n/* タブレット用 */\n@media screen and (min-width: 768px) and (max-width: 1280px) {\n.char-img-container[data-v-20b515a9] {\r\n    position: absolute;\r\n    top: 0;\n}\n.msg-window-container[data-v-20b515a9] {\r\n    position: absolute;\r\n    top: 400px;\n}\n}\r\n/* PC画面用 */\n@media screen and (min-width: 1280px) {\n.char-img-container[data-v-20b515a9] {\r\n    position: absolute;\r\n    top: 0;\n}\n.msg-window-container[data-v-20b515a9] {\r\n    position: absolute;\r\n    top: 420px;\n}\n}\r\n", ""]);
 
 // exports
 
@@ -47831,36 +47756,6 @@ if(false) {}
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/templates/TalkEvent.vue?vue&type=style&index=0&id=3388e7dd&scoped=true&lang=css&":
-/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/templates/TalkEvent.vue?vue&type=style&index=0&id=3388e7dd&scoped=true&lang=css& ***!
-  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./TalkEvent.vue?vue&type=style&index=0&id=3388e7dd&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/templates/TalkEvent.vue?vue&type=style&index=0&id=3388e7dd&scoped=true&lang=css&");
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
-
-/***/ }),
-
 /***/ "./node_modules/style-loader/lib/addStyles.js":
 /*!****************************************************!*\
   !*** ./node_modules/style-loader/lib/addStyles.js ***!
@@ -48827,45 +48722,61 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "div",
-      {
-        staticClass: "event-container",
-        style: { background: _vm.backgroundImg }
-      },
-      [
+  return _c(
+    "div",
+    {
+      staticClass: "event-container",
+      style: { background: _vm.backgroundImg }
+    },
+    [
+      _c("transition", { attrs: { name: "fade" } }, [
         _c(
           "div",
-          { staticClass: "char-img-container" },
-          [
-            _c("npc-viewer", {
-              attrs: { "displaying-npc": _vm.eventState.npc }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "msg-window-container" },
-          [
-            _c("msg-window", {
-              attrs: {
-                "displaying-message": _vm.eventState.message,
-                "is-scene-end": _vm.isSceneEnd
-              },
-              on: {
-                "msg-changed": _vm.hasChangedText,
-                "msg-completed": _vm.hasCompletedText
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.eventState.isDisplay,
+                expression: "eventState.isDisplay"
               }
-            })
-          ],
-          1
+            ]
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "char-img-container" },
+              [
+                _c("npc-viewer", {
+                  attrs: { "displaying-npc": _vm.eventState.npc }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "msg-window-container" },
+              [
+                _c("msg-window", {
+                  attrs: {
+                    "displaying-message": _vm.eventState.message,
+                    "is-scene-end": _vm.eventState.isSceneEnd
+                  },
+                  on: {
+                    "msg-changed": _vm.hasChangedText,
+                    "msg-completed": _vm.hasCompletedText
+                  }
+                })
+              ],
+              1
+            )
+          ]
         )
-      ]
-    )
-  ])
+      ])
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -48950,45 +48861,24 @@ var render = function() {
     [
       _c("game-menu"),
       _vm._v(" "),
-      _c("transition", { attrs: { name: "fade" } }, [
-        _c(
-          "div",
-          {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.isDisplay,
-                expression: "isDisplay"
+      _c(
+        "div",
+        { on: { click: _vm.$_clickEventViewer } },
+        [
+          _c("talk-event-unit", {
+            attrs: { "event-state": _vm.eventState },
+            on: {
+              "msg-changed": function($event) {
+                return _vm.$_changeMessageEndFlag(false)
+              },
+              "msg-completed": function($event) {
+                return _vm.$_changeMessageEndFlag(true)
               }
-            ]
-          },
-          [
-            _c(
-              "div",
-              { on: { click: _vm.$_clickEventViewer } },
-              [
-                _c("talk-event-unit", {
-                  attrs: {
-                    "event-state": _vm.eventState,
-                    "event-place": _vm.eventPlace,
-                    "is-scene-end": _vm.isSceneEnd
-                  },
-                  on: {
-                    "msg-changed": function($event) {
-                      return _vm.$_changeMessageEndFlag(false)
-                    },
-                    "msg-completed": function($event) {
-                      return _vm.$_changeMessageEndFlag(true)
-                    }
-                  }
-                })
-              ],
-              1
-            )
-          ]
-        )
-      ])
+            }
+          })
+        ],
+        1
+      )
     ],
     1
   )
@@ -66283,9 +66173,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _TalkEvent_vue_vue_type_template_id_3388e7dd_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TalkEvent.vue?vue&type=template&id=3388e7dd&scoped=true& */ "./resources/js/components/templates/TalkEvent.vue?vue&type=template&id=3388e7dd&scoped=true&");
 /* harmony import */ var _TalkEvent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TalkEvent.vue?vue&type=script&lang=js& */ "./resources/js/components/templates/TalkEvent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _TalkEvent_vue_vue_type_style_index_0_id_3388e7dd_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./TalkEvent.vue?vue&type=style&index=0&id=3388e7dd&scoped=true&lang=css& */ "./resources/js/components/templates/TalkEvent.vue?vue&type=style&index=0&id=3388e7dd&scoped=true&lang=css&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -66293,7 +66181,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _TalkEvent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _TalkEvent_vue_vue_type_template_id_3388e7dd_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
   _TalkEvent_vue_vue_type_template_id_3388e7dd_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -66322,22 +66210,6 @@ component.options.__file = "resources/js/components/templates/TalkEvent.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TalkEvent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./TalkEvent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/templates/TalkEvent.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TalkEvent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/components/templates/TalkEvent.vue?vue&type=style&index=0&id=3388e7dd&scoped=true&lang=css&":
-/*!******************************************************************************************************************!*\
-  !*** ./resources/js/components/templates/TalkEvent.vue?vue&type=style&index=0&id=3388e7dd&scoped=true&lang=css& ***!
-  \******************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_TalkEvent_vue_vue_type_style_index_0_id_3388e7dd_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./TalkEvent.vue?vue&type=style&index=0&id=3388e7dd&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/templates/TalkEvent.vue?vue&type=style&index=0&id=3388e7dd&scoped=true&lang=css&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_TalkEvent_vue_vue_type_style_index_0_id_3388e7dd_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_TalkEvent_vue_vue_type_style_index_0_id_3388e7dd_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_TalkEvent_vue_vue_type_style_index_0_id_3388e7dd_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_TalkEvent_vue_vue_type_style_index_0_id_3388e7dd_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_TalkEvent_vue_vue_type_style_index_0_id_3388e7dd_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -66401,6 +66273,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       eventState: {
+        place: "神殿",
+        sceneNo: 0,
+        isSceneEnd: false,
+        isMessageEnd: false,
+        isDisplay: true,
         message: {
           name: " ",
           text: " "
@@ -66442,12 +66319,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             effect: "none"
           }
         }
-      },
-      eventPlace: "神殿",
-      sceneNo: 0,
-      isSceneEnd: false,
-      isMessageEnd: false,
-      isDisplay: true
+      }
     };
   },
   methods: {
@@ -66522,17 +66394,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this.isDisplay = false;
+                _this.eventState.isDisplay = false;
                 _context.next = 3;
                 return _this.$_sleep(300);
 
               case 3:
-                _this.eventPlace = place;
+                _this.eventState.place = place;
                 _context.next = 6;
                 return _this.$_sleep(300);
 
               case 6:
-                _this.isDisplay = true;
+                _this.eventState.isDisplay = true;
 
               case 7:
               case "end":
@@ -66553,17 +66425,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.eventState.npc[pos].motion = motion;
     },
     //イベント進行管理
+    $_getCurrentEvent: function $_getCurrentEvent() {
+      var vm = this;
+      this.eventObj[this.eventState.sceneNo](vm);
+    },
     $_clickEventViewer: function $_clickEventViewer() {
-      if (this.isSceneEnd) {
-        this.sceneNo++;
-        this.isSceneEnd = false;
+      if (this.eventState.isSceneEnd) {
+        this.eventState.sceneNo++;
+        this.eventState.isSceneEnd = false;
       }
     },
     $_changeMessageEndFlag: function $_changeMessageEndFlag(_boolean) {
-      this.isMessageEnd = _boolean;
+      this.eventState.isMessageEnd = _boolean;
 
       if (_boolean) {
-        this.isSceneEnd = _boolean;
+        this.eventState.isSceneEnd = _boolean;
       }
     }
   }

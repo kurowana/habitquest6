@@ -1,18 +1,20 @@
 <template>
-  <div>
-    <div class="event-container" :style="{ background: backgroundImg }">
-      <div class="char-img-container">
-        <npc-viewer :displaying-npc="eventState.npc"></npc-viewer>
+  <div class="event-container" :style="{ background: backgroundImg }">
+    <transition name="fade">
+      <div v-show="eventState.isDisplay">
+        <div class="char-img-container">
+          <npc-viewer :displaying-npc="eventState.npc"></npc-viewer>
+        </div>
+        <div class="msg-window-container">
+          <msg-window
+            :displaying-message="eventState.message"
+            :is-scene-end="eventState.isSceneEnd"
+            @msg-changed="hasChangedText"
+            @msg-completed="hasCompletedText"
+          ></msg-window>
+        </div>
       </div>
-      <div class="msg-window-container">
-        <msg-window
-          :displaying-message="eventState.message"
-          :is-scene-end="isSceneEnd"
-          @msg-changed="hasChangedText"
-          @msg-completed="hasCompletedText"
-        ></msg-window>
-      </div>
-    </div>
+    </transition>
   </div>
 </template>
 
@@ -29,15 +31,15 @@ export default {
     eventState: {
       type: Object,
       required: true
-    },
-    eventPlace: {
-      type: String,
-      required: true
-    },
-    isSceneEnd: {
-      type: Boolean,
-      required: true
     }
+    // eventPlace: {
+    //   type: String,
+    //   required: true
+    // },
+    // isSceneEnd: {
+    //   type: Boolean,
+    //   required: true
+    // }
   },
   data: function() {
     return {};
@@ -46,7 +48,7 @@ export default {
     backgroundImg: function() {
       const basePath = "images/bg/";
       let imgPath = "";
-      switch (this.eventPlace) {
+      switch (this.eventState.place) {
         case "酒場":
           imgPath = "bar.jpg";
           break;
@@ -130,8 +132,18 @@ export default {
   position: relative;
   width: 800px;
   height: 600px;
+  background: black;
   /* background: url(../../../../public/images/bg/shinden.jpg); */
   overflow: hidden;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 
 /* スマホ画面用 */
