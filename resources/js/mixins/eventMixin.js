@@ -2,6 +2,11 @@ export default {
     data: function() {
         return {
             eventState: {
+                place: "神殿",
+                sceneNo: 0,
+                isSceneEnd: false,
+                isMessageEnd: false,
+                isDisplay: true,
                 message: {
                     name: " ",
                     text: " "
@@ -43,12 +48,7 @@ export default {
                         effect: "none"
                     }
                 }
-            },
-            eventPlace: "神殿",
-            sceneNo: 0,
-            isSceneEnd: false,
-            isMessageEnd: false,
-            isDisplay: true
+            }
         };
     },
     methods: {
@@ -115,11 +115,11 @@ export default {
 
         // 舞台演出関連
         async $_setEventPlace(place) {
-            this.isDisplay = false;
+            this.eventState.isDisplay = false;
             await this.$_sleep(300);
-            this.eventPlace = place;
+            this.eventState.place = place;
             await this.$_sleep(300);
-            this.isDisplay = true;
+            this.eventState.isDisplay = true;
         },
 
         //NPC画像のモーション
@@ -132,17 +132,22 @@ export default {
         },
 
         //イベント進行管理
+        $_getCurrentEvent() {
+            const vm = this;
+            this.eventObj[this.eventState.sceneNo](vm);
+        },
+
         $_clickEventViewer() {
-            if (this.isSceneEnd) {
-                this.sceneNo++;
-                this.isSceneEnd = false;
+            if (this.eventState.isSceneEnd) {
+                this.eventState.sceneNo++;
+                this.eventState.isSceneEnd = false;
             }
         },
 
         $_changeMessageEndFlag(boolean) {
-            this.isMessageEnd = boolean;
+            this.eventState.isMessageEnd = boolean;
             if (boolean) {
-                this.isSceneEnd = boolean;
+                this.eventState.isSceneEnd = boolean;
             }
         }
     }
