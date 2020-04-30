@@ -7,7 +7,7 @@
       @msg-changed="hasChangedText"
       @msg-completed="hasCompletedText"
     ></msg-text>
-    <msg-next-icon class="next-icon" :is-scene-end="isSceneEnd"></msg-next-icon>
+    <msg-next-icon class="next-icon" v-if="isSceneEnd"></msg-next-icon>
   </div>
 </template>
 
@@ -42,7 +42,7 @@ export default {
     hasCompletedText: function() {
       setTimeout(() => {
         this.$emit("msg-completed");
-      }, 500);
+      }, 100);
     },
     hasChangedText: function() {
       this.$emit("msg-changed");
