@@ -28,15 +28,19 @@ export default {
           vm.$_setNpcImg("ゼノビア", "R");
         },
         function(vm) {
-          vm.$_setEventPlace("小屋");
-          vm.$_setTalk("ゼノビア", "トーク関数テスト");
+          vm.$_setNpcImg("", "L");
+          vm.$_setTalk("ゼノビア", "トーク関数テスト", "R");
         },
         function(vm) {
-          vm.$_setTalk("ヤナギ", "トーク関数テスト、切り替え");
+          vm.$_setEventPlace("小屋");
+          vm.$_setTalk("ゼノビア", "トーク関数テスト2", "R");
+        },
+        function(vm) {
+          vm.$_setTalk("ナタ", "トーク関数テスト、切り替え", "LC");
           vm.$_resetAllZIndex();
         },
         function(vm) {
-          vm.$_resetAllOpacitye();
+          vm.$_resetAllOpacity();
         },
         function(vm) {
           vm.$_resetNpcImg();

@@ -2,11 +2,14 @@ export default {
     data: function() {
         return {
             eventState: {
-                place: "神殿",
                 sceneNo: 0,
                 isSceneEnd: false,
                 isMessageEnd: false,
-                isDisplay: true,
+                place: {
+                    current: "神殿",
+                    next: "街",
+                    isShow: true
+                },
                 message: {
                     name: " ",
                     text: " "
@@ -62,9 +65,9 @@ export default {
             this.eventState.message.name = " ";
             this.eventState.message.text = " ";
         },
-        $_setTalk(name, text) {
+        $_setTalk(name, text, pos) {
             for (let k of Object.keys(this.eventState.npc)) {
-                if (this.eventState.npc[k].name === name) {
+                if ((k = pos)) {
                     this.eventState.npc[k].opacity = 1;
                     this.eventState.npc[k].zIndex = 10;
                     this.eventState.message.name = name;
@@ -115,11 +118,11 @@ export default {
 
         // 舞台演出関連
         async $_setEventPlace(place) {
-            this.eventState.isDisplay = false;
-            await this.$_sleep(300);
-            this.eventState.place = place;
-            await this.$_sleep(300);
-            this.eventState.isDisplay = true;
+            this.eventState.place.next = place;
+            this.eventState.place.isShow = false;
+            await this.$_sleep(500);
+            this.eventState.place.current = place;
+            this.eventState.place.isShow = true;
         },
 
         //NPC画像のモーション

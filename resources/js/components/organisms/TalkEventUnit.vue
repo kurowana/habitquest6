@@ -1,121 +1,41 @@
 <template>
-  <div class="event-container" :style="{ background: backgroundImg }">
-    <transition name="fade">
-      <div v-show="eventState.isDisplay">
-        <div class="char-img-container">
-          <npc-viewer :displaying-npc="eventState.npc"></npc-viewer>
-        </div>
-        <div class="msg-window-container">
-          <msg-window
-            :displaying-message="eventState.message"
-            :is-scene-end="eventState.isSceneEnd"
-            @msg-changed="hasChangedText"
-            @msg-completed="hasCompletedText"
-          ></msg-window>
-        </div>
-      </div>
-    </transition>
+  <div class="event-container">
+    <bg-viewer class="bg-container" :bg-img-obj="eventState.place"></bg-viewer>
+    <div class="char-img-container">
+      <npc-viewer :displaying-npc="eventState.npc"></npc-viewer>
+    </div>
+    <div class="msg-window-container">
+      <msg-window
+        :displaying-message="eventState.message"
+        :is-scene-end="eventState.isSceneEnd"
+        @msg-changed="hasChangedText"
+        @msg-completed="hasCompletedText"
+      ></msg-window>
+    </div>
   </div>
 </template>
 
 <script>
 import NpcViewer from "../molecules/NpcViewer";
 import MsgWindow from "../molecules/MsgWindow";
+import bgViewer from "../molecules/BgViewer";
 
 export default {
   components: {
     "npc-viewer": NpcViewer,
-    "msg-window": MsgWindow
+    "msg-window": MsgWindow,
+    "bg-viewer": bgViewer
   },
   props: {
     eventState: {
       type: Object,
       required: true
     }
-    // eventPlace: {
-    //   type: String,
-    //   required: true
-    // },
-    // isSceneEnd: {
-    //   type: Boolean,
-    //   required: true
-    // }
   },
   data: function() {
     return {};
   },
-  computed: {
-    backgroundImg: function() {
-      const basePath = "images/bg/";
-      let imgPath = "";
-      switch (this.eventState.place) {
-        case "酒場":
-          imgPath = "bar.jpg";
-          break;
-        case "武器屋":
-          imgPath = "bukiya.jpg";
-          break;
-        case "小道":
-          imgPath = "komichi.jpg";
-          break;
-        case "エントランス":
-          imgPath = "entrance.jpg";
-          break;
-        case "街":
-          imgPath = "town.jpg";
-          break;
-        case "豪邸の部屋":
-          imgPath = "room_goutei.jpg";
-          break;
-        case "アイテム屋":
-          imgPath = "item_shop.jpg";
-          break;
-        case "豪邸のエントランス":
-          imgPath = "entrance_goutei.jpg";
-          break;
-        case "闘技場":
-          imgPath = "tougijou.jpg";
-          break;
-        case "渓流":
-          imgPath = "keiryuu.jpg";
-          break;
-        case "研究所":
-          imgPath = "kenkyuujo.jpg";
-          break;
-        case "小屋":
-          imgPath = "koya.jpg";
-          break;
-        case "森山":
-          imgPath = "moriyama.jpg";
-          break;
-        case "木":
-          imgPath = "tree.jpg";
-          break;
-        case "神殿":
-          imgPath = "shinden.jpg";
-          break;
-        case "地底湖":
-          imgPath = "titeiko.jpg";
-          break;
-        case "詰所":
-          imgPath = "tumesyo.jpg";
-          break;
-        case "厨房":
-          imgPath = "tyuubou.jpg";
-          break;
-        case "占い館":
-          imgPath = "uranai.jpg";
-          break;
-        case "宿屋":
-          imgPath = "yadoya_room.jpg";
-          break;
-        case "ウッドハウス":
-          imgPath = "woodhouse.jpg";
-          break;
-      }
-      return "url(" + basePath + imgPath + ")";
-    }
-  },
+  computed: {},
   methods: {
     hasCompletedText: function() {
       this.$emit("msg-completed");
@@ -135,6 +55,13 @@ export default {
   background: black;
   /* background: url(../../../../public/images/bg/shinden.jpg); */
   overflow: hidden;
+}
+
+.bg-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
 }
 
 .fade-enter-active,

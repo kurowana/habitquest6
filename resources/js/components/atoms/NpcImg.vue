@@ -1,14 +1,12 @@
 <template>
-  <div>
+  <div :style="{ opacity: imgOpacity, zIndex: imgZIndex }">
     <transition name="fade">
-      <div v-if="this.targetNpc.name">
-        <img
-          :src="this.imgSrc"
-          class="npc-img img-size"
-          :class="motionClass"
-          :style="{ opacity: imgOpacity, zIndex: imgZIndex }"
-        />
-      </div>
+      <img
+        v-if="this.targetNpc.name"
+        :src="this.imgSrc"
+        class="npc-img img-size"
+        :class="motionClass"
+      />
     </transition>
   </div>
 </template>
@@ -211,7 +209,7 @@ export default {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.2s;
+  transition: opacity 0.5s;
 }
 .fade-enter,
 .fade-leave-to {

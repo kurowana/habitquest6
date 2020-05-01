@@ -1,17 +1,12 @@
 <template>
   <div>
-    <span v-if="isSceneEnd" class="next-icon">▼</span>
+    <span class="next-icon">▼</span>
   </div>
 </template>
 
 <script>
 export default {
-  props: {
-    isSceneEnd: {
-      type: Boolean,
-      required: true
-    }
-  }
+  props: {}
 };
 </script>
 
