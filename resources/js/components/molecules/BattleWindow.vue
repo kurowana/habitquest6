@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="window-container">
     <window-base>aaa</window-base>
     <window-base>bbb</window-base>
     <window-base>ccc</window-base>
@@ -17,4 +17,8 @@ export default {
 </script>
 
 <style scoped>
+.window-container {
+  position: relative;
+  z-index: 100;
+}
 </style>

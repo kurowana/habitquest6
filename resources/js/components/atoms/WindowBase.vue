@@ -1,5 +1,5 @@
 <template>
-  <div class="window-container">aaa</div>
+  <div class="window-base">aaa</div>
 </template>
 
 <script>
@@ -9,10 +9,8 @@ export default {
 </script>
 
 <style scoped>
-.window-container {
+.window-base {
   display: inline-block;
-  position: relative;
-  z-index: 100;
   height: 100px;
   width: 200px;
   background: black;
