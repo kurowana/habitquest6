@@ -7,6 +7,7 @@
         @msg-changed="$_changeMessageEndFlag(false)"
         @msg-completed="$_changeMessageEndFlag(true)"
       ></battle-event-unit>
+      <bar class="test"></bar>
     </div>
   </div>
 </template>
@@ -19,10 +20,14 @@ import baseMixin from "../../mixins/baseMixin";
 import eventMixin from "../../mixins/eventMixin";
 import battleMixin from "../../mixins/battleMixin";
 
+import Bar from "../atoms/chart/bar";
+
 export default {
   components: {
     "battle-event-unit": BattleEventUnit,
-    "game-menu": GameMenu
+    "game-menu": GameMenu,
+
+    bar: Bar
   },
   mixins: [baseMixin, eventMixin, battleMixin],
   props: {
