@@ -1,10 +1,7 @@
 <template>
   <div>
-    <div class="bar-outer" style="background:linear-gradient(90deg,red,yellow,cyan, blue)">
-      <div
-        class="bar-inner"
-        style="width:20%; background:black; position:absolute; top:0; right:0 z-index:500"
-      ></div>
+    <div class="bar-outer" :style="{background:barColor}">
+      <div class="bar-inner" :style="{width:decreasedRate}"></div>
     </div>
   </div>
 </template>
@@ -12,17 +9,32 @@
 <script>
 export default {
   props: {
-    max: {
+    maxValue: {
       type: Number,
       required: true
     },
-    current: {
+    currentValue: {
       type: Number,
       required: true
     },
-    color: {
-      type: String,
+    colorType: {
+      type: Number,
       required: true
+    }
+  },
+  computed: {
+    barColor: function() {
+      switch (this.colorType) {
+        case 1:
+          return "linear-gradient(90deg,#dc143c,#ffff00 10%,#98fb98 40%, #00bfff)";
+        case 2:
+          return "linear-gradient(135deg,#b0e0e6,#00ffff)";
+      }
+    },
+    decreasedRate: function() {
+      const decreasedValue = this.maxValue - this.currentValue;
+      const rate = Math.round((decreasedValue / this.maxValue) * 100);
+      return rate + "%";
     }
   }
 };
@@ -36,6 +48,9 @@ export default {
 }
 .bar-inner {
   position: absolute;
+  top: 0;
+  right: 0;
   height: 20px;
+  background: black;
 }
 </style>

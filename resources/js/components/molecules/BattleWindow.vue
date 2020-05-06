@@ -3,18 +3,18 @@
     <window-base>aaa</window-base>
     <window-base>bbb</window-base>
     <window-base>ccc</window-base>
-    <bar></bar>
+    <status-bar :maxValue="100" :current-value="65" :color-type="1"></status-bar>
   </div>
 </template>
 
 <script>
 import WindowBase from "../atoms/WindowBase";
-import Bar from "../atoms/StatusBar";
+import StatusBar from "../atoms/StatusBar";
 
 export default {
   components: {
     "window-base": WindowBase,
-    bar: Bar
+    "status-bar": StatusBar
   }
 };
 </script>
