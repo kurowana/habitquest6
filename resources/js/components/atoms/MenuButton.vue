@@ -1,31 +1,29 @@
 <template>
-    <div class="menu-button" @click="this.toFunc">
-        {{ buttonText }}
-    </div>
+  <button class="menu-button" @click="this.toFunc">{{ buttonText }}</button>
 </template>
 
 <script>
 export default {
-    props: {
-        buttonText: {
-            type: String,
-            required: true
-        },
-        toFunc: {
-            type: Function,
-            required: true
-        }
+  props: {
+    buttonText: {
+      type: String,
+      required: true
+    },
+    toFunc: {
+      type: Function,
+      required: true
     }
+  }
 };
 </script>
 
 <style scoped>
 .menu-button {
-    display: inline-block;
-    padding: 5px 10px;
-    background: black;
-    border: 1px solid gold;
-    color: white;
+  display: inline-block;
+  padding: 5px 10px;
+  background: black;
+  border: 1px solid gold;
+  color: white;
 }
 /* スマホ画面用 */
 @media screen and (max-width: 480px) {

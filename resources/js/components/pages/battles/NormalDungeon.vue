@@ -1,15 +1,19 @@
 <template>
   <div>
     <battle-event :event-obj="eventObj"></battle-event>
+    <timer></timer>
   </div>
 </template>
 
 <script>
 import BattleEvent from "../../templates/BattleEvent";
 
+import Timer from "../../molecules/Timer";
+
 export default {
   components: {
-    "battle-event": BattleEvent
+    "battle-event": BattleEvent,
+    timer: Timer
   },
   data: function() {
     return {
