@@ -7,7 +7,7 @@
         <form-button :button-text="'test'" :to-func="testFunc"></form-button>
         <select-field
             :input-value="currentValue"
-            :choices="choiceArr"
+            :selectionList="choiceArr"
             @return-value="reciveValue"
         ></select-field>
         <form-button :button-text="'test2'" :to-func="testFunc2"></form-button>

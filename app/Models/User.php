@@ -36,4 +36,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // リレーション
+    public function status()
+    {
+        return $this->hasOne('App\Models\Status');
+    }
+    public function habit()
+    {
+        return $this->hasMany('App\Models\Habit');
+    }
+    public function pomodoro_task()
+    {
+        return $this->hasMany('App\Models\PomodoroTask');
+    }
 }
