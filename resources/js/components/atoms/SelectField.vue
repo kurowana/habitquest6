@@ -1,8 +1,8 @@
 <template>
     <div>
         <select @change="returnValue" :value="inputValue">
-            <option v-for="(choice, index) in choices" :key="index">
-                {{ choice }}
+            <option v-for="(value, index) in selectionList" :key="index">
+                {{ value }}
             </option>
         </select>
     </div>
@@ -15,7 +15,7 @@ export default {
             type: String,
             required: true
         },
-        choices: {
+        selectionList: {
             type: Array,
             required: true
         }

@@ -1,7 +1,8 @@
 <template>
-    <div>
+    <div class="content-wrapper">
         {{ this.windowWidth }}
-
+        {{ this.isSetup }}
+        {{ this.userId }}
         <router-view name="gameUnit"></router-view>
         <router-view name="habitUnit"></router-view>
     </div>
@@ -15,6 +16,16 @@ import baseMixin from "../mixins/baseMixin";
 
 export default {
     mixins: [baseMixin],
+    props: {
+        userId: {
+            type: String,
+            required: true
+        },
+        isSetup: {
+            type: String,
+            required: true
+        }
+    },
     data: function() {
         return {};
     },
@@ -30,6 +41,14 @@ export default {
     mounted: function() {
         //   ウィンドウサイズ変更検知用にイベント追加
         window.addEventListener("resize", this.getWindowSize);
+
+        if (this.isSetup == false) {
+            //キャラクター情報が未登録の場合はオープニングイベントへ移動
+            this.$router.push({ name: "opening" }).catch(err => {});
+        } else {
+            //登録済みの場合はキャラ情報をstoreに格納してホームへ移動
+            this.$router.push({ name: "home" }).catch(err => {});
+        }
     },
     beforeDestroy: function() {
         windwow.addEventListener("resize", this.getWindowSize);
@@ -45,6 +64,10 @@ export default {
 </script>
 
 <style scoped>
+.content-wrapper {
+    position: relative;
+}
+
 /* スマホ画面用 */
 @media screen and (max-width: 480px) {
 }
