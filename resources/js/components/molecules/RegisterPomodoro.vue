@@ -17,10 +17,10 @@
             :selectionList="timeList"
             @return-value="reciveBreakTime"
         ></select-field>
-        <form-button
+        <func-button
             :button-text="'登録'"
-            :to-func="registerPomodoro"
-        ></form-button>
+            @click-event="registerPomodoro"
+        ></func-button>
     </div>
 </template>
 
@@ -29,13 +29,13 @@ import axios from "axios";
 
 import TextInputField from "../atoms/TextInputField";
 import SelectField from "../atoms/SelectField";
-import FormButton from "../atoms/FormButton";
+import FuncButton from "../atoms/FuncButton";
 
 export default {
     components: {
         "text-input-field": TextInputField,
         "select-field": SelectField,
-        "form-button": FormButton
+        "func-button": FuncButton
     },
     data: function() {
         return {

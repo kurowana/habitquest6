@@ -1,0 +1,12 @@
+/* 全体適用のスタイル */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: white;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+    background: gold;
+    border-radius: 10px;
+}
