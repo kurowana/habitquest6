@@ -4,26 +4,32 @@
             :input-text="currentText"
             @return-text="reciveText"
         ></text-input-field>
-        <form-button :button-text="'test'" :to-func="testFunc"></form-button>
+        <func-button
+            :button-text="'test'"
+            @click-event="testFunc"
+        ></func-button>
         <select-field
             :input-value="currentValue"
             :selectionList="choiceArr"
             @return-value="reciveValue"
         ></select-field>
-        <form-button :button-text="'test2'" :to-func="testFunc2"></form-button>
+        <func-button
+            :button-text="'test2'"
+            @click-event="testFunc2"
+        ></func-button>
     </div>
 </template>
 
 <script>
 import TextInputField from "../atoms/TextInputField";
 import SelectField from "../atoms/SelectField";
-import FormButton from "../atoms/FormButton";
+import FuncButton from "../atoms/FuncButton";
 
 export default {
     components: {
         "text-input-field": TextInputField,
         "select-field": SelectField,
-        "form-button": FormButton
+        "func-button": FuncButton
     },
     data: function() {
         return {

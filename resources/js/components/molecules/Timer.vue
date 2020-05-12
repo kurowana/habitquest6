@@ -1,30 +1,33 @@
 <template>
     <div>
         <time-viewer :time="remainingTime"></time-viewer>
-        <form-button
+        <func-button
             :button-text="'タイマー開始'"
-            :to-func="startTimer"
-        ></form-button>
-        <form-button :button-text="'停止'" :to-func="stopTimer"></form-button>
-        <form-button
+            @click-event="startTimer"
+        ></func-button>
+        <func-button
+            :button-text="'停止'"
+            @click-event="stopTimer"
+        ></func-button>
+        <func-button
             :button-text="'再開'"
-            :to-func="restartTimer"
-        ></form-button>
-        <form-button
+            @click-event="restartTimer"
+        ></func-button>
+        <func-button
             :button-text="'リセット'"
-            :to-func="resetTimer"
-        ></form-button>
+            @click-event="resetTimer"
+        ></func-button>
     </div>
 </template>
 
 <script>
 import TimeViewer from "../atoms/TimeViewer";
-import FormButton from "../atoms/FormButton";
+import FuncButton from "../atoms/FuncButton";
 
 export default {
     components: {
         "time-viewer": TimeViewer,
-        "form-button": FormButton
+        "func-button": FuncButton
     },
     data: function() {
         return {

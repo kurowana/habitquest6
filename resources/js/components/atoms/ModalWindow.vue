@@ -1,7 +1,8 @@
 <template>
     <div class="modal-window">
-        <slot name="content"></slot>
-        <slot name="footer"></slot>
+        <div class="modal-main">
+            <slot name="main"></slot>
+        </div>
     </div>
 </template>
 
@@ -12,14 +13,20 @@ export default {};
 <style scoped>
 .modal-window {
     position: absolute;
-    top: 100px;
+    top: 90px;
     left: 50px;
     z-index: 100;
     width: 700px;
-    height: 500px;
-    background: rgba(0, 0, 0, 0.8);
+    height: 390px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.9);
     border: 1px solid gold;
     border-radius: 10px;
+}
+.modal-main {
+    overflow: auto;
+
     color: white;
+    height: 360px;
 }
 </style>
