@@ -17,6 +17,16 @@ Route::get('/', function () {
 
 Auth::routes();
 
+// ユーザーキャラクター関連
+Route::post('/register_char', 'CharacterController@insertStatus');
+
+// ポモドーロ関連
+Route::post('get_my_pomodoro', 'PomodoroTaskController@getMyPomodoro');
+Route::post('/register_pomodoro', 'PomodoroTaskController@insertPomodoro');
+
+
+
+//該当しないアドレスへのアクセスはホームへ移動
 Route::get("/{any}", function () {
     return view('home');
 })->where('any', '.+');
