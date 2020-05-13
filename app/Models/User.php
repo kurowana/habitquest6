@@ -40,7 +40,7 @@ class User extends Authenticatable
     // リレーション
     public function status()
     {
-        return $this->hasOne('App\Models\Status');
+        return $this->hasOne('App\Models\Status', 'user_id');
     }
     public function habit()
     {

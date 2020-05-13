@@ -8,12 +8,14 @@
                 @msg-completed="$_changeMessageEndFlag(true)"
             ></talk-event-unit>
         </div>
+        <pomodoro-unit></pomodoro-unit>
     </div>
 </template>
 
 <script>
 import TalkEventUnit from "../organisms/TalkEventUnit";
 import GameMenu from "../molecules/GameMenu";
+import PomodoroUnit from "../organisms/PomodoroUnit";
 
 import baseMixin from "../../mixins/baseMixin";
 import eventMixin from "../../mixins/eventMixin";
@@ -21,7 +23,8 @@ import eventMixin from "../../mixins/eventMixin";
 export default {
     components: {
         "talk-event-unit": TalkEventUnit,
-        "game-menu": GameMenu
+        "game-menu": GameMenu,
+        "pomodoro-unit": PomodoroUnit
     },
     mixins: [baseMixin, eventMixin],
     props: {

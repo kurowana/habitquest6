@@ -21,96 +21,46 @@
             <template v-slot:main>
                 <p>能力の振り分けを行ってください</p>
                 <img
-                    :src="standImgDir + imgList[selectedCharType].stand"
+                    :src="standImgDir + imgList[tempCharImg].stand"
                     class="stand-img"
                 />
                 <div>
-                    <div>
-                        STR:{{ tempStatus.str }}
+                    <div v-for="(value, key) in tempStatus" :key="key">
+                        {{ key }}:{{ value }}
                         <func-button
                             :button-text="'+'"
-                            @click-event="upStatus('str')"
+                            @click-event="upStatus(key)"
                         ></func-button>
                         <func-button
                             :button-text="'-'"
-                            @click-event="downStatus('str')"
+                            @click-event="downStatus(key)"
                         ></func-button>
                     </div>
-                    <div>
-                        AGI:{{ tempStatus.agi }}
-                        <func-button
-                            :button-text="'+'"
-                            @click-event="upStatus('agi')"
-                        ></func-button>
-                        <func-button
-                            :button-text="'-'"
-                            @click-event="downStatus('agi')"
-                        ></func-button>
-                    </div>
-                    <div>
-                        VIT:{{ tempStatus.vit }}
-                        <func-button
-                            :button-text="'+'"
-                            @click-event="upStatus('vit')"
-                        ></func-button>
-                        <func-button
-                            :button-text="'-'"
-                            @click-event="downStatus('vit')"
-                        ></func-button>
-                    </div>
-                    <div>
-                        INT:{{ tempStatus.int }}
-                        <func-button
-                            :button-text="'+'"
-                            @click-event="upStatus('int')"
-                        ></func-button>
-                        <func-button
-                            :button-text="'-'"
-                            @click-event="downStatus('int')"
-                        ></func-button>
-                    </div>
-                    <div>
-                        DEX:{{ tempStatus.dex }}
-                        <func-button
-                            :button-text="'+'"
-                            @click-event="upStatus('dex')"
-                        ></func-button>
-                        <func-button
-                            :button-text="'-'"
-                            @click-event="downStatus('dex')"
-                        ></func-button>
-                    </div>
-                    <div>
-                        LUC:{{ tempStatus.luc }}
-                        <func-button
-                            :button-text="'+'"
-                            @click-event="upStatus('luc')"
-                        ></func-button>
-                        <func-button
-                            :button-text="'-'"
-                            @click-event="downStatus('luc')"
-                        ></func-button>
-                    </div>
+                    振り分け可能ポイント:{{ availablePoint }}
                 </div>
                 <func-button
                     :button-text="'画像選択へ戻る'"
-                    @click-event="returnSelectModal"
+                    @click-event="returnImgModal"
                 ></func-button>
                 <func-button
                     :button-text="'決定'"
-                    @click-event="goConfirmModal"
+                    @click-event="toConfirmModal"
                 ></func-button>
             </template>
         </modal-window>
         <modal-window v-if="isShowConfirmModal">
             <template v-slot:main>
                 <img
-                    :src="standImgDir + imgList[selectedCharType].stand"
+                    :src="standImgDir + imgList[tempCharImg].stand"
                     class="stand-img"
                 />
-                <div v-for="(value, index) in tempStatus" :key="index">
-                    {{ index }}:{{ value }}
+                <div v-for="(value, key) in tempStatus" :key="key">
+                    {{ key }}:{{ value }}
                 </div>
+                <func-button
+                    :button-text="'ステータス振り分けへ戻る'"
+                    @click-event="returnStatusModal"
+                ></func-button>
                 <func-button
                     :button-text="'決定'"
                     @click-event="registerChar"
@@ -121,12 +71,13 @@
 </template>
 
 <script>
+import axios from "axios";
+import { mapGetters } from "vuex";
+
 import TalkEvent from "../../templates/TalkEvent";
 import ModalWindow from "../../atoms/ModalWindow";
 import ImgCard from "../../atoms/ImgCard";
 import FuncButton from "../../atoms/FuncButton";
-
-import { mapGetters } from "vuex";
 
 export default {
     components: {
@@ -137,15 +88,16 @@ export default {
     },
     data: function() {
         return {
-            selectedCharType: "",
+            tempCharImg: "",
             tempStatus: {
-                str: 10,
-                agi: 10,
-                vit: 10,
-                int: 10,
-                dex: 10,
-                luc: 10
+                STR: 10,
+                AGI: 10,
+                VIT: 10,
+                INT: 10,
+                DEX: 10,
+                LUC: 10
             },
+            availablePoint: 5,
 
             isShowImgModal: false,
             isShowStatusModal: false,
@@ -200,28 +152,50 @@ export default {
     mounted: function() {},
     methods: {
         selectCharImg: function(type) {
-            this.selectedCharType = type;
+            this.tempCharImg = type;
             this.isShowImgModal = false;
             this.isShowStatusModal = true;
         },
-        returnSelectModal: function() {
-            this.selectedCharType = "";
-            this.isShowStatusModal = false;
-            this.isShowImgModal = true;
+
+        upStatus: function(type) {
+            if (this.availablePoint > 0) {
+                this.tempStatus[type]++;
+                this.availablePoint--;
+            }
         },
-        goConfirmModal: function() {
+        downStatus: function(type) {
+            if (this.availablePoint <= 5 && this.tempStatus[type] >= 11) {
+                this.tempStatus[type]--;
+                this.availablePoint++;
+            }
+        },
+        registerChar: function() {
+            axios
+                .post("./register_char", {
+                    char_img: this.tempCharImg,
+                    status_obj: this.tempStatus
+                })
+                .then(res => {
+                    console.log(res.data);
+                });
+        },
+        toConfirmModal: function() {
             this.isShowStatusModal = false;
             this.isShowConfirmModal = true;
         },
-        upStatus: function(type) {
-            this.tempStatus[type]++;
-            console.log(type);
-            console.log(this.tempStatus["str"]);
+        returnImgModal: function() {
+            this.tempCharImg = "";
+            this.isShowStatusModal = false;
+            this.isShowImgModal = true;
         },
-        downStatus: function(type) {
-            this.tempStatus[type]--;
-        },
-        registerChar: function() {}
+        returnStatusModal: function() {
+            for (let k of Object.keys(this.tempStatus)) {
+                this.$set(this.tempStatus, k, 10);
+            }
+            this.availablePoint = 5;
+            this.isShowConfirmModal = false;
+            this.isShowStatusModal = true;
+        }
     }
 };
 </script>

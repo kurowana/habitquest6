@@ -3,7 +3,7 @@
         <label>作業名</label>
         <text-input-field
             :input-text="pomodoroName"
-            @retunr-text="reciveName"
+            @return-text="reciveName"
         ></text-input-field>
         <label>作業時間</label>
         <select-field
@@ -57,7 +57,7 @@ export default {
         },
         registerPomodoro: function() {
             axios
-                .post("./api/regiser_pomodoro", {
+                .post("./register_pomodoro", {
                     name: this.pomodoroName,
                     work_time: this.workTime,
                     break_time: this.breakTime
