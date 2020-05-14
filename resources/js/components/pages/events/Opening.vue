@@ -175,9 +175,7 @@ export default {
                     char_img: this.tempCharImg,
                     status_obj: this.tempStatus
                 })
-                .then(res => {
-                    console.log(res.data);
-                });
+                .then(res => {});
         },
         toConfirmModal: function() {
             this.isShowStatusModal = false;
