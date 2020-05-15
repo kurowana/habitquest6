@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 use App\Models\PomodoroTask;
+use Exception;
 
 class PomodoroTaskController extends Controller
 {
@@ -33,6 +34,25 @@ class PomodoroTaskController extends Controller
             $pomodoro->work_time = $request->work_time;
             $pomodoro->break_time = $request->break_time;
             $pomodoro->user_id = $user_id;
+            $pomodoro->save();
+
+            DB::commit();
+        } catch (\Exception $e) {
+            Log::debug($e);
+            DB::rollBack();
+        }
+
+        return response($pomodoro);
+    }
+
+    public function finishPomodoro(Request $request)
+    {
+        DB::beginTransaction();
+
+        try {
+            $pomodoro = PomodoroTask::find($request->id);
+            // $pomodoro->pomodoro_count += 1;
+            $pomodoro->increaseCount();
             $pomodoro->save();
 
             DB::commit();
