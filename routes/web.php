@@ -23,6 +23,7 @@ Route::post('/register_char', 'CharacterController@insertStatus');
 // ポモドーロ関連
 Route::post('get_my_pomodoro', 'PomodoroTaskController@getMyPomodoro');
 Route::post('/register_pomodoro', 'PomodoroTaskController@insertPomodoro');
+Route::post('/finish_pomodoro', 'PomodoroTaskController@finishPomodoro');
 
 
 

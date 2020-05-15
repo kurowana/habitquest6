@@ -6,7 +6,7 @@
         <div v-if="pomodoroStatus.isComplete === true">
             <div v-if="pomodoroStatus.isWorking">
                 <func-button
-                    :button-text="'休憩開始'"
+                    :button-text="'休憩をしてから次のサイクルへ'"
                     @click-event="startBreak"
                 ></func-button>
             </div>
@@ -16,8 +16,17 @@
                     @click-event="startWork"
                 ></func-button>
             </div>
+            <func-button
+                :button-text="'終了'"
+                @click-event="finish"
+            ></func-button>
         </div>
-        <func-button :button-text="'終了'" @click-event="finish"></func-button>
+        <div v-else>
+            <func-button
+                :button-text="'中断(実行回数は増えません)'"
+                @click-event="finish"
+            ></func-button>
+        </div>
     </div>
 </template>
 

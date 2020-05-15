@@ -19,6 +19,8 @@ class CreatePomodoroTasksTable extends Migration
             $table->integer('work_time');
             $table->integer('break_time');
             $table->bigInteger('pomodoro_count')->default(0);
+            $table->bigInteger('todays_count')->default(0);
+            $table->dateTime('last_date')->nullable();
             $table->timestamps();
         });
     }

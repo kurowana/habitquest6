@@ -95,6 +95,9 @@ export default {
         countDown: function() {
             if (this.pomodoroStatus.remainingTime <= 0) {
                 this.$set(this.pomodoroStatus, "isComplete", true);
+                if (this.pomodoroStatus.isWorking) {
+                    this.finishPomodoro();
+                }
                 clearInterval(this.timerObj);
             } else {
                 this.$set(
@@ -117,6 +120,23 @@ export default {
             this.$set(this.pomodoroStatus, "isBreaking", false);
             this.$set(this.pomodoroStatus, "isComplete", false);
             this.$set(this.pomodoroStatus, "remainingTime", 0);
+        },
+        finishPomodoro: function() {
+            axios
+                .post("./finish_pomodoro", {
+                    id: this.currentPomodoro.id
+                })
+                .then(res => {
+                    this.$set(
+                        this.currentPomodoro,
+                        "pomodoro_count",
+                        this.currentPomodoro.pomodoro_count + 1
+                    );
+                    const target = this.myPomdoro.find(
+                        obj => obj.id == this.currentPomodoro.id
+                    );
+                    target.pomodoro_count++;
+                });
         }
     }
 };
