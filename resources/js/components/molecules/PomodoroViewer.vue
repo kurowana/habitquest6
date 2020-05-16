@@ -23,7 +23,7 @@
         </div>
         <div v-else>
             <func-button
-                :button-text="'中断(実行回数は増えません)'"
+                :button-text="'中止(実行回数は増えません)'"
                 @click-event="finish"
             ></func-button>
         </div>

@@ -7,10 +7,11 @@
             @start-break="startBreakTime"
             @finish="stopPomodoro"
         ></pomodoro-viewer>
-        <register-pomodoro></register-pomodoro>
+        <register-pomodoro @change-pomodoro="initUnit"></register-pomodoro>
         <pomodoro-list
             :pomodoro-list="myPomdoro"
             @set-pomodoro="setPomodoro"
+            @change-pomodoro="initUnit"
         ></pomodoro-list>
     </div>
 </template>
@@ -48,9 +49,12 @@ export default {
         };
     },
     mounted: function() {
-        this.getMyPomodoro();
+        this.initUnit();
     },
     methods: {
+        initUnit: function() {
+            this.getMyPomodoro();
+        },
         getMyPomodoro: function() {
             axios.post("./get_my_pomodoro", {}).then(res => {
                 this.myPomdoro = res.data;

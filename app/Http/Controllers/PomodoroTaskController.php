@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 use App\Models\PomodoroTask;
-use Exception;
+use App\Models\Status;
 
 class PomodoroTaskController extends Controller
 {
@@ -45,15 +45,34 @@ class PomodoroTaskController extends Controller
         return response($pomodoro);
     }
 
-    public function finishPomodoro(Request $request)
+    public function deletePomodoro(Request $request)
     {
         DB::beginTransaction();
 
         try {
             $pomodoro = PomodoroTask::find($request->id);
-            // $pomodoro->pomodoro_count += 1;
-            $pomodoro->increaseCount();
-            $pomodoro->save();
+            $pomodoro->delete();
+
+            DB::commit();
+        } catch (\Exception $e) {
+            Log::debug($e);
+            DB::rollBack();
+        }
+
+        return response('OK');
+    }
+
+    public function finishPomodoro(Request $request)
+    {
+        $user_id = Auth::id();
+        DB::beginTransaction();
+
+        try {
+            $pomodoro = PomodoroTask::find($request->id);
+            $exp = $pomodoro->finishPomodoro();
+
+            $status = Status::where('user_id', $user_id)->first();
+            $status->increaseExp($exp);
 
             DB::commit();
         } catch (\Exception $e) {

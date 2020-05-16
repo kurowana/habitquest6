@@ -62,7 +62,9 @@ export default {
                     work_time: this.workTime,
                     break_time: this.breakTime
                 })
-                .then(res => {});
+                .then(res => {
+                    this.$emit("change-pomodoro");
+                });
         }
     }
 };
