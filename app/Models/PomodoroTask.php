@@ -6,8 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 
+
 class PomodoroTask extends Model
 {
+    //プロパティ
+    private $base_exp = 100;
+
     //リレーション
     public function user()
     {
@@ -16,10 +20,18 @@ class PomodoroTask extends Model
 
 
     // データ操作
-    public function increaseCount()
+    public function finishPomodoro()
+    {
+        $this->increaseCount();
+        $exp = $this->calculateExp();
+
+        return $exp;
+    }
+
+    private function increaseCount()
     {
         $this->pomodoro_count += 1;
-        if ($this->checkLastDate($this)) {
+        if ($this->checkLastDate()) {
             $this->todays_count += 1;
         } else {
             $this->todays_count = 1;
@@ -28,13 +40,21 @@ class PomodoroTask extends Model
         $this->save();
     }
 
-    private function checkLastDate(PomodoroTask $pomodoro)
+    private function checkLastDate()
     {
-        if (!is_null($pomodoro->last_date)) {
-            $last_date = new Carbon($pomodoro->last_date);
+        if (!is_null($this->last_date)) {
+            $last_date = new Carbon($this->last_date);
             return $last_date->isToday();
         } else {
             return false;
         }
+    }
+    private function calculateExp()
+    {
+        $todays_count = $this->todays_count;
+        $total_count = $this->pomodoro_count;
+        $exp = ceil($this->base_exp * ($todays_count + ($total_count * 0.1)));
+
+        return $exp;
     }
 }
