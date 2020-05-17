@@ -9,6 +9,7 @@
             ></talk-event-unit>
         </div>
         <pomodoro-unit></pomodoro-unit>
+        <habit-unit></habit-unit>
     </div>
 </template>
 
@@ -16,6 +17,7 @@
 import TalkEventUnit from "../organisms/TalkEventUnit";
 import GameMenu from "../molecules/GameMenu";
 import PomodoroUnit from "../organisms/PomodoroUnit";
+import HabitUnit from "../organisms/HabitUnit";
 
 import baseMixin from "../../mixins/baseMixin";
 import eventMixin from "../../mixins/eventMixin";
@@ -24,7 +26,8 @@ export default {
     components: {
         "talk-event-unit": TalkEventUnit,
         "game-menu": GameMenu,
-        "pomodoro-unit": PomodoroUnit
+        "pomodoro-unit": PomodoroUnit,
+        "habit-unit": HabitUnit
     },
     mixins: [baseMixin, eventMixin],
     props: {
