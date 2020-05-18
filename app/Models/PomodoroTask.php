@@ -20,24 +20,25 @@ class PomodoroTask extends Model
 
 
     // データ操作
+    public function getMyPomodoro($id)
+    {
+        $my_pomodoros = self::where('user_id', $id)->get();
+
+        foreach ($my_pomodoros as $pomodoro) {
+            if (!$pomodoro->checkLastDate()) {
+                $pomodoro->todays_count = 0;
+                $pomodoro->save();
+            }
+        }
+        return $my_pomodoros;
+    }
+
     public function finishPomodoro()
     {
         $this->increaseCount();
         $exp = $this->calculateExp();
 
         return $exp;
-    }
-
-    private function increaseCount()
-    {
-        $this->pomodoro_count += 1;
-        if ($this->checkLastDate()) {
-            $this->todays_count += 1;
-        } else {
-            $this->todays_count = 1;
-        }
-        $this->last_date = Carbon::now();
-        $this->save();
     }
 
     private function checkLastDate()
@@ -49,6 +50,20 @@ class PomodoroTask extends Model
             return false;
         }
     }
+
+    private function increaseCount()
+    {
+        $this->pomodoro_count += 1;
+
+        if ($this->checkLastDate()) {
+            $this->todays_count += 1;
+        } else {
+            $this->todays_count = 1;
+        }
+        $this->last_date = Carbon::now();
+        $this->save();
+    }
+
     private function calculateExp()
     {
         $todays_count = $this->todays_count;

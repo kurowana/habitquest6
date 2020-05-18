@@ -19,7 +19,7 @@
                         ></func-button>
                     </td>
                     <td>{{ task.habit_name }}</td>
-                    <td>{{ task.count }}</td>
+                    <td>{{ task.habit_count }}</td>
                     <td>
                         <func-button
                             :button-text="'削除'"
@@ -55,6 +55,7 @@ export default {
                 })
                 .then(res => {
                     this.$emit("change-habit");
+                    this.$store.commit("setSe", "決定、ボタン押下4.mp3");
                 });
         },
         deleteHabit: function(task) {

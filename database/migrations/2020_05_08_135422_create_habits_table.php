@@ -16,8 +16,9 @@ class CreateHabitsTable extends Migration
         Schema::create('habits', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('habit_name');
-            $table->bigInteger('count')->default(0);
-            $table->date('last_date')->nullable();
+            $table->bigInteger('habit_count')->default(0);
+            $table->bigInteger('todays_count')->default(0);
+            $table->dateTime('last_date')->nullable();
             $table->timestamps();
         });
     }

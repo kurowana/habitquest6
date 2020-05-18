@@ -17,9 +17,20 @@ class HabitController extends Controller
     public function getMyHabit(Request $request)
     {
         $user_id = Auth::id();
-        $my_habit = Habit::where('user_id', $user_id)->get();
 
-        return response($my_habit);
+        DB::beginTransaction();
+
+        try {
+            $habit = new Habit;
+            $my_habits = $habit->getMyHabit($user_id);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            Log::debug($e);
+            DB::rollback();
+        }
+
+        return response($my_habits);
     }
 
     public function insertHabit(Request $request)
