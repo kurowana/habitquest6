@@ -17,9 +17,19 @@ class PomodoroTaskController extends Controller
     public function getMyPomodoro()
     {
         $user_id = Auth::id();
-        $my_pomodoro = PomodoroTask::where('user_id', $user_id)->get();
+        // $my_pomodoro = PomodoroTask::where('user_id', $user_id)->get();
 
-        return response($my_pomodoro);
+        try {
+            $pomodoro = new PomodoroTask;
+            $my_pomodoros = $pomodoro->getMyPomodoro($user_id);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            Log::debug($e);
+            DB::rollback();
+        }
+
+        return response($my_pomodoros);
     }
 
     public function insertPomodoro(Request $request)

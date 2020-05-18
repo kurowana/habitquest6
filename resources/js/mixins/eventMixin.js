@@ -67,7 +67,7 @@ export default {
         },
         $_setTalk(name, text, pos) {
             for (let k of Object.keys(this.eventState.npc)) {
-                if ((k = pos)) {
+                if (k === pos) {
                     this.eventState.npc[k].opacity = 1;
                     this.eventState.npc[k].zIndex = 10;
                     this.eventState.message.name = name;
@@ -144,6 +144,7 @@ export default {
             if (this.eventState.isSceneEnd) {
                 this.eventState.sceneNo++;
                 this.eventState.isSceneEnd = false;
+                this.$store.commit("setSe", "パッ.mp3");
             }
         },
 

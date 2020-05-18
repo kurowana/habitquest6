@@ -29,10 +29,10 @@ export default {
                     vm.$_setNpcMotion("right-slide", "L");
                 },
                 function(vm) {
-                    vm.$_setTalk("ゼノビア", "トーク関数テスト");
+                    vm.$_setTalk("ゼノビア", "トーク関数テスト", "R");
                 },
                 function(vm) {
-                    vm.$_setTalk("ヤナギ", "トーク関数テスト、切り替え");
+                    vm.$_setTalk("ヤナギ", "トーク関数テスト、切り替え", "L");
                 },
                 function(vm) {
                     vm.$_resetNpcImg();

@@ -136,10 +136,7 @@ export default {
                         "pomodoro_count",
                         this.currentPomodoro.pomodoro_count + 1
                     );
-                    const target = this.myPomdoro.find(
-                        obj => obj.id == this.currentPomodoro.id
-                    );
-                    target.pomodoro_count++;
+                    this.initUnit();
                 });
         }
     }
