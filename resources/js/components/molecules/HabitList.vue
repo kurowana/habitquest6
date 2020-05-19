@@ -15,6 +15,7 @@
                     <td>
                         <func-button
                             :button-text="'実行'"
+                            :click-sound="'決定、ボタン押下4.mp3'"
                             @click-event="finishHabit(task)"
                         ></func-button>
                     </td>
@@ -34,7 +35,6 @@
 
 <script>
 import axios from "axios";
-
 import FuncButton from "../atoms/FuncButton";
 
 export default {
@@ -55,7 +55,6 @@ export default {
                 })
                 .then(res => {
                     this.$emit("change-habit");
-                    this.$store.commit("setSe", "決定、ボタン押下4.mp3");
                 });
         },
         deleteHabit: function(task) {

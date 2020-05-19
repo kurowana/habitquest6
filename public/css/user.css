@@ -1,4 +1,6 @@
 /* 全体適用のスタイル */
+
+/*スクロールバーのスタイル*/
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -7,6 +9,45 @@
     border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb {
-    background: gold;
+    background: #53aeff;
     border-radius: 10px;
+}
+
+/*スライダーのスタイル*/
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    outline: none;
+    height: 12px;
+    width: 200px;
+    background: #8acdff;
+    border-radius: 10px;
+    border: solid 3px #dff1ff;
+}
+/* WebKit向けのつまみ */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background: #53aeff;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.15);
+}
+/* Moz向けのつまみ */
+input[type="range"]::-moz-range-thumb {
+    background: #53aeff;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.15); /* 影 */
+    border: none;
+}
+/* Firefoxで点線が周りに表示されてしまう問題の解消 */
+input[type="range"]::-moz-focus-outer {
+    border: 0;
+}
+/* つまみをドラッグしているときのスタイル */
+input[type="range"]:active::-webkit-slider-thumb {
+    box-shadow: 0px 5px 10px -2px rgba(0, 0, 0, 0.3);
 }
