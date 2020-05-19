@@ -8,11 +8,17 @@ export default {
         buttonText: {
             type: String,
             required: true
+        },
+        clickSound: {
+            type: String,
+            required: false,
+            default: "クリック.mp3"
         }
     },
     methods: {
         doClickEvent: function() {
             this.$emit("click-event");
+            this.$store.commit("setSe", this.clickSound);
         }
     }
 };

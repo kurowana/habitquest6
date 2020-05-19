@@ -9,10 +9,16 @@ const state = {
 
     sound: {
         isPlay: false,
-        bgmDir: "./sounds/bgm/",
-        bgmPath: "./sounds/bgm/bgm_maoudamashii_fantasy01.mp3",
-        seDir: "./sounds/se/",
-        sePath: "./sounds/se/決定、ボタン押下4.mp3"
+        bgm: {
+            dir: "./sounds/bgm/",
+            path: "./sounds/bgm/bgm_maoudamashii_fantasy01.mp3",
+            volume: 0.1
+        },
+        se: {
+            dir: "./sounds/se/",
+            path: "./sounds/se/決定、ボタン押下4.mp3",
+            volume: 0.2
+        }
     }
 };
 const getters = {
@@ -37,12 +43,18 @@ const mutations = {
         state.sound.isPlay = boolean;
     },
     setBgm(state, path) {
-        state.sound.bgmPath = "";
-        state.sound.bgmPath = state.sound.bgmDir + path;
+        state.sound.bgm.path = "";
+        state.sound.bgm.path = state.sound.bgm.dir + path;
     },
     setSe(state, path) {
-        state.sound.sePath = "";
-        state.sound.sePath = state.sound.seDir + path;
+        state.sound.se.path = "";
+        state.sound.se.path = state.sound.se.dir + path;
+    },
+    setBgmVolume(state, volume) {
+        state.sound.bgm.volume = volume;
+    },
+    setSeVolume(state, volume) {
+        state.sound.se.volume = volume;
     }
 };
 export default {

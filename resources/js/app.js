@@ -11,8 +11,8 @@ import AppBase from "./components/AppBase.vue";
 import WelcomeBase from "./components/WelcomeBase.vue";
 
 Vue.directive("bgm", function(el, binding) {
-    if (binding.value) {
-        el.volume = 0.05;
+    if (binding.value.isPlay) {
+        el.volume = binding.value.bgm.volume;
         el.play();
     } else {
         el.pause();
@@ -20,8 +20,8 @@ Vue.directive("bgm", function(el, binding) {
 });
 
 Vue.directive("se", function(el, binding) {
-    if (binding.value) {
-        el.volume = 0.2;
+    if (binding.value.isPlay) {
+        el.volume = binding.value.bgm.volume;
         el.currentTime = 0;
         el.play();
     } else {
