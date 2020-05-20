@@ -14,6 +14,10 @@ export default {
                     name: " ",
                     text: " "
                 },
+                selection: {
+                    isShow: false,
+                    content: null
+                },
                 npc: {
                     L: {
                         name: "",
@@ -55,29 +59,125 @@ export default {
         };
     },
     methods: {
-        // メッセージ表示関係
-        $_setMessage(name, text) {
-            this.eventState.message.name = name;
-            this.eventState.message.text = text;
+        //イベントタイプに応じた処理の振り分け
+        $_setEvent(event) {
+            if (event.type) {
+                switch (event.type) {
+                    case "msg":
+                        this.$_messageEvent(event.content);
+                        break;
+                    case "talk":
+                        this.$_talkEvent(
+                            event.content.text,
+                            event.content.name,
+                            event.content.pos
+                        );
+                        break;
+                    case "select":
+                        this.$_selectEvent(event.content);
+                        break;
+                    default:
+                        this.$_eventError();
+                        break;
+                }
+            } else {
+                this.$_eventError();
+            }
+        },
+        //メッセージウィンドウへの文章表示処理
+        $_messageEvent(text) {
+            if (typeof text === "string") {
+                // 同じ文が続く場合、文の変更および完了イベントが発火しないので対応
+                if (this.eventState.message.text == text) {
+                    this.eventState.isSceneEnd = true;
+                }
+                this.eventState.message.text = text;
+            } else {
+                this.$_eventError();
+            }
         },
 
+        // 話し手が存在するメッセージ処理。対象キャラの名前表示、強調表示つき
+        $_talkEvent(text, name, pos) {
+            this.$_messageEvent(text);
+            this.$_setTalkerName(name);
+            this.$_toBackAllCharacter();
+            this.$_toForwardCharacter(pos);
+        },
+
+        $_selectEvent(selection) {
+            if (Array.isArray(selection)) {
+                this.$set(this.eventState.selection, "content", selection);
+                this.eventState.selection.isShow = true;
+            }
+        },
+
+        //メッセージウィンドウの名前欄の表示処理
+        $_setTalkerName(name) {
+            if (typeof name === "string") {
+                this.eventState.message.name = " ";
+            } else {
+                this.$_eventError();
+            }
+        },
+        //キャラクターの不透明度、重ね順に関する処理
+        $_toForwardCharacter(pos) {
+            if (
+                pos === "L" ||
+                pos === "LC" ||
+                pos === "C" ||
+                pos === "RC" ||
+                pos === "R"
+            ) {
+                this.eventState.npc[pos].opacity = 1;
+                this.eventState.npc[pos].zIndex = 10;
+            } else {
+                this.$_eventError();
+            }
+        },
+        $_toForwardAllCharacter() {
+            for (let k of Object.keys(this.eventState.npc)) {
+                this.eventState.npc[k].opacity = 1;
+                this.eventState.npc[k].zIndex = 10;
+                this.eventState.npc[k].motion = "none";
+                this.eventState.npc[k].effect = "none";
+            }
+        },
+        $_toBackCharacter(pos) {
+            if (
+                pos === "L" ||
+                pos === "LC" ||
+                pos === "C" ||
+                pos === "RC" ||
+                pos === "R"
+            ) {
+                this.eventState.npc[pos].opacity = 0.8;
+                this.eventState.npc[pos].zIndex = 5;
+            } else {
+                this.$_eventError();
+            }
+        },
+        $_toBackAllCharacter() {
+            for (let k of Object.keys(this.eventState.npc)) {
+                this.eventState.npc[k].opacity = 0.8;
+                this.eventState.npc[k].zIndex = 5;
+                this.eventState.npc[k].motion = "none";
+                this.eventState.npc[k].effect = "none";
+            }
+        },
+
+        //メッセージウィンドウの初期化処理
         $_resetMessage() {
             this.eventState.message.name = " ";
             this.eventState.message.text = " ";
         },
-        $_setTalk(name, text, pos) {
-            for (let k of Object.keys(this.eventState.npc)) {
-                if (k === pos) {
-                    this.eventState.npc[k].opacity = 1;
-                    this.eventState.npc[k].zIndex = 10;
-                    this.eventState.message.name = name;
-                    this.eventState.message.text = text;
-                } else {
-                    this.eventState.npc[k].opacity = 0.8;
-                    this.eventState.npc[k].zIndex = 5;
-                }
-            }
+
+        //イベント処理中に発生したエラーの共通処理
+        $_eventError() {
+            console.log("不正なイベントデータです");
         },
+
+        // メッセージ表示関係　旧イベント
 
         // NPC画像表示系
         $_setNpcImg(name, pos) {
@@ -123,6 +223,8 @@ export default {
             await this.$_sleep(500);
             this.eventState.place.current = place;
             this.eventState.place.isShow = true;
+            await this.$_sleep(500);
+            this.eventState.isSceneEnd = true;
         },
 
         //NPC画像のモーション
@@ -144,7 +246,7 @@ export default {
             if (this.eventState.isSceneEnd) {
                 this.eventState.sceneNo++;
                 this.eventState.isSceneEnd = false;
-                this.$store.commit("setSe", "パッ.mp3");
+                this.$store.commit("setSe", "クリック.mp3");
             }
         },
 

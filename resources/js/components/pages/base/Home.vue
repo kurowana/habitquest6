@@ -16,17 +16,51 @@ export default {
             eventObj: [
                 // 引数vmは、子コンポーネントのthis
                 function(vm) {
-                    vm.$_setMessage("スフィア", "これはホームイベントです");
+                    vm.$_setEvent({
+                        type: "msg",
+                        content: "シンプルなメッセージ"
+                    });
                     vm.$_setNpcImg("スフィア1", "L");
                 },
                 function(vm) {
-                    vm.$_setMessage("ナタ", "キャラクター追加");
+                    vm.$_setEvent({
+                        type: "talk",
+                        content: {
+                            text: "トークイベント検証",
+                            name: "ナタ",
+                            pos: "LC"
+                        }
+                    });
                     vm.$_setNpcImg("ナタ", "LC");
                 },
                 function(vm) {
-                    vm.$_setMessage("ゼノビア", "左右判定テスト");
-                    vm.$_setNpcImg("ゼノビア", "R");
+                    vm.$_setEvent({
+                        type: "select",
+                        content: [
+                            {
+                                text: "選択肢1",
+                                event: () => {
+                                    vm.$_setEvent({
+                                        type: "msg",
+                                        content: "選択肢1"
+                                    });
+                                }
+                            },
+                            {
+                                text: "選択肢2",
+                                event: () => {
+                                    vm.$_setEvent({
+                                        type: "msg",
+                                        content: "選択肢2"
+                                    });
+                                }
+                            }
+                        ]
+                    });
                     vm.$_setNpcMotion("right-slide", "L");
+                },
+                function(vm) {
+                    vm.$_setEventPlace("街");
                 },
                 function(vm) {
                     vm.$_setTalk("ゼノビア", "トーク関数テスト", "R");
