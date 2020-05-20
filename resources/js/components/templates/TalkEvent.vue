@@ -1,11 +1,14 @@
 <template>
     <div>
+        <div>シーン{{ this.eventState.isSceneEnd }}</div>
+        <div>メッセージ{{ this.eventState.isMessageEnd }}</div>
         <game-menu></game-menu>
         <div @click="$_clickEventViewer">
             <talk-event-unit
                 :event-state="eventState"
                 @msg-changed="$_changeMessageEndFlag(false)"
                 @msg-completed="$_changeMessageEndFlag(true)"
+                @select-completed="completeSelection"
             ></talk-event-unit>
         </div>
         <pomodoro-unit></pomodoro-unit>
@@ -53,7 +56,12 @@ export default {
             this.$_getCurrentEvent();
         }
     },
-    methods: {}
+    methods: {
+        completeSelection: function(event) {
+            event();
+            this.eventState.selection.isShow = false;
+        }
+    }
 };
 </script>
 
