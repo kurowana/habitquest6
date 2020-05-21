@@ -59,6 +59,26 @@ export default {
         };
     },
     methods: {
+        //イベント進行管理
+        $_getCurrentEvent() {
+            const vm = this;
+            this.eventObj[this.eventState.sceneNo](vm);
+        },
+
+        $_clickEventViewer() {
+            if (this.eventState.isSceneEnd) {
+                this.eventState.sceneNo++;
+                this.eventState.isSceneEnd = false;
+                this.$store.commit("setSe", "クリック.mp3");
+            }
+        },
+
+        $_changeMessageEndFlag(boolean) {
+            this.eventState.isMessageEnd = boolean;
+            if (boolean) {
+                this.eventState.isSceneEnd = boolean;
+            }
+        },
         //イベントタイプに応じた処理の振り分け
         $_setEvent(event) {
             if (event.type) {
@@ -75,6 +95,12 @@ export default {
                         break;
                     case "select":
                         this.$_selectEvent(event.content);
+                        break;
+                    case "place":
+                        this.$_changePlaceEvent(
+                            event.content.place,
+                            event.content.text
+                        );
                         break;
                     default:
                         this.$_eventError();
@@ -112,15 +138,68 @@ export default {
             }
         },
 
-        //メッセージウィンドウの名前欄の表示処理
-        $_setTalkerName(name) {
-            if (typeof name === "string") {
-                this.eventState.message.name = " ";
-            } else {
-                this.$_eventError();
+        async $_changePlaceEvent(place, text) {
+            this.$_setPlace(place);
+            await this.$_sleep(1000);
+            this.$_messageEvent(text);
+        },
+
+        // キャラクター画像表示系
+        $_setNpcImg(name, pos) {
+            this.eventState.npc[pos].name = name;
+        },
+
+        $_resetNpcImg() {
+            for (let k of Object.keys(this.eventState.npc)) {
+                this.eventState.npc[k].name = "";
+                this.eventState.npc[k].opacity = 1;
+                this.eventState.npc[k].zIndex = 10;
+                this.eventState.npc[k].motion = "none";
+                this.eventState.npc[k].effect = 1;
             }
         },
-        //キャラクターの不透明度、重ね順に関する処理
+        $_setOpacity(pos, value) {
+            this.eventState.npc[pos].opacity = value;
+        },
+        $_resetOpacity(pos) {
+            this.eventState.npc[pos].opacity = 1;
+        },
+        $_resetAllOpacitye() {
+            for (let k of Object.keys(this.eventState.npc)) {
+                this.eventState.npc[k].opacity = 1;
+            }
+        },
+        $_setZIndex(pos, value) {
+            this.eventState.npc[pos].zIndex = value;
+        },
+        $_resetZIndex(pos) {
+            this.eventState.npc[pos].zIndex = 10;
+        },
+        $_resetAllZIndex() {
+            for (let k of Object.keys(this.eventState.npc)) {
+                this.eventState.npc[k].zIndex = 10;
+            }
+        },
+
+        //NPC画像のモーション
+        $_setNpcMotion(motion, pos) {
+            for (let k of Object.keys(this.eventState.npc)) {
+                this.eventState.npc[k].zIndex = 10;
+            }
+            this.eventState.npc[pos].zIndex = 20;
+            this.eventState.npc[pos].motion = motion;
+        },
+
+        //NPC画像のエフェクト
+        $_setNpcEffect(effect, pos) {
+            for (let k of Object.keys(this.eventState.npc)) {
+                this.eventState.npc[k].zIndex = 10;
+            }
+            this.eventState.npc[pos].zIndex = 20;
+            this.eventState.npc[pos].effect = effect;
+        },
+
+        //Talk処理用の重ね順、不透明度一括処理
         $_toForwardCharacter(pos) {
             if (
                 pos === "L" ||
@@ -166,95 +245,33 @@ export default {
             }
         },
 
+        //メッセージウィンドウの名前欄の表示処理
+        $_setTalkerName(name) {
+            if (typeof name === "string") {
+                this.eventState.message.name = name;
+            } else {
+                this.$_eventError();
+            }
+        },
+
         //メッセージウィンドウの初期化処理
         $_resetMessage() {
             this.eventState.message.name = " ";
             this.eventState.message.text = " ";
         },
 
-        //イベント処理中に発生したエラーの共通処理
-        $_eventError() {
-            console.log("不正なイベントデータです");
-        },
-
-        // メッセージ表示関係　旧イベント
-
-        // NPC画像表示系
-        $_setNpcImg(name, pos) {
-            this.eventState.npc[pos].name = name;
-        },
-
-        $_resetNpcImg() {
-            for (let k of Object.keys(this.eventState.npc)) {
-                this.eventState.npc[k].name = "";
-                this.eventState.npc[k].opacity = 1;
-                this.eventState.npc[k].zIndex = 10;
-                this.eventState.npc[k].motion = "none";
-                this.eventState.npc[k].effect = 1;
-            }
-        },
-        $_setOpacity(pos, value) {
-            this.eventState.npc[pos].opacity = value;
-        },
-        $_resetOpacity(pos) {
-            this.eventState.npc[pos].opacity = 1;
-        },
-        $_resetAllOpacitye() {
-            for (let k of Object.keys(this.eventState.npc)) {
-                this.eventState.npc[k].opacity = 1;
-            }
-        },
-        $_setZIndex(pos, value) {
-            this.eventState.npc[pos].zIndex = value;
-        },
-        $_resetZIndex(pos) {
-            this.eventState.npc[pos].zIndex = 10;
-        },
-        $_resetAllZIndex() {
-            for (let k of Object.keys(this.eventState.npc)) {
-                this.eventState.npc[k].zIndex = 10;
-            }
-        },
-
         // 舞台演出関連
-        async $_setEventPlace(place) {
+        async $_setPlace(place) {
             this.eventState.place.next = place;
             this.eventState.place.isShow = false;
             await this.$_sleep(500);
             this.eventState.place.current = place;
             this.eventState.place.isShow = true;
-            await this.$_sleep(500);
-            this.eventState.isSceneEnd = true;
         },
 
-        //NPC画像のモーション
-        $_setNpcMotion(motion, pos) {
-            for (let k of Object.keys(this.eventState.npc)) {
-                this.eventState.npc[k].zIndex = 10;
-            }
-            this.eventState.npc[pos].zIndex = 20;
-            this.eventState.npc[pos].motion = motion;
-        },
-
-        //イベント進行管理
-        $_getCurrentEvent() {
-            const vm = this;
-            this.eventObj[this.eventState.sceneNo](vm);
-        },
-
-        $_clickEventViewer() {
-            if (this.eventState.isSceneEnd) {
-                this.eventState.sceneNo++;
-                this.eventState.isSceneEnd = false;
-                this.$store.commit("setSe", "クリック.mp3");
-            }
-        },
-
-        $_changeMessageEndFlag(boolean) {
-            this.eventState.isMessageEnd = boolean;
-            if (boolean) {
-                this.eventState.isSceneEnd = boolean;
-            }
+        //イベント処理中に発生したエラーの共通処理
+        $_eventError() {
+            console.log("不正なイベントデータです");
         }
     }
 };

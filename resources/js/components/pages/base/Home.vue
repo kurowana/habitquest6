@@ -22,16 +22,18 @@ export default {
                     });
                     vm.$_setNpcImg("スフィア1", "L");
                 },
-                function(vm) {
+                async function(vm) {
                     vm.$_setEvent({
                         type: "talk",
                         content: {
                             text: "トークイベント検証",
-                            name: "ナタ",
-                            pos: "LC"
+                            name: "スフィア",
+                            pos: "L"
                         }
                     });
-                    vm.$_setNpcImg("ナタ", "LC");
+
+                    vm.$_setNpcMotion("right-slide", "L");
+                    vm.$_setNpcEffect("death", "L");
                 },
                 function(vm) {
                     vm.$_setEvent({
@@ -57,10 +59,15 @@ export default {
                             }
                         ]
                     });
-                    vm.$_setNpcMotion("right-slide", "L");
                 },
                 function(vm) {
-                    vm.$_setEventPlace("街");
+                    vm.$_setEvent({
+                        type: "place",
+                        content: {
+                            place: "街",
+                            text: "場面転換"
+                        }
+                    });
                 },
                 function(vm) {
                     vm.$_setTalk("ゼノビア", "トーク関数テスト", "R");
