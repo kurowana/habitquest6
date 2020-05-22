@@ -4,11 +4,10 @@
         <div @click="$_clickEventViewer">
             <battle-event-unit
                 :event-state="eventState"
-                :monster-obj="monsterObj"
+                :monster-obj="monster"
                 @msg-changed="$_changeMessageEndFlag(false)"
                 @msg-completed="$_changeMessageEndFlag(true)"
             ></battle-event-unit>
-            <bar class="test"></bar>
         </div>
     </div>
 </template>
@@ -21,14 +20,10 @@ import baseMixin from "../../mixins/baseMixin";
 import eventMixin from "../../mixins/eventMixin";
 import battleMixin from "../../mixins/battleMixin";
 
-import Bar from "../atoms/chart/bar";
-
 export default {
     components: {
         "battle-event-unit": BattleEventUnit,
-        "game-menu": GameMenu,
-
-        bar: Bar
+        "game-menu": GameMenu
     },
     mixins: [baseMixin, eventMixin, battleMixin],
     props: {

@@ -13,7 +13,15 @@ use App\Models\Status;
 class CharacterController extends Controller
 {
     //
-    public function insertStatus(Request $request)
+    public function getMyStatus()
+    {
+        $user_id = Auth::id();
+        $status = Status::where('user_id', $user_id)->first();
+
+        return response($status);
+    }
+
+    public function insertMyStatus(Request $request)
     {
 
         $char_status = null;
@@ -27,7 +35,7 @@ class CharacterController extends Controller
             $user->is_setup = true;
             $user->save();
 
-            $char_status = $user->status()->firstOrCreate(
+            $status = $user->status()->firstOrCreate(
                 ['user_id' => $user_id],
                 [
                     'str' => $request->status_obj['STR'],
@@ -46,6 +54,27 @@ class CharacterController extends Controller
             DB::rollBack();
         }
 
-        return response($char_status);
+        return response($status);
+    }
+
+    public function updateMyStatus(Request $request)
+    {
+        $user_id = Auth::id();
+        $status = Status::where('user_id', $user_id)->first();
+
+        DB::beginTransaction();
+        try {
+            foreach ($request->status as $key => $value) {
+                $status[$key] = $value;
+            }
+            $status->save();
+
+            DB::commit();
+        } catch (\Exception $e) {
+            Log::debug($e);
+            DB::rollBack();
+        }
+
+        return response($status);
     }
 }

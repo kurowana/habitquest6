@@ -171,7 +171,7 @@ export default {
         },
         registerChar: function() {
             axios
-                .post("./register_char", {
+                .post("./insert_my_status", {
                     char_img: this.tempCharImg,
                     status_obj: this.tempStatus
                 })
