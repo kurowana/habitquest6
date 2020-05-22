@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 
 import Home from "./components/pages/base/Home.vue";
+import UserStatus from "./components/pages/base/UserStatus.vue";
 
 import Opening from "./components/pages/events/Opening.vue";
 
@@ -22,6 +23,13 @@ const routes = [
         name: "home",
         components: {
             gameUnit: Home
+        }
+    },
+    {
+        path: "/status",
+        name: "status",
+        components: {
+            gameUnit: UserStatus
         }
     },
     // イベント関連

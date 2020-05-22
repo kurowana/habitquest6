@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="battle-viewer">
         <monster-img :monster="monsterObj"></monster-img>
     </div>
 </template>
@@ -19,3 +19,8 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+.battle-viewer {
+}
+</style>

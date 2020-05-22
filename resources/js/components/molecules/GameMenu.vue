@@ -5,6 +5,10 @@
             button-text="ホーム"
         ></menu-button>
         <menu-button
+            @click-event="this.toStatus"
+            button-text="ステータス"
+        ></menu-button>
+        <menu-button
             @click-event="this.toOpening"
             button-text="オープニング"
         ></menu-button>
@@ -31,6 +35,9 @@ export default {
         },
         toDungeon: function() {
             this.$router.push({ name: "dungeon" }).catch(err => {});
+        },
+        toStatus: function() {
+            this.$router.push({ name: "status" }).catch(err => {});
         }
     }
 };

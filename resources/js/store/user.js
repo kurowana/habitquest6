@@ -1,12 +1,35 @@
 const state = {
     // ユーザーのログイン情報、ステータスの保存
-    isLogin: false,
     user: {
         id: "",
         name: "",
-        lv: 0,
-        point: 0,
         status: {
+            lv: 0,
+            point: 0,
+            stage: 0,
+            str: 0,
+            agi: 0,
+            vit: 0,
+            int: 0,
+            dex: 0,
+            luc: 0
+        },
+        battle_status: {
+            hp: 0,
+            mp: 0,
+            atk: 0,
+            matk: 0,
+            def: 0,
+            mdef: 0,
+            spd: 0,
+            hit: 0,
+            avd: 0,
+            cri: 0
+        },
+        check_status: {
+            lv: 0,
+            point: 0,
+            stage: 0,
             str: 0,
             agi: 0,
             vit: 0,
@@ -142,9 +165,6 @@ const state = {
     }
 };
 const getters = {
-    getLoginFlag: state => {
-        return state.isLogin;
-    },
     getUser: state => {
         return state.user;
     },
@@ -159,20 +179,41 @@ const getters = {
     }
 };
 const mutations = {
-    setLoginFlag(state, boolean) {
-        state.isLogin = boolean;
-    },
     setUser(state, user) {
         state.user.id = user.id;
         state.user.name = user.name;
-        state.user.lv = user.lv;
-        state.user.point = user.point;
-        state.user.status.str = user.status.str;
-        state.user.status.agi = user.status.agi;
-        state.user.status.vit = user.status.vit;
-        state.user.status.int = user.status.int;
-        state.user.status.dex = user.status.dex;
-        state.user.status.luc = user.status.luc;
+    },
+    setStatus(state, status) {
+        for (let k of Object.keys(state.user.status)) {
+            state.user.status[k] = status[k];
+        }
+        for (let k of Object.keys(state.user.check_status)) {
+            state.user.check_status[k] = status[k];
+        }
+        state.user.battle_status.hp = status.vit * 10;
+        state.user.battle_status.mp = status.int * 10;
+        state.user.battle_status.atk = status.str * 3;
+        state.user.battle_status.matk = status.int * 3;
+        state.user.battle_status.def = status.vit * 2;
+        state.user.battle_status.mdef = status.vit + status.int;
+        state.user.battle_status.spd = status.agi * 2;
+        state.user.battle_status.hit =
+            100 + Math.ceil(status.agi / 10) + Math.ceil(status.luc / 10);
+        state.user.battle_status.avd =
+            100 + Math.ceil(status.agi / 10) + Math.ceil(status.luc / 10);
+        state.user.battle_status.cri = 5 + Math.ceil(status.luc / 10);
+    },
+    increaseStatus(state, type) {
+        if (state.user.status.point > 0) {
+            state.user.status[type]++;
+            state.user.status.point--;
+        }
+    },
+    decreaseStatus(state, type) {
+        if (state.user.status[type] > state.user.check_status[type]) {
+            state.user.status[type]--;
+            state.user.status.point++;
+        }
     }
 };
 export default {

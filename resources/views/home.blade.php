@@ -3,7 +3,8 @@
 @section('content')
 
 @if (Auth::check())
-<app-base user-id="{{Auth::user()['id']}}" is-setup="{{Auth::user()['is_setup']}}"></app-base>
+<app-base user-info="{{Auth::user()}}">
+</app-base>
 @else
 <welcome-base></welcome-base>
 @endif
