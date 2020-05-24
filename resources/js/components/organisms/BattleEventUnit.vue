@@ -2,12 +2,24 @@
   <div class="event-container">
     <bg-viewer class="bg-container" :bg-img-obj="eventState.place"></bg-viewer>
 
-    <battle-window></battle-window>
+    <life-window
+      class="life-window-container"
+      :current-hp="userObj.battleStatus.currentHp"
+      :max-hp="userObj.battleStatus.hp"
+      :current-mp="userObj.battleStatus.currentMp"
+      :max-mp="userObj.battleStatus.mp"
+    ></life-window>
+    <life-window
+      class="life-window-container"
+      :current-hp="monsterObj.status.currentHp"
+      :max-hp="monsterObj.status.hp"
+      :current-mp="monsterObj.status.currentMp"
+      :max-mp="monsterObj.status.mp"
+    ></life-window>
     <div class="char-img-container">
       <npc-viewer :displaying-npc="eventState.npc"></npc-viewer>
     </div>
     <div class="battle-area-container">
-      {{monsterObj}}
       <battle-viewer :monsterObj="monsterObj"></battle-viewer>
     </div>
     <div class="msg-window-container">
@@ -25,12 +37,14 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 import NpcViewer from "../molecules/NpcViewer";
 import BattleViewer from "../molecules/BattleViewer";
 import MsgWindow from "../molecules/MsgWindow";
 import BgViewer from "../molecules/BgViewer";
-import BattleWindow from "../molecules/BattleWindow";
 import CommandMenu from "../molecules/CommandMenu";
+import LifeWindow from "../molecules/LifeWindow";
 
 export default {
   components: {
@@ -38,8 +52,8 @@ export default {
     "battle-viewer": BattleViewer,
     "msg-window": MsgWindow,
     "bg-viewer": BgViewer,
-    "battle-window": BattleWindow,
-    "command-menu": CommandMenu
+    "command-menu": CommandMenu,
+    "life-window": LifeWindow
   },
   props: {
     eventState: {
@@ -54,7 +68,11 @@ export default {
   data: function() {
     return {};
   },
-  computed: {},
+  computed: {
+    ...mapGetters({
+      userObj: "getUser"
+    })
+  },
   methods: {
     hasCompletedText: function() {
       this.$emit("msg-completed");
@@ -64,6 +82,7 @@ export default {
     },
     reciveCommand: function(command) {
       console.log(command);
+      this.$emit("attack");
     }
   }
 };
@@ -98,6 +117,10 @@ export default {
   z-index: 100;
 }
 
+.life-window-container {
+  position: relative;
+  z-index: 100;
+}
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.2s;

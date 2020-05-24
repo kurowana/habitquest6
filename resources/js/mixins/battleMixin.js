@@ -5,6 +5,9 @@ export default {
                 name: "",
                 status: {
                     hp: 100,
+                    currentHp: 100,
+                    mp: 100,
+                    currentMp: 100,
                     atk: 10,
                     matk: 10,
                     def: 10,
@@ -30,6 +33,12 @@ export default {
             for (let i of Object.keys(list[index].status)) {
                 this.monster.status[i] = list[index].status[i];
             }
+            this.monster.status.currentHp = this.monster.status.hp;
+            this.monster.status.currentMp = this.monster.status.mp;
+        },
+
+        $_attack: function(value) {
+            this.monster.status.currentHp -= value;
         }
     }
 };

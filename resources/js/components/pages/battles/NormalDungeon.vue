@@ -27,6 +27,7 @@ export default {
           name: "インプ",
           status: {
             hp: 150,
+            mp: 100,
             atk: 20,
             matk: 10,
             def: 10,
@@ -42,6 +43,7 @@ export default {
           name: "スライム",
           status: {
             hp: 100,
+            mp: 100,
             atk: 10,
             matk: 10,
             def: 20,
@@ -59,6 +61,7 @@ export default {
           name: "堕天使",
           status: {
             hp: 300,
+            mp: 100,
             atk: 20,
             matk: 20,
             def: 20,
