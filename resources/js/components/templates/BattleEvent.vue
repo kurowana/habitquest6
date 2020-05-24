@@ -7,6 +7,7 @@
         :monster-obj="monster"
         @msg-changed="$_changeMessageEndFlag(false)"
         @msg-completed="$_changeMessageEndFlag(true)"
+        @attack="attackTest"
       ></battle-event-unit>
     </div>
   </div>
@@ -55,7 +56,11 @@ export default {
       this.$_getCurrentEvent();
     }
   },
-  methods: {}
+  methods: {
+    attackTest: function() {
+      this.$_attack(30);
+    }
+  }
 };
 </script>
 

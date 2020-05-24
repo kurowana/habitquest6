@@ -14,9 +14,11 @@ const state = {
             dex: 0,
             luc: 0
         },
-        battle_status: {
+        battleStatus: {
             hp: 0,
+            currentHp: 0,
             mp: 0,
+            currentMp: 0,
             atk: 0,
             matk: 0,
             def: 0,
@@ -26,7 +28,7 @@ const state = {
             avd: 0,
             cri: 0
         },
-        check_status: {
+        checkStatus: {
             lv: 0,
             point: 0,
             stage: 0,
@@ -187,21 +189,23 @@ const mutations = {
         for (let k of Object.keys(state.user.status)) {
             state.user.status[k] = status[k];
         }
-        for (let k of Object.keys(state.user.check_status)) {
-            state.user.check_status[k] = status[k];
+        for (let k of Object.keys(state.user.checkStatus)) {
+            state.user.checkStatus[k] = status[k];
         }
-        state.user.battle_status.hp = status.vit * 10;
-        state.user.battle_status.mp = status.int * 10;
-        state.user.battle_status.atk = status.str * 3;
-        state.user.battle_status.matk = status.int * 3;
-        state.user.battle_status.def = status.vit * 2;
-        state.user.battle_status.mdef = status.vit + status.int;
-        state.user.battle_status.spd = status.agi * 2;
-        state.user.battle_status.hit =
+        state.user.battleStatus.hp = status.vit * 10;
+        state.user.battleStatus.currentHp = status.vit * 10;
+        state.user.battleStatus.mp = status.int * 10;
+        state.user.battleStatus.currentMp = status.int * 10;
+        state.user.battleStatus.atk = status.str * 3;
+        state.user.battleStatus.matk = status.int * 3;
+        state.user.battleStatus.def = status.vit * 2;
+        state.user.battleStatus.mdef = status.vit + status.int;
+        state.user.battleStatus.spd = status.agi * 2;
+        state.user.battleStatus.hit =
             100 + Math.ceil(status.agi / 10) + Math.ceil(status.luc / 10);
-        state.user.battle_status.avd =
+        state.user.battleStatus.avd =
             100 + Math.ceil(status.agi / 10) + Math.ceil(status.luc / 10);
-        state.user.battle_status.cri = 5 + Math.ceil(status.luc / 10);
+        state.user.battleStatus.cri = 5 + Math.ceil(status.luc / 10);
     },
     increaseStatus(state, type) {
         if (state.user.status.point > 0) {
@@ -210,7 +214,7 @@ const mutations = {
         }
     },
     decreaseStatus(state, type) {
-        if (state.user.status[type] > state.user.check_status[type]) {
+        if (state.user.status[type] > state.user.checkStatus[type]) {
             state.user.status[type]--;
             state.user.status.point++;
         }
