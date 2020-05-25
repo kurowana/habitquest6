@@ -37,8 +37,6 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-
 import NpcViewer from "../molecules/NpcViewer";
 import BattleViewer from "../molecules/BattleViewer";
 import MsgWindow from "../molecules/MsgWindow";
@@ -60,6 +58,10 @@ export default {
       type: Object,
       required: true
     },
+    userObj: {
+      type: Object,
+      required: true
+    },
     monsterObj: {
       type: Object,
       required: true
@@ -67,11 +69,6 @@ export default {
   },
   data: function() {
     return {};
-  },
-  computed: {
-    ...mapGetters({
-      userObj: "getUser"
-    })
   },
   methods: {
     hasCompletedText: function() {
@@ -81,7 +78,6 @@ export default {
       this.$emit("msg-changed");
     },
     reciveCommand: function(command) {
-      console.log(command);
       this.$emit("attack");
     }
   }

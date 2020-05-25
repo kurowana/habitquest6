@@ -65,10 +65,18 @@ export default {
             this.eventObj[this.eventState.sceneNo](vm);
         },
 
-        $_clickEventViewer() {
-            if (this.eventState.isSceneEnd) {
+        $_updateSceneNo() {
+            if (this.eventObj.length > this.eventState.sceneNo + 1) {
                 this.eventState.sceneNo++;
                 this.eventState.isSceneEnd = false;
+            } else {
+                console.log("イベント終了");
+            }
+        },
+
+        $_clickEventViewer() {
+            if (this.eventState.isSceneEnd) {
+                this.$_updateSceneNo();
                 this.$store.commit("setSe", "クリック.mp3");
             }
         },
