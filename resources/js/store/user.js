@@ -218,6 +218,12 @@ const mutations = {
             state.user.status[type]--;
             state.user.status.point++;
         }
+    },
+    decreaseHp: function(state, value) {
+        state.user.battleStatus.currentHp -= value;
+    },
+    decreaseMp: function(state, value) {
+        state.user.battleStatus.currentMp -= value;
     }
 };
 export default {

@@ -4,6 +4,7 @@
     <div @click="$_clickEventViewer">
       <battle-event-unit
         :event-state="eventState"
+        :user-obj="userObj"
         :monster-obj="monster"
         @msg-changed="$_changeMessageEndFlag(false)"
         @msg-completed="$_changeMessageEndFlag(true)"
@@ -14,6 +15,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 import BattleEventUnit from "../organisms/BattleEventUnit";
 import GameMenu from "../molecules/GameMenu";
 
@@ -40,6 +43,11 @@ export default {
       type: Array,
       required: false
     }
+  },
+  computed: {
+    ...mapGetters({
+      userObj: "getUser"
+    })
   },
   mounted: function() {
     // 親ページのイベントオブジェクトから現在シーンの処理を読み込み
