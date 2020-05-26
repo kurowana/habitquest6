@@ -31,7 +31,7 @@
       ></msg-window>
     </div>
     <div class="command-menu">
-      <command-menu @recive-command="reciveCommand"></command-menu>
+      <command-menu v-if="isShowCommand" @recive-command="reciveCommand"></command-menu>
     </div>
   </div>
 </template>
@@ -65,6 +65,10 @@ export default {
     monsterObj: {
       type: Object,
       required: true
+    },
+    isShowCommand: {
+      type: Boolean,
+      required: true
     }
   },
   data: function() {
@@ -78,7 +82,7 @@ export default {
       this.$emit("msg-changed");
     },
     reciveCommand: function(command) {
-      this.$emit("attack");
+      this.$emit("reciveCommand", command);
     }
   }
 };

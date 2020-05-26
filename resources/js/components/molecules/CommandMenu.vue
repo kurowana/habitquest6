@@ -2,6 +2,7 @@
   <div>
     <command-button :command-text="'攻撃'" @click-event="setCommand('attack')"></command-button>
     <command-button :command-text="'魔法'" @click-event="setCommand('magic')"></command-button>
+    <command-button :command-text="'回復'" @click-event="setCommand('recover')"></command-button>
   </div>
 </template>
 
