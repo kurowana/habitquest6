@@ -56,10 +56,10 @@ export default {
         $_playerTurn: function() {
             this.isShowCommand = true;
         },
-        $_monsterTurn: function() {
+        $_monsterTurn: async function() {
             console.log("モンスター");
-            this.isShowCommand = false;
             this.$store.commit("decreaseHp", 50);
+            await this.$_sleep(1000);
             this.isMonsterTurnEnd = true;
             if (this.isPlayerTurnEnd === false) {
                 this.$_playerTurn();
@@ -68,9 +68,37 @@ export default {
             }
         },
 
-        $_attack: function(value) {
-            console.log("プレイヤー");
+        $_attack: async function(value) {
+            this.isShowCommand = false;
+            console.log("通常攻撃");
             this.monster.status.currentHp -= value;
+            await this.$_sleep(1000);
+            this.isPlayerTurnEnd = true;
+            if (this.isMonsterTurnEnd === false) {
+                this.$_monsterTurn();
+            } else {
+                this.$_turnStart();
+            }
+        },
+        $_magic: async function(value) {
+            this.isShowCommand = false;
+            console.log("魔法攻撃");
+            this.monster.status.currentHp -= value;
+            this.$store.commit("decreaseMp", 20);
+            await this.$_sleep(1000);
+            this.isPlayerTurnEnd = true;
+            if (this.isMonsterTurnEnd === false) {
+                this.$_monsterTurn();
+            } else {
+                this.$_turnStart();
+            }
+        },
+        $_recover: async function(value) {
+            this.isShowCommand = false;
+            console.log("回復魔法");
+            this.$store.commit("decreaseHp", -100);
+            this.$store.commit("decreaseMp", 20);
+            await this.$_sleep(1000);
             this.isPlayerTurnEnd = true;
             if (this.isMonsterTurnEnd === false) {
                 this.$_monsterTurn();

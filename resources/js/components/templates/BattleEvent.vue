@@ -6,9 +6,10 @@
         :event-state="eventState"
         :user-obj="userObj"
         :monster-obj="monster"
+        :is-show-command="isShowCommand"
         @msg-changed="$_changeMessageEndFlag(false)"
         @msg-completed="$_changeMessageEndFlag(true)"
-        @attack="attackTest"
+        @reciveCommand="onCommand"
       ></battle-event-unit>
     </div>
   </div>
@@ -56,6 +57,8 @@ export default {
 
     //モンスターリストから戦闘モンスターのランダム抽出処理
     this.$_setBattleMonster(this.monsterList);
+
+    this.$_turnStart();
   },
   watch: {
     // シーンが変わる度に処理を読み込み直す
@@ -65,8 +68,18 @@ export default {
     }
   },
   methods: {
-    attackTest: function() {
-      this.$_attack(30);
+    onCommand: function(command) {
+      switch (command) {
+        case "attack":
+          this.$_attack(30);
+          break;
+        case "magic":
+          this.$_magic(30);
+          break;
+        case "recover":
+          this.$_recover(30);
+          break;
+      }
     }
   }
 };
