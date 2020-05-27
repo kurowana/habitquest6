@@ -58,6 +58,7 @@ export default {
         },
         $_monsterTurn: async function() {
             console.log("モンスター");
+            this.$_setMonsterMotion("attack");
             this.$store.commit("decreaseHp", 50);
             await this.$_sleep(1000);
             this.isMonsterTurnEnd = true;
@@ -105,6 +106,11 @@ export default {
             } else {
                 this.$_turnStart();
             }
+        },
+
+        //戦闘演出関係
+        $_setMonsterMotion(motion) {
+            this.monster.motion = motion;
         }
     }
 };
