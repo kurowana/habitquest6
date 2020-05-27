@@ -20,7 +20,7 @@
       <npc-viewer :displaying-npc="eventState.npc"></npc-viewer>
     </div>
     <div class="battle-area-container">
-      <battle-viewer :monsterObj="monsterObj"></battle-viewer>
+      <battle-viewer :monsterObj="monsterObj" @animation-end="reciveAnimationEnd"></battle-viewer>
     </div>
     <div class="msg-window-container">
       <msg-window
@@ -82,7 +82,10 @@ export default {
       this.$emit("msg-changed");
     },
     reciveCommand: function(command) {
-      this.$emit("reciveCommand", command);
+      this.$emit("recive-command", command);
+    },
+    reciveAnimationEnd: function() {
+      this.$emit("animation-end");
     }
   }
 };

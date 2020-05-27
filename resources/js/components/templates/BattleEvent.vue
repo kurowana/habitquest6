@@ -9,7 +9,8 @@
         :is-show-command="isShowCommand"
         @msg-changed="$_changeMessageEndFlag(false)"
         @msg-completed="$_changeMessageEndFlag(true)"
-        @reciveCommand="onCommand"
+        @recive-command="onCommand"
+        @animation-end="motionReset"
       ></battle-event-unit>
     </div>
   </div>
@@ -80,6 +81,9 @@ export default {
           this.$_recover(30);
           break;
       }
+    },
+    motionReset: function() {
+      this.$_setMonsterMotion("none");
     }
   }
 };
