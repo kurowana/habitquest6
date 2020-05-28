@@ -59,8 +59,10 @@ export default {
         $_monsterTurn: async function() {
             console.log("モンスター");
             this.$_setMonsterMotion("attack");
+            this.$_setMonsterEffect("sword01_54");
             this.$store.commit("decreaseHp", 50);
-            await this.$_sleep(1000);
+            await this.$_sleep(300);
+            this.$_setMonsterEffect("none");
             this.isMonsterTurnEnd = true;
             if (this.isPlayerTurnEnd === false) {
                 this.$_playerTurn();
@@ -111,6 +113,9 @@ export default {
         //戦闘演出関係
         $_setMonsterMotion(motion) {
             this.monster.motion = motion;
+        },
+        $_setMonsterEffect(effect) {
+            this.monster.effect = effect;
         }
     }
 };

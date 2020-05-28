@@ -1,6 +1,8 @@
 <template>
   <div class="monster-img">
     <img :src="monster.imgPath" class="monster-img img-size" :class="motionClass" />
+    <div v-if="isShowEffect" class="effect-anime" :style="effectStyle">aaaa</div>
+    <!-- <img :src="effectSrc" /> -->
   </div>
 </template>
 
@@ -17,13 +19,31 @@ export default {
   data: function() {
     return {
       // モンスターリスト
-      monsterList: {}
+      monsterList: {},
+      isShowEffect: false
     };
   },
   computed: {
     motionClass: function() {
-      console.log(this.monster.motion);
       return this.monster.motion;
+    },
+    effectStyle: function() {
+      this.effectTop = Math.floor(Math.random() * 100);
+      this.effectLeft = 250 + Math.floor(Math.random() * 100);
+      return {
+        background: 'url("/images/effect/' + this.monster.effect + '.png")',
+        left: this.effectLeft + "px",
+        top: this.effectTop + "px"
+      };
+    }
+  },
+  watch: {
+    "monster.effect": function() {
+      if (this.monster.effect === "none") {
+        this.isShowEffect = false;
+      } else {
+        this.isShowEffect = true;
+      }
     }
   },
   mounted: function() {
@@ -74,6 +94,80 @@ export default {
   100% {
     transform: scale(1);
     opacity: 1;
+  }
+}
+
+/* 戦闘エフェクト */
+.effect-anime {
+  position: absolute;
+  display: block;
+  width: 192px;
+  height: 192px;
+
+  z-index: 100;
+  animation: sprite54 0.3s step-end 0s 1;
+}
+
+@keyframes sprite54 {
+  1% {
+    background-position: 0 0;
+  }
+  5% {
+    background-position: -192px 0;
+  }
+  10% {
+    background-position: -384px 0;
+  }
+  15% {
+    background-position: -576px 0;
+  }
+  20% {
+    background-position: -768px 0;
+  }
+  25% {
+    background-position: 0 -192px;
+  }
+  30% {
+    background-position: -192px -192px;
+  }
+  35% {
+    background-position: -384px -192px;
+  }
+  40% {
+    background-position: -576px -192px;
+  }
+  45% {
+    background-position: -768px -192px;
+  }
+  50% {
+    background-position: 0 -384px;
+  }
+  55% {
+    background-position: -192px -384px;
+  }
+  60% {
+    background-position: -384px -384px;
+  }
+  65% {
+    background-position: -576px -384px;
+  }
+  70% {
+    background-position: -768px -384px;
+  }
+  75% {
+    background-position: 0 -576px;
+  }
+  80% {
+    background-position: -192px -576px;
+  }
+  85% {
+    background-position: -384px -576px;
+  }
+  90% {
+    background-position: -576px -576px;
+  }
+  95% {
+    background-position: -768px -576px;
   }
 }
 </style>
