@@ -1,8 +1,7 @@
 <template>
   <div class="monster-img">
     <img :src="monster.imgPath" class="monster-img img-size" :class="motionClass" />
-    <div v-if="isShowEffect" class="effect-anime" :style="effectStyle">aaaa</div>
-    <!-- <img :src="effectSrc" /> -->
+    <div v-if="isShowEffect" class="effect-anime" :style="effectStyle"></div>
   </div>
 </template>
 
@@ -18,8 +17,6 @@ export default {
   },
   data: function() {
     return {
-      // モンスターリスト
-      monsterList: {},
       isShowEffect: false
     };
   },

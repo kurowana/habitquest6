@@ -71,10 +71,10 @@ export default {
             }
         },
 
-        $_attack: async function(value) {
+        $_attack: async function() {
             this.isShowCommand = false;
             console.log("通常攻撃");
-            this.monster.status.currentHp -= value;
+            this.$_updatedMonsterHp(50);
             await this.$_sleep(1000);
             this.isPlayerTurnEnd = true;
             if (this.isMonsterTurnEnd === false) {
@@ -83,10 +83,10 @@ export default {
                 this.$_turnStart();
             }
         },
-        $_magic: async function(value) {
+        $_magic: async function() {
             this.isShowCommand = false;
             console.log("魔法攻撃");
-            this.monster.status.currentHp -= value;
+            this.$_updatedMonsterHp(50);
             this.$store.commit("decreaseMp", 20);
             await this.$_sleep(1000);
             this.isPlayerTurnEnd = true;
@@ -96,7 +96,7 @@ export default {
                 this.$_turnStart();
             }
         },
-        $_recover: async function(value) {
+        $_recover: async function() {
             this.isShowCommand = false;
             console.log("回復魔法");
             this.$store.commit("decreaseHp", -100);
@@ -108,6 +108,17 @@ export default {
             } else {
                 this.$_turnStart();
             }
+        },
+        $_updatedMonsterHp: function(value) {
+            if (this.monster.status.currentHp - value > 0) {
+                this.monster.status.currentHp -= value;
+            } else {
+                this.$_battleResult();
+            }
+        },
+        $_battleResult: function() {
+            console.log("戦闘勝利");
+            this.$_setBattleMonster(this.monsterList);
         },
 
         //戦闘演出関係

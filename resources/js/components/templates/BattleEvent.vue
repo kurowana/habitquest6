@@ -72,13 +72,13 @@ export default {
     onCommand: function(command) {
       switch (command) {
         case "attack":
-          this.$_attack(30);
+          this.$_attack();
           break;
         case "magic":
-          this.$_magic(30);
+          this.$_magic();
           break;
         case "recover":
-          this.$_recover(30);
+          this.$_recover();
           break;
       }
     },
