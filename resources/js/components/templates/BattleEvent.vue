@@ -23,14 +23,14 @@ import BattleEventUnit from "../organisms/BattleEventUnit";
 import GameMenu from "../molecules/GameMenu";
 
 import baseMixin from "../../mixins/baseMixin";
-import eventMixin from "../../mixins/eventMixin";
+import gameMixin from "../../mixins/gameMixin";
 
 export default {
   components: {
     "battle-event-unit": BattleEventUnit,
     "game-menu": GameMenu
   },
-  mixins: [baseMixin, eventMixin],
+  mixins: [baseMixin, gameMixin],
   props: {
     eventObj: {
       type: Array,
@@ -79,7 +79,6 @@ export default {
   },
   mounted: function() {
     // 親ページのイベントオブジェクトから現在シーンの処理を読み込み
-    // 読み込み処理についてはeventMixinに記載
     this.$_getCurrentEvent();
 
     //モンスターリストから戦闘モンスターのランダム抽出処理
@@ -89,7 +88,6 @@ export default {
   },
   watch: {
     // シーンが変わる度に処理を読み込み直す
-    // 読み込み処理についてはeventMixinに記載
     "eventState.sceneNo": function() {
       this.$_getCurrentEvent();
     }
