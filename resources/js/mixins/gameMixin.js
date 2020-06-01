@@ -6,7 +6,7 @@ export default {
                 isSceneEnd: false,
                 isMessageEnd: false,
                 place: {
-                    current: "",
+                    current: "神殿",
                     next: "",
                     isShow: true
                 },

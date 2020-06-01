@@ -16,14 +16,14 @@ export default {
       eventObj: [
         // 引数vmは、子コンポーネントのthis
         function(vm) {
-          vm.$_setEvent({
+          vm.setEvent({
             type: "msg",
             content: "シンプルなメッセージ"
           });
-          vm.$_setNpcImg("スフィア1", "L");
+          vm.setNpcImg("スフィア1", "L");
         },
         async function(vm) {
-          vm.$_setEvent({
+          vm.setEvent({
             type: "talk",
             content: {
               text: "トークイベント検証",
@@ -32,17 +32,17 @@ export default {
             }
           });
 
-          vm.$_setNpcMotion("right-slide", "L");
-          vm.$_setNpcEffect("death", "L");
+          vm.setNpcMotion("right-slide", "L");
+          vm.setNpcEffect("death", "L");
         },
         function(vm) {
-          vm.$_setEvent({
+          vm.setEvent({
             type: "select",
             content: [
               {
                 text: "選択肢1",
                 event: () => {
-                  vm.$_setEvent({
+                  vm.setEvent({
                     type: "msg",
                     content: "選択肢1"
                   });
@@ -51,7 +51,7 @@ export default {
               {
                 text: "選択肢2",
                 event: () => {
-                  vm.$_setEvent({
+                  vm.setEvent({
                     type: "msg",
                     content: "選択肢2"
                   });
@@ -61,7 +61,7 @@ export default {
           });
         },
         function(vm) {
-          vm.$_setEvent({
+          vm.setEvent({
             type: "place",
             content: {
               place: "街",
@@ -70,7 +70,7 @@ export default {
           });
         },
         function(vm) {
-          vm.$_setEvent({
+          vm.setEvent({
             type: "msg",
             content: "終了直前メッセージ"
           });
