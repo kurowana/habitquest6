@@ -1,11 +1,11 @@
 <template>
   <div @click="clickEventViewer">
-    <slot :event-state="eventState" :changeMessage="changeMessageEndFlag"></slot>
+    <slot :event-state="eventState"></slot>
   </div>
 </template>
 
 <script>
-import baseMixin from "../../../mixins/baseMixin";
+import baseMixin from "../../mixins/baseMixin";
 
 export default {
   mixins: [baseMixin],
@@ -116,6 +116,7 @@ export default {
     },
 
     changeMessageEndFlag() {
+      console.log(2);
       this.eventState.isMessageEnd = this.eventFlag.isMessageEnd;
       if (this.eventFlag.isMessageEnd) {
         this.eventState.isSceneEnd = true;
