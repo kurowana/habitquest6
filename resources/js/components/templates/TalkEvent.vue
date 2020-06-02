@@ -14,7 +14,7 @@
     <pomodoro-unit></pomodoro-unit>
     <habit-unit></habit-unit>
   </div>-->
-  <game-state v-slot:default="gameState" :event-obj="eventObj" :event-flag="eventFlag">
+  <event-manager v-slot:default="gameState" :event-obj="eventObj" :event-flag="eventFlag">
     {{gameState}}
     <div>シーン{{ gameState.isSceneEnd }}</div>
     <div>メッセージ{{ gameState.isMessageEnd }}</div>
@@ -28,7 +28,7 @@
     ></talk-event-unit>
     <pomodoro-unit></pomodoro-unit>
     <habit-unit></habit-unit>
-  </game-state>
+  </event-manager>
 </template>
 
 <script>
@@ -40,7 +40,7 @@ import HabitUnit from "../organisms/HabitUnit";
 import baseMixin from "../../mixins/baseMixin";
 import gameMixin from "../../mixins/gameMixin";
 
-import GameState from "../templates/base/GameState";
+import EventManager from "../organisms/EventManager";
 
 export default {
   components: {
@@ -48,7 +48,7 @@ export default {
     "game-menu": GameMenu,
     "pomodoro-unit": PomodoroUnit,
     "habit-unit": HabitUnit,
-    "game-state": GameState
+    "event-manager": EventManager
   },
   mixins: [baseMixin, gameMixin],
   props: {
