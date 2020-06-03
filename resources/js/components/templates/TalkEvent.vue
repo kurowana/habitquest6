@@ -14,7 +14,7 @@
     <pomodoro-unit></pomodoro-unit>
     <habit-unit></habit-unit>
   </div>-->
-  <event-manager v-slot:default="gameState" :event-obj="eventObj" :event-flag="eventFlag">
+  <event-manager v-slot:default="gameState" :event-list="eventList" :event-flag="eventFlag">
     {{gameState}}
     <div>シーン{{ gameState.isSceneEnd }}</div>
     <div>メッセージ{{ gameState.isMessageEnd }}</div>
@@ -52,8 +52,8 @@ export default {
   },
   mixins: [baseMixin, gameMixin],
   props: {
-    eventObj: {
-      type: Array,
+    eventList: {
+      type: Object,
       required: true
     }
   },
