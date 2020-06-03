@@ -10,14 +10,15 @@ import baseMixin from "../../mixins/baseMixin";
 export default {
   mixins: [baseMixin],
   props: {
-    eventObj: {
-      type: Array,
+    eventList: {
+      type: Object,
       required: true
     },
     eventFlag: false
   },
   data: function() {
     return {
+      targetEvent: "event1",
       eventState: {
         sceneNo: 0,
         isSceneEnd: false,
@@ -95,11 +96,14 @@ export default {
     //イベント進行管理
     getCurrentEvent() {
       const vm = this;
-      this.eventObj[this.eventState.sceneNo](vm);
+      this.eventList[this.targetEvent][this.eventState.sceneNo](vm);
     },
 
     updateSceneNo() {
-      if (this.eventObj.length > this.eventState.sceneNo + 1) {
+      if (
+        this.eventList[this.targetEvent].length >
+        this.eventState.sceneNo + 1
+      ) {
         this.eventState.sceneNo++;
         this.eventState.isSceneEnd = false;
       } else {
@@ -122,6 +126,12 @@ export default {
         this.eventState.isSceneEnd = true;
       }
     },
+
+    changeTargetEvent(target) {
+      this.targetEvent = target;
+      this.eventState.sceneNo = 0;
+    },
+
     //イベントタイプに応じた処理の振り分け
     setEvent(event) {
       if (event.type) {
