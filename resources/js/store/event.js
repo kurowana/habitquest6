@@ -53,7 +53,27 @@ const state = {
         }
     }
 };
-const getters = {};
+const getters = {
+    getEventState: state => {
+        return {
+            currentEvent: state.currentEvent,
+            sceneNo: state.sceneNo,
+            isAdvance: state.isAdvance
+        };
+    },
+    getPlace: state => {
+        return state.place;
+    },
+    getMessage: state => {
+        return state.message;
+    },
+    getSelection: state => {
+        return state.selection;
+    },
+    getNpc: state => {
+        return state.npc;
+    }
+};
 const mutations = {
     setCurrentEvent(state, eventName) {
         state.currentEvent = eventName;
@@ -84,6 +104,21 @@ const mutations = {
     },
     setSelectionContent(state, selectionList) {
         state.selection.content = selectionList;
+    },
+    setNpc(state, npcObj) {
+        state.npc[npcObj.position].name = npcObj.name;
+    },
+    setNpcOpacity(state, npcObj) {
+        state.npc[npcObj.position].opacity = npcObj.opacity;
+    },
+    setNpcZIndex(state, npcObj) {
+        state.npc[npcObj.position].zIndex = npcObj.zIndex;
+    },
+    setNpcMotion(state, npcObj) {
+        state.npc[npcObj.position].motion = npcObj.motion;
+    },
+    setNpcEffect(state, npcObj) {
+        state.npc[npcObj.position].effect = npcObj.effect;
     }
 };
 const actions = {};
