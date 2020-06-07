@@ -78,8 +78,8 @@ const mutations = {
     setCurrentEvent(state, eventName) {
         state.currentEvent = eventName;
     },
-    setSceneNo(state, int) {
-        state.sceneNo = int;
+    setSceneNo(state, sceneNo) {
+        state.sceneNo = sceneNo;
     },
     setAdvanceFlag(state, boolean) {
         state.isAdvance = boolean;
@@ -105,20 +105,36 @@ const mutations = {
     setSelectionContent(state, selectionList) {
         state.selection.content = selectionList;
     },
-    setNpc(state, npcObj) {
-        state.npc[npcObj.position].name = npcObj.name;
+    setNpc(state, { name, position }) {
+        state.npc[position].name = name;
     },
-    setNpcOpacity(state, npcObj) {
-        state.npc[npcObj.position].opacity = npcObj.opacity;
+    setNpcOpacity(state, { opacity, position }) {
+        state.npc[position].opacity = opacity;
     },
-    setNpcZIndex(state, npcObj) {
-        state.npc[npcObj.position].zIndex = npcObj.zIndex;
+    setNpcZIndex(state, { zIndex, position }) {
+        state.npc[position].zIndex = zIndex;
     },
-    setNpcMotion(state, npcObj) {
-        state.npc[npcObj.position].motion = npcObj.motion;
+    setNpcMotion(state, { motion, position }) {
+        state.npc[position].motion = motion;
     },
-    setNpcEffect(state, npcObj) {
-        state.npc[npcObj.position].effect = npcObj.effect;
+    setNpcEffect(state, { effect, position }) {
+        state.npc[position].effect = effect;
     }
 };
-const actions = {};
+const actions = {
+    updateCurrentEvent({ commit }, eventName) {
+        commit("setCurrentEvent", eventName);
+    },
+    updateSceneNo({ commit }, sceneNo) {
+        commit("setSceneNo", sceneNo);
+    },
+    updateAdvanceFlag({ commit }, boolean) {
+        commit("setAdvanceFlag", boolean);
+    },
+    updateCurrentPlace({ commit }, placeName) {
+        commit("setCurrentPlace", placeName);
+    },
+    updateNextPlace({ commit }, placeName) {
+        commit("setNextPlace", placeName);
+    }
+};
