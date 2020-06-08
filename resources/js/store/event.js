@@ -9,7 +9,7 @@ const state = {
     },
     message: {
         name: " ",
-        content: " "
+        text: " "
     },
     selection: {
         isDisplay: false,
@@ -96,8 +96,8 @@ const mutations = {
     setMessageName(state, name) {
         state.message.name = name;
     },
-    setMessageContent(state, text) {
-        state.message.content = text;
+    setMessageText(state, text) {
+        state.message.text = text;
     },
     setSelectionFlag(state, boolean) {
         state.selection.isDisplay = boolean;
@@ -136,5 +136,30 @@ const actions = {
     },
     updateNextPlace({ commit }, placeName) {
         commit("setNextPlace", placeName);
+    },
+    updateMessage({ commit }, { name, text }) {
+        commit("setMessageName", name);
+        commit("setMessageText", text);
+    },
+    updateSelectionFlag({ commit }, boolean) {
+        commit("setSelectionFlag", boolean);
+    },
+    updateSelectionContent({ commit }, selectionList) {
+        commit("setSelectionContent", selectionList);
+    },
+    updateNpc({ commit }, { name, position }) {
+        commit("setNpc", { name, position });
+    },
+    updateNpcOpacity({ commit }, { opacity, position }) {
+        commit("setNpcOpacity", { opacity, position });
+    },
+    updateNpcZIndex({ commit }, { zIndex, position }) {
+        commit("setNpcZIndex", { zIndex, position });
+    },
+    updateNpcMotion({ commit }, { motion, position }) {
+        commit("setNpcMotion", { motion, position });
+    },
+    updateNpcEffect({ commit }, { effect, effect }) {
+        commit("setNpcEffect", { effect, position });
     }
 };
