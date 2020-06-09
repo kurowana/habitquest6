@@ -1,42 +1,37 @@
 <template>
   <div class="msg-container">
-    <msg-speaker-name class="name-area" :speaker-name="displayingMessage.name"></msg-speaker-name>
-    <msg-text
+    <div class="name-area">{{message.name}}</div>
+    <typed-text
       class="text-area"
-      :msg-text="displayingMessage.text"
+      :msg-text="message.text"
       @msg-changed="hasChangedText"
       @msg-completed="hasCompletedText"
-    ></msg-text>
-    <msg-next-icon class="next-icon" v-if="isSceneEnd"></msg-next-icon>
+    ></typed-text>
+    <down-arrow class="next-icon" v-if="isSceneEnd"></down-arrow>
   </div>
 </template>
 
 <script>
-import MsgText from "../atoms/MsgText";
-import MsgSpeakName from "../atoms/MsgSpeakerName.vue";
-import MsgNextIcon from "../atoms/MsgNextIcon";
-
+import TypedText from "../atoms/TypedText";
+import DownArrow from "../atoms/DownArrow";
 import baseMixin from "../../mixins/baseMixin";
+
+import { mapGetters } from "vuex";
 
 export default {
   components: {
-    "msg-text": MsgText,
-    "msg-speaker-name": MsgSpeakName,
-    "msg-next-icon": MsgNextIcon
+    "typed-text": TypedText,
+    "down-arrow": DownArrow
   },
   mixins: [baseMixin],
-  props: {
-    displayingMessage: {
-      type: Object,
-      required: true
-    },
-    isSceneEnd: {
-      type: Boolean,
-      required: true
-    }
-  },
   data: function() {
     return {};
+  },
+  computed: {
+    ...mapGetters({
+      isSceneEnd: getSceneFlag,
+      message: getMessage
+    })
   },
   methods: {
     hasCompletedText: function() {

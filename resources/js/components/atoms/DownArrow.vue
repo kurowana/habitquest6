@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span class="next-icon">▼</span>
+    <span class="down-arrow">▼</span>
   </div>
 </template>
 
@@ -11,7 +11,7 @@ export default {
 </script>
 
 <style scoped>
-.next-icon {
+.down-arrow {
   color: gold;
   font-size: 20px;
   font-weight: bold;
