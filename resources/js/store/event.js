@@ -1,13 +1,14 @@
 const state = {
     currentEvent: "event1",
     sceneNo: 0,
-    isAdvance: false,
+    isSceneEnd: false,
     place: {
         isDisplay: true,
         current: "神殿",
         next: "神殿"
     },
     message: {
+        isMessageEnd: false,
         name: " ",
         text: " "
     },
@@ -58,8 +59,17 @@ const getters = {
         return {
             currentEvent: state.currentEvent,
             sceneNo: state.sceneNo,
-            isAdvance: state.isAdvance
+            isSceneEnd: state.isSceneEnd
         };
+    },
+    getCurrentEvent: state => {
+        return state.currentEvent;
+    },
+    getSceneNo: state => {
+        return state.sceneNo;
+    },
+    getSceneFlag: state => {
+        return state.isSceneEnd;
     },
     getPlace: state => {
         return state.place;
@@ -81,8 +91,8 @@ const mutations = {
     setSceneNo(state, sceneNo) {
         state.sceneNo = sceneNo;
     },
-    setAdvanceFlag(state, boolean) {
-        state.isAdvance = boolean;
+    setSceneFlag(state, boolean) {
+        state.isSceneEnd = boolean;
     },
     setPlaceFlag(state, boolean) {
         state.place.isDisplay = boolean;
@@ -128,8 +138,8 @@ const actions = {
     updateSceneNo({ commit }, sceneNo) {
         commit("setSceneNo", sceneNo);
     },
-    updateAdvanceFlag({ commit }, boolean) {
-        commit("setAdvanceFlag", boolean);
+    updateSceneFlag({ commit }, boolean) {
+        commit("setSceneFlag", boolean);
     },
     updateCurrentPlace({ commit }, placeName) {
         commit("setCurrentPlace", placeName);
