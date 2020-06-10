@@ -55,13 +55,6 @@ const state = {
     }
 };
 const getters = {
-    getEventState: state => {
-        return {
-            currentEvent: state.currentEvent,
-            sceneNo: state.sceneNo,
-            isSceneEnd: state.isSceneEnd
-        };
-    },
     getCurrentEvent: state => {
         return state.currentEvent;
     },
