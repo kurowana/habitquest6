@@ -1,15 +1,13 @@
 <template>
-  <div>
-    <talk-event :event-list="eventList"></talk-event>
-  </div>
+  <novel :event-list="eventList"></novel>
 </template>
 
 <script>
-import TalkEvent from "../../templates/TalkEvent";
+import NovelTemplate from "../../templates/NovelTemplate";
 
 export default {
   components: {
-    "talk-event": TalkEvent
+    novel: NovelTemplate
   },
   data: function() {
     return {

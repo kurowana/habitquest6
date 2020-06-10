@@ -6,6 +6,7 @@
 
 <script>
 import baseMixin from "../../mixins/baseMixin";
+import { mapGetters } from "vuex";
 
 export default {
   mixins: [baseMixin],
@@ -13,68 +14,17 @@ export default {
     eventList: {
       type: Object,
       required: true
-    },
-    eventFlag: false
+    }
   },
   data: function() {
-    return {
-      targetEvent: "event1",
-      eventState: {
-        sceneNo: 0,
-        isSceneEnd: false,
-        isMessageEnd: false,
-        place: {
-          current: "神殿",
-          next: "",
-          isShow: true
-        },
-        message: {
-          name: " ",
-          text: " "
-        },
-        selection: {
-          isShow: false,
-          content: null
-        },
-        npc: {
-          L: {
-            name: "",
-            opacity: 1,
-            zIndex: 10,
-            motion: "none",
-            effect: "none"
-          },
-          LC: {
-            name: "",
-            opacity: 1,
-            zIndex: 10,
-            motion: "none",
-            effect: "none"
-          },
-          C: {
-            name: "",
-            opacity: 1,
-            zIndex: 10,
-            motion: "none",
-            effect: "none"
-          },
-          RC: {
-            name: "",
-            opacity: 1,
-            zIndex: 10,
-            motion: "none",
-            effect: "none"
-          },
-          R: {
-            name: "",
-            opacity: 1,
-            zIndex: 10,
-            motion: "none",
-            effect: "none"
-          }
-        }
-      }
-    };
+    return {};
+  },
+  computed: {
+    ...mapGetters({
+      currentEvent: getCurrentEvent,
+      sceneNo: getSceneNo,
+      isSceneEnd: getSceneFlag
+    })
   },
   mounted: function() {
     this.getCurrentEvent();
@@ -96,16 +46,13 @@ export default {
     //イベント進行管理
     getCurrentEvent() {
       const vm = this;
-      this.eventList[this.targetEvent][this.eventState.sceneNo](vm);
+      this.eventList[this.currentEvent][this.sceneNo](vm);
     },
 
     updateSceneNo() {
-      if (
-        this.eventList[this.targetEvent].length >
-        this.eventState.sceneNo + 1
-      ) {
-        this.eventState.sceneNo++;
-        this.eventState.isSceneEnd = false;
+      if (this.eventList[this.currentEvent].length > this.sceneNo + 1) {
+        this.$store.dispatch(updateSceneNo, this.sceneNo + 1);
+        this.$store.dispatch(updateSceneFlag, false);
       } else {
         console.log("イベント終了");
       }
@@ -113,15 +60,12 @@ export default {
 
     clickEventViewer() {
       if (this.eventState.isSceneEnd) {
-        console.log(1);
         this.updateSceneNo();
         this.$store.commit("setSe", "クリック.mp3");
       }
     },
 
     changeMessageEndFlag() {
-      console.log(2);
-      this.eventState.isMessageEnd = this.eventFlag.isMessageEnd;
       if (this.eventFlag.isMessageEnd) {
         this.eventState.isSceneEnd = true;
       }
