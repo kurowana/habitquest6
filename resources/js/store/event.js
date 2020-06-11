@@ -1,7 +1,9 @@
 const state = {
-    currentEvent: "event1",
-    sceneNo: 0,
-    isSceneEnd: false,
+    eventState: {
+        current: "event1",
+        sceneNo: 0,
+        isSceneEnd: false
+    },
     place: {
         isDisplay: true,
         current: "神殿",
@@ -55,14 +57,8 @@ const state = {
     }
 };
 const getters = {
-    getCurrentEvent: state => {
-        return state.currentEvent;
-    },
-    getSceneNo: state => {
-        return state.sceneNo;
-    },
-    getSceneFlag: state => {
-        return state.isSceneEnd;
+    getEventState: state => {
+        return state.eventState;
     },
     getPlace: state => {
         return state.place;
@@ -79,13 +75,13 @@ const getters = {
 };
 const mutations = {
     setCurrentEvent(state, eventName) {
-        state.currentEvent = eventName;
+        state.eventState.current = eventName;
     },
     setSceneNo(state, sceneNo) {
-        state.sceneNo = sceneNo;
+        state.eventState.sceneNo = sceneNo;
     },
     setSceneFlag(state, boolean) {
-        state.isSceneEnd = boolean;
+        state.eventState.isSceneEnd = boolean;
     },
     setPlaceFlag(state, boolean) {
         state.place.isDisplay = boolean;

@@ -1,6 +1,10 @@
 <template>
-  <div @click="clickEventViewer">
+  <div class="event-container" @click="clickEventViewer">
     <slot :event-state="eventState"></slot>
+    <bg-viewer class="bg-container" :bg-img-obj="eventState.place"></bg-viewer>
+    <npc-viewer class="char-img-container" :displaying-npc="eventState.npc"></npc-viewer>
+    <msg-window class="msg-window-container"></msg-window>
+    <selection-list class="selection-area" v-if="eventState.selection.isShow"></selection-list>
   </div>
 </template>
 
@@ -8,8 +12,19 @@
 import baseMixin from "../../mixins/baseMixin";
 import { mapGetters } from "vuex";
 
+import NpcViewer from "../molecules/NpcViewer";
+import MsgWindow from "../molecules/MsgWindow";
+import bgViewer from "../molecules/BgViewer";
+import SelectionList from "../molecules/SelectionList";
+
 export default {
   mixins: [baseMixin],
+  components: {
+    "npc-viewer": NpcViewer,
+    "msg-window": MsgWindow,
+    "bg-viewer": bgViewer,
+    "selection-list": SelectionList
+  },
   props: {
     eventList: {
       type: Object,
@@ -21,24 +36,23 @@ export default {
   },
   computed: {
     ...mapGetters({
-      currentEvent: getCurrentEvent,
-      sceneNo: getSceneNo,
-      isSceneEnd: getSceneFlag
+      eventState: getEventState,
+      message: getMessage,
+      selection: getSelection
     })
   },
   mounted: function() {
     this.getCurrentEvent();
   },
   watch: {
-    "eventState.sceneNo": function() {
+    "event.sceneNo": function() {
       this.getCurrentEvent();
     },
-    "eventFlag.isMessageEnd": function() {
+    "message.isMessageEnd": function() {
       this.changeMessageEndFlag();
       console.log("msg");
     },
-    "eventFlag.isShowSelection": function() {
-      this.completeSelection();
+    "selection.isDisplay": function() {
       console.log("select");
     }
   },
@@ -46,12 +60,15 @@ export default {
     //イベント進行管理
     getCurrentEvent() {
       const vm = this;
-      this.eventList[this.currentEvent][this.sceneNo](vm);
+      this.eventList[this.eventState.current][this.eventState.sceneNo](vm);
     },
 
     updateSceneNo() {
-      if (this.eventList[this.currentEvent].length > this.sceneNo + 1) {
-        this.$store.dispatch(updateSceneNo, this.sceneNo + 1);
+      if (
+        this.eventList[this.eventState.current].length >
+        this.eventState.sceneNo + 1
+      ) {
+        this.$store.dispatch(updateSceneNo, this.eventState.sceneNo + 1);
         this.$store.dispatch(updateSceneFlag, false);
       } else {
         console.log("イベント終了");
@@ -60,20 +77,21 @@ export default {
 
     clickEventViewer() {
       if (this.eventState.isSceneEnd) {
-        this.updateSceneNo();
         this.$store.commit("setSe", "クリック.mp3");
+        this.updateSceneNo();
       }
     },
 
+    //ここの処理、あとで考え直す
     changeMessageEndFlag() {
-      if (this.eventFlag.isMessageEnd) {
-        this.eventState.isSceneEnd = true;
+      if (this.message.isMessageEnd) {
+        this.$store.dispatch("updateSceneFlag", true);
       }
     },
 
     changeTargetEvent(target) {
-      this.targetEvent = target;
-      this.eventState.sceneNo = 0;
+      this.$dispatch("updateCurrentEvent", target);
+      this.$dispatch("updateSceneNo", 0);
     },
 
     //イベントタイプに応じた処理の振り分け
@@ -108,10 +126,10 @@ export default {
     messageEvent(text) {
       if (typeof text === "string") {
         // 同じ文が続く場合、文の変更および完了イベントが発火しないので対応
-        if (this.eventState.message.text == text) {
-          this.eventState.isSceneEnd = true;
+        if (this.message.text == text) {
+          this.$store.dispatch("updateSceneFlag", true);
         }
-        this.eventState.message.text = text;
+        this.$store.dispatch("updateMessage", { name: "", text: text });
       } else {
         this.eventError();
       }
@@ -126,6 +144,7 @@ export default {
     },
 
     selectEvent(selection) {
+      //ここから編集
       if (Array.isArray(selection)) {
         this.$set(this.eventState.selection, "content", selection);
         this.eventState.selection.isShow = true;
@@ -274,3 +293,81 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.event-container {
+  position: relative;
+  width: 800px;
+  height: 600px;
+  background: black;
+  overflow: hidden;
+}
+
+.bg-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.selection-area {
+  position: absolute;
+  top: 160px;
+  left: 80px;
+  z-index: 100;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+/* スマホ画面用 */
+@media screen and (max-width: 480px) {
+  .char-img-container {
+    position: absolute;
+    top: 0;
+  }
+  .msg-window-container {
+    position: absolute;
+    top: 200px;
+  }
+}
+/* レティナスマホ用 */
+@media screen and (min-width: 480px) and (max-width: 768px) {
+  .char-img-container {
+    position: absolute;
+    top: 0;
+  }
+  .msg-window-container {
+    position: absolute;
+    top: 200px;
+  }
+}
+/* タブレット用 */
+@media screen and (min-width: 768px) and (max-width: 1280px) {
+  .char-img-container {
+    position: absolute;
+    top: 0;
+  }
+  .msg-window-container {
+    position: absolute;
+    top: 400px;
+  }
+}
+/* PC画面用 */
+@media screen and (min-width: 1280px) {
+  .char-img-container {
+    position: absolute;
+    top: 0;
+  }
+  .msg-window-container {
+    position: absolute;
+    top: 420px;
+  }
+}
+</style>
