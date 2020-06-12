@@ -130,6 +130,9 @@ const actions = {
     updateSceneFlag({ commit }, boolean) {
         commit("setSceneFlag", boolean);
     },
+    updatePlaceFlag({ commit }, boolean) {
+        commit("setPlaceFlag", boolean);
+    },
     updateCurrentPlace({ commit }, placeName) {
         commit("setCurrentPlace", placeName);
     },

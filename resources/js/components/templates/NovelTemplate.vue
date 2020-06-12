@@ -1,36 +1,27 @@
 <template>
-  <event-manager v-slot:default="gameState" :event-list="eventList" :event-flag="eventFlag">
-    {{gameState}}
-    <div>シーン{{ gameState.isSceneEnd }}</div>
-    <div>メッセージ{{ gameState.isMessageEnd }}</div>
-
+  <event-manager :event-list="eventList">
     <game-menu></game-menu>
-    <talk-event-unit :event-state="gameState.eventState"></talk-event-unit>
     <pomodoro-unit></pomodoro-unit>
     <habit-unit></habit-unit>
   </event-manager>
 </template>
 
 <script>
-import TalkEventUnit from "../organisms/TalkEventUnit";
+import baseMixin from "../../mixins/baseMixin";
+
+import EventManager from "../organisms/EventManager";
 import GameMenu from "../molecules/GameMenu";
 import PomodoroUnit from "../organisms/PomodoroUnit";
 import HabitUnit from "../organisms/HabitUnit";
 
-import baseMixin from "../../mixins/baseMixin";
-import gameMixin from "../../mixins/gameMixin";
-
-import EventManager from "../organisms/EventManager";
-
 export default {
   components: {
-    "talk-event-unit": TalkEventUnit,
+    "event-manager": EventManager,
     "game-menu": GameMenu,
     "pomodoro-unit": PomodoroUnit,
-    "habit-unit": HabitUnit,
-    "event-manager": EventManager
+    "habit-unit": HabitUnit
   },
-  mixins: [baseMixin, gameMixin],
+  mixins: [baseMixin],
   props: {
     eventList: {
       type: Object,

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="(option, index) in selection" :key="index">
-      <select-window :selection-text="option.text" @click-event="selected(option.event)"></select-window>
+      <select-button :selection-text="option.text" @click-event="selected(option.event)"></select-button>
     </div>
   </div>
 </template>
@@ -9,21 +9,21 @@
 <script>
 import { mapGetters } from "vuex";
 
-import SelectWindow from "../atoms/SelectWindow";
+import SelectButton from "../atoms/SelectButton";
 
 export default {
   components: {
-    "select-window": SelectWindow
+    "select-button": SelectButton
   },
   computed: {
     selection: getSelection
   },
   methods: {
     selected: function(event) {
-      this.$store.dispatch("updateSelectionFlag", false);
+      this.$emit("selected", event);
     }
   }
 };
-</script>
+</script>F
 
 <style scoped></style>
