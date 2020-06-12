@@ -1,10 +1,10 @@
 <template>
   <div class="event-container" @click="clickEventViewer">
-    <slot :event-state="eventState"></slot>
-    <bg-viewer class="bg-container" :bg-img-obj="eventState.place"></bg-viewer>
-    <npc-viewer class="char-img-container" :displaying-npc="eventState.npc"></npc-viewer>
+    <slot></slot>
+    <npc-viewer class="char-img-container"></npc-viewer>
     <msg-window class="msg-window-container"></msg-window>
-    <selection-list class="selection-area" v-if="eventState.selection.isShow"></selection-list>
+    <selection-list class="selection-area" v-if="selection.isDisplay" @selected="doSelectEvent"></selection-list>
+    <background-img class="bg-container"></background-img>
   </div>
 </template>
 
@@ -14,16 +14,16 @@ import { mapGetters } from "vuex";
 
 import NpcViewer from "../molecules/NpcViewer";
 import MsgWindow from "../molecules/MsgWindow";
-import bgViewer from "../molecules/BgViewer";
 import SelectionList from "../molecules/SelectionList";
+import BackgroundImg from "../atoms/BackgroundImg";
 
 export default {
   mixins: [baseMixin],
   components: {
     "npc-viewer": NpcViewer,
     "msg-window": MsgWindow,
-    "bg-viewer": bgViewer,
-    "selection-list": SelectionList
+    "selection-list": SelectionList,
+    "background-img": BackgroundImg
   },
   props: {
     eventList: {
@@ -38,7 +38,8 @@ export default {
     ...mapGetters({
       eventState: getEventState,
       message: getMessage,
-      selection: getSelection
+      selection: getSelection,
+      npc: getNpc
     })
   },
   mounted: function() {
@@ -137,22 +138,21 @@ export default {
 
     // 話し手が存在するメッセージ処理。対象キャラの名前表示、強調表示つき
     talkEvent(text, name, pos) {
-      this.messageEvent(text);
-      this.setTalkerName(name);
+      this.$store.dispatch("updateMessage", { name: name, text: text });
       this.toBackAllCharacter();
       this.toForwardCharacter(pos);
     },
 
     selectEvent(selection) {
-      //ここから編集
       if (Array.isArray(selection)) {
-        this.$set(this.eventState.selection, "content", selection);
-        this.eventState.selection.isShow = true;
+        this.$store.dispatch("updateSelectionContent,selection");
+        this.$store.dispatch("updateSelectionFlag", true);
       }
     },
 
-    completeSelection: function(event) {
-      this.eventState.selection.isShow = false;
+    doSelectEvent: function(event) {
+      event();
+      this.$store.dispatch("updateSelectionFlag", false);
     },
 
     async changePlaceEvent(place, text) {
@@ -163,57 +163,78 @@ export default {
 
     // キャラクター画像表示系
     setNpcImg(name, pos) {
-      this.eventState.npc[pos].name = name;
+      this.$store.dispatch("updateNpc", { name: name, position: pos });
     },
 
     resetNpcImg() {
-      for (let k of Object.keys(this.eventState.npc)) {
-        this.eventState.npc[k].name = "";
-        this.eventState.npc[k].opacity = 1;
-        this.eventState.npc[k].zIndex = 10;
-        this.eventState.npc[k].motion = "none";
-        this.eventState.npc[k].effect = 1;
+      for (let k of Object.keys(this.npc)) {
+        this.$store.dispatch("updateNpc", { name: "", position: k });
+        this.$store.dispatch("updateNpcOpacity", { opacity: 1, position: k });
+        this.$store.dispatch("updateNpcZIndex", { zIndex: 10, position: k });
+        this.$store.dispatch("updateNpcMotion", {
+          motion: "none",
+          position: k
+        });
+        this.$store.dispatch("updateNpcEffect", {
+          effect: "none",
+          position: k
+        });
       }
     },
-    setOpacity(pos, value) {
-      this.eventState.npc[pos].opacity = value;
+    setOpacity(value, pos) {
+      this.$store.dispatch("updateNpcOpacity", {
+        opacity: value,
+        position: pos
+      });
     },
     resetOpacity(pos) {
-      this.eventState.npc[pos].opacity = 1;
+      this.$store.dispatch("updateNpcOpacity", {
+        opacity: 1,
+        position: pos
+      });
     },
     resetAllOpacitye() {
-      for (let k of Object.keys(this.eventState.npc)) {
-        this.eventState.npc[k].opacity = 1;
+      for (let k of Object.keys(this.npc)) {
+        this.$store.dispatch("updateNpcOpacity", {
+          opacity: 1,
+          position: k
+        });
       }
     },
-    setZIndex(pos, value) {
-      this.eventState.npc[pos].zIndex = value;
+    setZIndex(value, pos) {
+      this.$store.dispatch("updateNpcZIndex", { zIndex: value, position: pos });
     },
     resetZIndex(pos) {
-      this.eventState.npc[pos].zIndex = 10;
+      this.$store.dispatch("updateNpcZIndex", { zIndex: 10, position: pos });
     },
     resetAllZIndex() {
-      for (let k of Object.keys(this.eventState.npc)) {
-        this.eventState.npc[k].zIndex = 10;
+      for (let k of Object.keys(this.npc)) {
+        this.$store.dispatch("updateNpcZIndex", { zIndex: 10, position: k });
       }
     },
 
     //NPC画像のモーション
     setNpcMotion(motion, pos) {
-      for (let k of Object.keys(this.eventState.npc)) {
-        this.eventState.npc[k].zIndex = 10;
+      for (let k of Object.keys(this.npc)) {
+        this.$store.dispatch("updateNpcZIndex", { zIndex: 10, position: k });
       }
-      this.eventState.npc[pos].zIndex = 20;
-      this.eventState.npc[pos].motion = motion;
+      this.$store.dispatch("updateNpcZIndex", { zIndex: 20, position: pos });
+      this.$store.dispatch("updateNpcMotion", {
+        motion: motion,
+        position: pos
+      });
     },
 
     //NPC画像のエフェクト
     setNpcEffect(effect, pos) {
-      for (let k of Object.keys(this.eventState.npc)) {
-        this.eventState.npc[k].zIndex = 10;
+      for (let k of Object.keys(this.npc)) {
+        this.$store.dispatch("updateNpcZIndex", { zIndex: 10, position: k });
       }
-      this.eventState.npc[pos].zIndex = 20;
-      this.eventState.npc[pos].effect = effect;
+      this.$store.dispatch("updateNpcZIndex", { zIndex: 20, position: k });
+      this.$store.dispatch("updateNpcEffect", {
+        effect: effect,
+        position: pos
+      });
     },
 
     //Talk処理用の重ね順、不透明度一括処理
@@ -225,18 +246,23 @@ export default {
         pos === "RC" ||
         pos === "R"
       ) {
-        this.eventState.npc[pos].opacity = 1;
-        this.eventState.npc[pos].zIndex = 10;
+        this.$store.dispatch("updateNpcOpacity", { opacity: 1, position: pos });
+        this.$store.dispatch("updateNpcZIndex", { zIndex: 20, position: pos });
+        this.$store.dispatch("updateNpcMotion", {
+          motion: "none",
+          position: pos
+        });
+        this.$store.dispatch("updateNpcEffect", {
+          effect: "none",
+          position: pos
+        });
       } else {
         this.eventError();
       }
     },
     toForwardAllCharacter() {
-      for (let k of Object.keys(this.eventState.npc)) {
-        this.eventState.npc[k].opacity = 1;
-        this.eventState.npc[k].zIndex = 10;
-        this.eventState.npc[k].motion = "none";
-        this.eventState.npc[k].effect = "none";
+      for (let k of Object.keys(this.npc)) {
+        this.toForwardCharacter(k);
       }
     },
     toBackCharacter(pos) {
@@ -247,43 +273,41 @@ export default {
         pos === "RC" ||
         pos === "R"
       ) {
-        this.eventState.npc[pos].opacity = 0.8;
-        this.eventState.npc[pos].zIndex = 5;
+        this.$store.dispatch("updateNpcOpacity", {
+          opacity: 0.8,
+          position: pos
+        });
+        this.$store.dispatch("updateNpcZIndex", { zIndex: 5, position: pos });
+        this.$store.dispatch("updateNpcMotion", {
+          motion: "none",
+          position: pos
+        });
+        this.$store.dispatch("updateNpcEffect", {
+          effect: "none",
+          position: pos
+        });
       } else {
         this.eventError();
       }
     },
     toBackAllCharacter() {
       for (let k of Object.keys(this.eventState.npc)) {
-        this.eventState.npc[k].opacity = 0.8;
-        this.eventState.npc[k].zIndex = 5;
-        this.eventState.npc[k].motion = "none";
-        this.eventState.npc[k].effect = "none";
-      }
-    },
-
-    //メッセージウィンドウの名前欄の表示処理
-    setTalkerName(name) {
-      if (typeof name === "string") {
-        this.eventState.message.name = name;
-      } else {
-        this.eventError();
+        this.toBackCharacter(k);
       }
     },
 
     //メッセージウィンドウの初期化処理
     resetMessage() {
-      this.eventState.message.name = " ";
-      this.eventState.message.text = " ";
+      this.$store.dispatch("updateMessage", { name: "", text: "" });
     },
 
     // 舞台演出関連
     async setPlace(place) {
-      this.eventState.place.next = place;
-      this.eventState.place.isShow = false;
+      this.$store.dispatch("updateNextPlace", place);
+      this.$store.dispatch("updatePlaceFlag", false);
       await this.$_sleep(500);
-      this.eventState.place.current = place;
-      this.eventState.place.isShow = true;
+      this.$store.dispatch("updateCurrentPlace", place);
+      this.$store.dispatch("updatePlaceFlag", true);
     },
 
     //イベント処理中に発生したエラーの共通処理

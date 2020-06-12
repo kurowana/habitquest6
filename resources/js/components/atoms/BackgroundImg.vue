@@ -1,16 +1,16 @@
 <template>
   <div>
     <transition name="fade">
-      <bg-img v-if="bgImgObj.isShow" :bg-img-path="currentBgImg" class="currentBg"></bg-img>
+      <img v-if="place.isDisplay" :src="currentBgImg" class="bgImg currentBg" />
     </transition>
     <transition name="fade">
-      <bg-img v-if="!bgImgObj.isShow" :bg-img-path="nextBgImg" class="nextBg"></bg-img>
+      <img v-if="!place.isDisplay" :src="nextBgImg" class="bgImg nextBg" />
     </transition>
   </div>
 </template>
 
 <script>
-import BgImg from "../atoms/BgImg";
+import { mapGetters } from "vuex";
 
 export default {
   components: {
@@ -50,17 +50,25 @@ export default {
     };
   },
   computed: {
+    ...mapGetters({
+      place: getPlace
+    }),
     currentBgImg: function() {
-      return "images/bg/" + this.bgImgList[this.bgImgObj.current];
+      return "images/bg/" + this.bgImgList[this.place.current];
     },
     nextBgImg: function() {
-      return "images/bg/" + this.bgImgList[this.bgImgObj.next];
+      return "images/bg/" + this.bgImgList[this.place.next];
     }
   }
 };
 </script>
 
 <style scoped>
+.bgImg {
+  width: 800px;
+  height: 600px;
+}
+
 .currentBg {
   z-index: 2;
 }

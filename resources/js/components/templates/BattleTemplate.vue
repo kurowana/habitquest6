@@ -18,19 +18,17 @@
 
 <script>
 import { mapGetters } from "vuex";
+import baseMixin from "../../mixins/baseMixin";
 
 import BattleEventUnit from "../organisms/BattleEventUnit";
 import GameMenu from "../molecules/GameMenu";
-
-import baseMixin from "../../mixins/baseMixin";
-import gameMixin from "../../mixins/gameMixin";
 
 export default {
   components: {
     "battle-event-unit": BattleEventUnit,
     "game-menu": GameMenu
   },
-  mixins: [baseMixin, gameMixin],
+  mixins: [baseMixin],
   props: {
     eventObj: {
       type: Array,
