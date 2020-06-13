@@ -165,3 +165,9 @@ const actions = {
         commit("setNpcEffect", { effect, position });
     }
 };
+export default {
+    state,
+    getters,
+    mutations,
+    actions
+};
