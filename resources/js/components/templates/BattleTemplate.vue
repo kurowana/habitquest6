@@ -2,7 +2,7 @@
   <div>
     <game-menu></game-menu>
     <div @click="$_clickEventViewer">
-      <battle-event-unit
+      <battle-game-unit
         :event-state="eventState"
         :user-obj="userObj"
         :monster-obj="monster"
@@ -11,7 +11,7 @@
         @msg-completed="$_changeMessageEndFlag(true)"
         @recive-command="onCommand"
         @animation-end="motionReset"
-      ></battle-event-unit>
+      ></battle-game-unit>
     </div>
   </div>
 </template>
@@ -20,12 +20,12 @@
 import { mapGetters } from "vuex";
 import baseMixin from "../../mixins/baseMixin";
 
-import BattleEventUnit from "../organisms/BattleEventUnit";
+import BattleGameUnit from "../organisms/BattleGameUnit";
 import GameMenu from "../molecules/GameMenu";
 
 export default {
   components: {
-    "battle-event-unit": BattleEventUnit,
+    "battle-game-unit": BattleGameUnit,
     "game-menu": GameMenu
   },
   mixins: [baseMixin],

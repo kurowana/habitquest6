@@ -36,10 +36,10 @@ export default {
   },
   computed: {
     ...mapGetters({
-      eventState: getEventState,
-      message: getMessage,
-      selection: getSelection,
-      npc: getNpc
+      eventState: "getEventState",
+      message: "getMessage",
+      selection: "getSelection",
+      npc: "getNpc"
     })
   },
   mounted: function() {

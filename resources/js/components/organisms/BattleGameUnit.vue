@@ -1,7 +1,5 @@
 <template>
   <div class="event-container">
-    <bg-viewer class="bg-container" :bg-img-obj="eventState.place"></bg-viewer>
-
     <life-window
       class="life-window-container"
       :current-hp="userObj.battleStatus.currentHp"
@@ -22,14 +20,6 @@
     <div class="battle-area-container">
       <battle-viewer :monsterObj="monsterObj" @animation-end="reciveAnimationEnd"></battle-viewer>
     </div>
-    <div class="msg-window-container">
-      <msg-window
-        :displaying-message="eventState.message"
-        :is-scene-end="eventState.isSceneEnd"
-        @msg-changed="hasChangedText"
-        @msg-completed="hasCompletedText"
-      ></msg-window>
-    </div>
     <div class="command-menu">
       <command-menu v-if="isShowCommand" @recive-command="reciveCommand"></command-menu>
     </div>
@@ -39,8 +29,6 @@
 <script>
 import NpcViewer from "../molecules/NpcViewer";
 import BattleViewer from "../molecules/BattleViewer";
-import MsgWindow from "../molecules/MsgWindow";
-import BgViewer from "../molecules/BgViewer";
 import CommandMenu from "../molecules/CommandMenu";
 import LifeWindow from "../molecules/LifeWindow";
 
@@ -48,8 +36,6 @@ export default {
   components: {
     "npc-viewer": NpcViewer,
     "battle-viewer": BattleViewer,
-    "msg-window": MsgWindow,
-    "bg-viewer": BgViewer,
     "command-menu": CommandMenu,
     "life-window": LifeWindow
   },
