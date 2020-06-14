@@ -1,15 +1,15 @@
 <template>
   <div>
-    <battle-event :event-obj="eventObj" :monster-list="monsterList" :boss-list="bossList"></battle-event>
+    <battle-template :event-obj="eventObj" :monster-list="monsterList" :boss-list="bossList"></battle-template>
   </div>
 </template>
 
 <script>
-import BattleEvent from "../../templates/BattleEvent";
+import BattleTemplate from "../../templates/BattleTemplate";
 
 export default {
   components: {
-    "battle-event": BattleEvent
+    "battle-template": BattleTemplate
   },
   data: function() {
     return {

@@ -161,7 +161,7 @@ const actions = {
     updateNpcMotion({ commit }, { motion, position }) {
         commit("setNpcMotion", { motion, position });
     },
-    updateNpcEffect({ commit }, { effect, effect }) {
+    updateNpcEffect({ commit }, { effect, position }) {
         commit("setNpcEffect", { effect, position });
     }
 };

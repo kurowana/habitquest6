@@ -13,15 +13,6 @@
 import { mapGetters } from "vuex";
 
 export default {
-  components: {
-    "bg-img": BgImg
-  },
-  props: {
-    bgImgObj: {
-      type: Object,
-      required: true
-    }
-  },
   data: function() {
     return {
       bgImgList: {
@@ -51,7 +42,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      place: getPlace
+      place: "getPlace"
     }),
     currentBgImg: function() {
       return "images/bg/" + this.bgImgList[this.place.current];

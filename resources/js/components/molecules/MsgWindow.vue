@@ -7,7 +7,7 @@
       @msg-changed="hasChangedText"
       @msg-completed="hasCompletedText"
     ></typed-text>
-    <down-arrow class="next-icon" v-if="isSceneEnd"></down-arrow>
+    <down-arrow class="next-icon" v-if="eventState.isSceneEnd"></down-arrow>
   </div>
 </template>
 
@@ -29,8 +29,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      isSceneEnd: getSceneFlag,
-      message: getMessage
+      eventState: "getEventState",
+      message: "getMessage"
     })
   },
   methods: {
