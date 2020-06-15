@@ -1,12 +1,7 @@
 <template>
   <div class="msg-container">
     <div class="name-area">{{message.name}}</div>
-    <typed-text
-      class="text-area"
-      :msg-text="message.text"
-      @msg-changed="hasChangedText"
-      @msg-completed="hasCompletedText"
-    ></typed-text>
+    <typed-text class="text-area" :msg-text="message.text"></typed-text>
     <down-arrow class="next-icon" v-if="eventState.isSceneEnd"></down-arrow>
   </div>
 </template>
@@ -33,16 +28,7 @@ export default {
       message: "getMessage"
     })
   },
-  methods: {
-    hasCompletedText: function() {
-      setTimeout(() => {
-        this.$emit("msg-completed");
-      }, 100);
-    },
-    hasChangedText: function() {
-      this.$emit("msg-changed");
-    }
-  }
+  methods: {}
 };
 </script>
 

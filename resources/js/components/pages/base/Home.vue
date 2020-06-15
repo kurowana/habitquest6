@@ -17,7 +17,7 @@ export default {
           function(vm) {
             vm.setEvent({
               type: "msg",
-              content: "シンプルなメッセージ"
+              content: "シンプルなメッセージ\nかきくけこほにゃららら"
             });
             vm.setNpcImg("スフィア1", "L");
           },

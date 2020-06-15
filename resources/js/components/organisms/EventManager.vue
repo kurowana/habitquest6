@@ -46,7 +46,7 @@ export default {
     this.getCurrentEvent();
   },
   watch: {
-    "event.sceneNo": function() {
+    "eventState.sceneNo": function() {
       this.getCurrentEvent();
     },
     "message.isMessageEnd": function() {
@@ -69,8 +69,8 @@ export default {
         this.eventList[this.eventState.current].length >
         this.eventState.sceneNo + 1
       ) {
-        this.$store.dispatch(updateSceneNo, this.eventState.sceneNo + 1);
-        this.$store.dispatch(updateSceneFlag, false);
+        this.$store.dispatch("updateSceneNo", this.eventState.sceneNo + 1);
+        this.$store.dispatch("updateSceneFlag", false);
       } else {
         console.log("イベント終了");
       }
@@ -230,7 +230,7 @@ export default {
       for (let k of Object.keys(this.npc)) {
         this.$store.dispatch("updateNpcZIndex", { zIndex: 10, position: k });
       }
-      this.$store.dispatch("updateNpcZIndex", { zIndex: 20, position: k });
+      this.$store.dispatch("updateNpcZIndex", { zIndex: 20, position: pos });
       this.$store.dispatch("updateNpcEffect", {
         effect: effect,
         position: pos
@@ -291,7 +291,7 @@ export default {
       }
     },
     toBackAllCharacter() {
-      for (let k of Object.keys(this.eventState.npc)) {
+      for (let k of Object.keys(this.npc)) {
         this.toBackCharacter(k);
       }
     },

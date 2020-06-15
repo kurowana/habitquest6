@@ -4,7 +4,7 @@
     :text="msgText"
     :repeat="0"
     :type-delay="delayTime"
-    @completed="hasCompletedText"
+    @completed="hasCompletedType"
   ></vue-typer>
 </template>
 
@@ -32,8 +32,9 @@ export default {
     }
   },
   methods: {
-    hasCompletedText: function() {
-      this.$emit("msg-completed");
+    hasCompletedType: function() {
+      console.log(1);
+      this.$store.dispatch("updateMessageFlag", true);
     }
   }
 };
