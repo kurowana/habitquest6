@@ -92,6 +92,9 @@ const mutations = {
     setNextPlace(state, placeName) {
         state.place.next = placeName;
     },
+    setMessageFlag(state, boolean) {
+        state.message.isMessageEnd = boolean;
+    },
     setMessageName(state, name) {
         state.message.name = name;
     },
@@ -138,6 +141,9 @@ const actions = {
     },
     updateNextPlace({ commit }, placeName) {
         commit("setNextPlace", placeName);
+    },
+    updateMessageFlag({ commit }, boolean) {
+        commit("setMessageFlag", boolean);
     },
     updateMessage({ commit }, { name, text }) {
         commit("setMessageName", name);
