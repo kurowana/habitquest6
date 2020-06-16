@@ -1,23 +1,29 @@
 const state = {
-    eventState: {
-        current: "event1",
-        sceneNo: 0,
-        isSceneEnd: false
+    //イベント中の進行管理を行うstate
+    scene: {
+        script: "event1",
+        no: 0,
+        type: "msg", //msg or talk or select or place
+        isEnd: false
     },
+    //イベント中の舞台表示を管理するstate
     place: {
         isDisplay: true,
         current: "神殿",
         next: "神殿"
     },
+    //イベント中のメッセージ表示を管理するstate
     message: {
-        isMessageEnd: false,
+        isEnd: false,
         name: " ",
         text: " "
     },
+    //イベント中の選択肢処理を管理するstate
     selection: {
         isDisplay: false,
         content: []
     },
+    //Npc表示を管理するstate
     npc: {
         L: {
             name: "",
@@ -57,7 +63,7 @@ const state = {
     }
 };
 const getters = {
-    getEventState: state => {
+    getScene: state => {
         return state.eventState;
     },
     getPlace: state => {
@@ -74,15 +80,20 @@ const getters = {
     }
 };
 const mutations = {
-    setCurrentEvent(state, eventName) {
-        state.eventState.current = eventName;
+    //シーン管理変数のSetter
+    setSceneScript(state, scriptName) {
+        state.scene.script = scriptName;
     },
     setSceneNo(state, sceneNo) {
-        state.eventState.sceneNo = sceneNo;
+        state.scene.no = sceneNo;
     },
-    setSceneFlag(state, boolean) {
-        state.eventState.isSceneEnd = boolean;
+    setSceneType(state, sceneType) {
+        state.scene.type = sceneType;
     },
+    setSceneEndFlag(state, boolean) {
+        state.scene.isEnd = boolean;
+    },
+    //舞台管理変数のSetter
     setPlaceFlag(state, boolean) {
         state.place.isDisplay = boolean;
     },
@@ -92,6 +103,7 @@ const mutations = {
     setNextPlace(state, placeName) {
         state.place.next = placeName;
     },
+    //メッセージ管理変数のSetter
     setMessageFlag(state, boolean) {
         state.message.isMessageEnd = boolean;
     },
@@ -101,12 +113,14 @@ const mutations = {
     setMessageText(state, text) {
         state.message.text = text;
     },
+    //選択肢の表示管理用のSetter
     setSelectionFlag(state, boolean) {
         state.selection.isDisplay = boolean;
     },
     setSelectionContent(state, selectionList) {
         state.selection.content = selectionList;
     },
+    //NPC表示管理用のSetter
     setNpc(state, { name, position }) {
         state.npc[position].name = name;
     },
@@ -124,6 +138,49 @@ const mutations = {
     }
 };
 const actions = {
+    updateNextScene({ state, commit }, type) {
+        commit("setSceneNo", state.scene.no + 1);
+        commit("setSceneType", type);
+    },
+    updateSceneScript({ commit }, script) {
+        commit("setSceneScript", script);
+        commit("setSceneNo", 0);
+    },
+
+    updateEvent({ dispatch }, event) {
+        if (event.type) {
+            switch (event.type) {
+                case "msg":
+                    dispatch("messageEvent", { text: event.content });
+                    break;
+                case "talk":
+                    dispatch("talkEvent", {
+                        text: event.content.text,
+                        name: event.content.name,
+                        pos: event.content.pos
+                    });
+                    break;
+                case "select":
+                    dispatch("selectionEvent", event.content);
+                    break;
+                case "place":
+                    dispatch("placeEvent", {
+                        place: event.content.place,
+                        text: event.content.text
+                    });
+                    break;
+                default:
+                    dispatch("eventStoreError");
+                    break;
+            }
+        }
+    },
+
+    eventStoreError() {
+        console.log("イベントストアの処理でエラーが発生しました");
+    },
+
+    //旧処理
     updateCurrentEvent({ commit }, eventName) {
         commit("setCurrentEvent", eventName);
     },
