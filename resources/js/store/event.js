@@ -121,39 +121,41 @@ const mutations = {
         state.selection.content = selectionList;
     },
     //NPC表示管理用のSetter
-    setNpc(state, { name, position }) {
-        state.npc[position].name = name;
+    setNpc(state, { name, pos }) {
+        state.npc[pos].name = name;
     },
-    setNpcOpacity(state, { opacity, position }) {
-        state.npc[position].opacity = opacity;
+    setNpcOpacity(state, { opacity, pos }) {
+        state.npc[pos].opacity = opacity;
     },
-    setNpcZIndex(state, { zIndex, position }) {
-        state.npc[position].zIndex = zIndex;
+    setNpcZIndex(state, { zIndex, pos }) {
+        state.npc[pos].zIndex = zIndex;
     },
-    setNpcMotion(state, { motion, position }) {
-        state.npc[position].motion = motion;
+    setNpcMotion(state, { motion, pos }) {
+        state.npc[pos].motion = motion;
     },
-    setNpcEffect(state, { effect, position }) {
-        state.npc[position].effect = effect;
+    setNpcEffect(state, { effect, pos }) {
+        state.npc[pos].effect = effect;
     }
 };
 const actions = {
-    updateNextScene({ state, commit }, type) {
+    increaseSceneNo({ state, commit }) {
         commit("setSceneNo", state.scene.no + 1);
-        commit("setSceneType", type);
     },
     updateSceneScript({ commit }, script) {
         commit("setSceneScript", script);
         commit("setSceneNo", 0);
     },
 
+    //イベントタイプに応じた処理の振り分け
     updateEvent({ dispatch }, event) {
         if (event.type) {
             switch (event.type) {
                 case "msg":
+                    commit("setSceneType", "msg");
                     dispatch("messageEvent", { text: event.content });
                     break;
                 case "talk":
+                    commit("setSceneType", "talk");
                     dispatch("talkEvent", {
                         text: event.content.text,
                         name: event.content.name,
@@ -161,21 +163,80 @@ const actions = {
                     });
                     break;
                 case "select":
+                    commit("setSceneType", "select");
                     dispatch("selectionEvent", event.content);
                     break;
                 case "place":
+                    commit("setSceneType", "place");
                     dispatch("placeEvent", {
                         place: event.content.place,
                         text: event.content.text
                     });
                     break;
                 default:
+                    commit("setSceneType", "none");
                     dispatch("eventStoreError");
                     break;
             }
         }
     },
 
+    //メッセージウィンドウへの文章表示処理
+    messageEvent({ state, commit }, text) {
+        if (typeof text === "string") {
+            commit("setMessageFlag", false);
+            // 同じ文が続く場合、文の変更および完了イベントが発火しないので対応
+            if (state.message.text == text) {
+                commit("setMessageText", "");
+            }
+            commit("setMessageText", text);
+        } else {
+            this.eventError();
+        }
+    },
+
+    // 話し手が存在するメッセージ処理。対象キャラの名前表示、強調表示つき
+    talkEvent({ commit, dispatch }, { text, name, pos }) {
+        if (typeof name === "string") {
+            commit("setMessageFlag", false);
+            commit("setMessageName", name);
+            dispatch("messageEvent", text);
+        } else {
+            dispatch("eventStoreError");
+        }
+
+        this.toBackAllCharacter();
+        this.toForwardCharacter(pos);
+    },
+
+    //NPCの表示制御処理
+    updateNpcImg({ commit }, { name, pos }) {
+        commit("setNpc", { name, pos });
+    },
+    resetNpcImg({ state, commit }) {
+        for (let k of Object.keys(state.npc)) {
+            commit("setNpc", { name: "", pos: k });
+            commit("setNpcOpacity", { opacity: 1, pos: k });
+            commit("setNpcZIndex", { zIndex: 10, pos: k });
+            commit("setNpcMotion", {
+                motion: "none",
+                position: k
+            });
+            commit("setNpcEffect", {
+                effect: "none",
+                pos: k
+            });
+        }
+    },
+
+    updateOpacity(value, pos) {
+        this.$store.dispatch("updateNpcOpacity", {
+            opacity: value,
+            position: pos
+        });
+    },
+
+    //ストア格納時の制御処理
     eventStoreError() {
         console.log("イベントストアの処理でエラーが発生しました");
     },
