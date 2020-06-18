@@ -64,7 +64,7 @@ const state = {
 };
 const getters = {
     getScene: state => {
-        return state.eventState;
+        return state.scene;
     },
     getPlace: state => {
         return state.place;

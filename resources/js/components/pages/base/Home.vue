@@ -1,5 +1,5 @@
 <template>
-  <novel :event-list="eventList"></novel>
+  <novel :scripts="eventScripts"></novel>
 </template>
 
 <script>
@@ -11,7 +11,7 @@ export default {
   },
   data: function() {
     return {
-      eventList: {
+      eventScripts: {
         event1: [
           // 引数vmは、子コンポーネントのthis
           function(vm) {
