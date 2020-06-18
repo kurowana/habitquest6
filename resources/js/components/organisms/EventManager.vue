@@ -26,7 +26,7 @@ export default {
     "background-img": BackgroundImg
   },
   props: {
-    eventList: {
+    scripts: {
       type: Object,
       required: true
     }
@@ -36,7 +36,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      eventState: "getEventState",
+      scene: "getScene",
       message: "getMessage",
       selection: "getSelection",
       npc: "getNpc"
@@ -61,7 +61,7 @@ export default {
     //イベント進行管理
     getCurrentEvent() {
       const vm = this;
-      this.eventList[this.eventState.current][this.eventState.sceneNo](vm);
+      this.scripts[this.scene.script][this.scene.no](vm);
     },
 
     updateSceneNo() {
@@ -90,39 +90,39 @@ export default {
       }
     },
 
-    changeTargetEvent(target) {
+    changeEventScript(target) {
       this.$dispatch("updateCurrentEvent", target);
       this.$dispatch("updateSceneNo", 0);
     },
 
     //イベントタイプに応じた処理の振り分け
-    // setEvent(event) {
-    //   if (event.type) {
-    //     switch (event.type) {
-    //       case "msg":
-    //         this.messageEvent(event.content);
-    //         break;
-    //       case "talk":
-    //         this.talkEvent(
-    //           event.content.text,
-    //           event.content.name,
-    //           event.content.pos
-    //         );
-    //         break;
-    //       case "select":
-    //         this.selectEvent(event.content);
-    //         break;
-    //       case "place":
-    //         this.changePlaceEvent(event.content.place, event.content.text);
-    //         break;
-    //       default:
-    //         this.eventError();
-    //         break;
-    //     }
-    //   } else {
-    //     this.eventError();
-    //   }
-    // },
+    setEvent(event) {
+      if (event.type) {
+        switch (event.type) {
+          case "msg":
+            this.messageEvent(event.content);
+            break;
+          case "talk":
+            this.talkEvent(
+              event.content.text,
+              event.content.name,
+              event.content.pos
+            );
+            break;
+          case "select":
+            this.selectEvent(event.content);
+            break;
+          case "place":
+            this.changePlaceEvent(event.content.place, event.content.text);
+            break;
+          default:
+            this.eventError();
+            break;
+        }
+      } else {
+        this.eventError();
+      }
+    },
     //メッセージウィンドウへの文章表示処理
     // messageEvent(text) {
     //   if (typeof text === "string") {
