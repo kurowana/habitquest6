@@ -138,9 +138,12 @@ const mutations = {
     }
 };
 const actions = {
+    //シーン進行管理
     increaseSceneNo({ state, commit }) {
         commit("setSceneNo", state.scene.no + 1);
+        commit("setSceneEndFlag", false);
     },
+
     updateSceneScript({ commit }, script) {
         commit("setSceneScript", script);
         commit("setSceneNo", 0);
