@@ -65,22 +65,22 @@ export default {
     },
 
     updateSceneNo() {
-      if (
-        this.eventList[this.eventState.current].length >
-        this.eventState.sceneNo + 1
-      ) {
-        this.$store.dispatch("updateSceneNo", this.eventState.sceneNo + 1);
-        this.$store.dispatch("updateSceneFlag", false);
+      if (this.scripts[this.scene.script].length > this.scene.no + 1) {
+        this.$store.dispatch("increaseSceneNo");
       } else {
         console.log("イベント終了");
       }
     },
 
     clickEventViewer() {
-      if (this.eventState.isSceneEnd) {
+      if (this.scene.isEnd) {
         this.$store.commit("setSe", "クリック.mp3");
         this.updateSceneNo();
       }
+    },
+
+    changeEventScript(target) {
+      this.$dispatch("updateSceneScript", target);
     },
 
     //ここの処理、あとで考え直す
@@ -88,11 +88,6 @@ export default {
       if (this.message.isMessageEnd) {
         this.$store.dispatch("updateSceneFlag", true);
       }
-    },
-
-    changeEventScript(target) {
-      this.$dispatch("updateCurrentEvent", target);
-      this.$dispatch("updateSceneNo", 0);
     },
 
     //イベントタイプに応じた処理の振り分け
@@ -123,25 +118,25 @@ export default {
         this.eventError();
       }
     },
-    //メッセージウィンドウへの文章表示処理
-    // messageEvent(text) {
-    //   if (typeof text === "string") {
-    //     // 同じ文が続く場合、文の変更および完了イベントが発火しないので対応
-    //     if (this.message.text == text) {
-    //       this.$store.dispatch("updateSceneFlag", true);
-    //     }
-    //     this.$store.dispatch("updateMessage", { name: "", text: text });
-    //   } else {
-    //     this.eventError();
-    //   }
-    // },
+    // メッセージウィンドウへの文章表示処理
+    messageEvent(text) {
+      if (typeof text === "string") {
+        // 同じ文が続く場合、文の変更および完了イベントが発火しないので対応
+        if (this.message.text == text) {
+          this.$store.dispatch("updateSceneFlag", true);
+        }
+        this.$store.dispatch("updateMessage", { name: "", text: text });
+      } else {
+        this.eventError();
+      }
+    },
 
     // 話し手が存在するメッセージ処理。対象キャラの名前表示、強調表示つき
-    // talkEvent(text, name, pos) {
-    //   this.$store.dispatch("updateMessage", { name: name, text: text });
-    //   this.toBackAllCharacter();
-    //   this.toForwardCharacter(pos);
-    // },
+    talkEvent(text, name, pos) {
+      this.$store.dispatch("updateMessage", { name: name, text: text });
+      this.toBackAllCharacter();
+      this.toForwardCharacter(pos);
+    },
 
     selectEvent(selection) {
       if (Array.isArray(selection)) {
@@ -162,31 +157,31 @@ export default {
     },
 
     // キャラクター画像表示系
-    // setNpcImg(name, pos) {
-    //   this.$store.dispatch("updateNpc", { name: name, position: pos });
-    // },
+    setNpcImg(name, pos) {
+      this.$store.dispatch("updateNpc", { name: name, position: pos });
+    },
 
-    // resetNpcImg() {
-    //   for (let k of Object.keys(this.npc)) {
-    //     this.$store.dispatch("updateNpc", { name: "", position: k });
-    //     this.$store.dispatch("updateNpcOpacity", { opacity: 1, position: k });
-    //     this.$store.dispatch("updateNpcZIndex", { zIndex: 10, position: k });
-    //     this.$store.dispatch("updateNpcMotion", {
-    //       motion: "none",
-    //       position: k
-    //     });
-    //     this.$store.dispatch("updateNpcEffect", {
-    //       effect: "none",
-    //       position: k
-    //     });
-    //   }
-    // },
-    // setOpacity(value, pos) {
-    //   this.$store.dispatch("updateNpcOpacity", {
-    //     opacity: value,
-    //     position: pos
-    //   });
-    // },
+    resetNpcImg() {
+      for (let k of Object.keys(this.npc)) {
+        this.$store.dispatch("updateNpc", { name: "", position: k });
+        this.$store.dispatch("updateNpcOpacity", { opacity: 1, position: k });
+        this.$store.dispatch("updateNpcZIndex", { zIndex: 10, position: k });
+        this.$store.dispatch("updateNpcMotion", {
+          motion: "none",
+          position: k
+        });
+        this.$store.dispatch("updateNpcEffect", {
+          effect: "none",
+          position: k
+        });
+      }
+    },
+    setOpacity(value, pos) {
+      this.$store.dispatch("updateNpcOpacity", {
+        opacity: value,
+        position: pos
+      });
+    },
     resetOpacity(pos) {
       this.$store.dispatch("updateNpcOpacity", {
         opacity: 1,
