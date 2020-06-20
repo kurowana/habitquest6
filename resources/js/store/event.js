@@ -144,13 +144,13 @@ const actions = {
         commit("setSceneEndFlag", false);
     },
 
-    updateSceneScript({ commit }, script) {
+    changeSceneScript({ commit }, script) {
         commit("setSceneScript", script);
         commit("setSceneNo", 0);
     },
 
     //イベントタイプに応じた処理の振り分け
-    updateEvent({ dispatch }, event) {
+    mainEvent({ dispatch }, event) {
         if (event.type) {
             switch (event.type) {
                 case "msg":
@@ -213,7 +213,7 @@ const actions = {
     },
 
     //NPCの表示制御処理
-    updateNpcImg({ commit }, { name, pos }) {
+    changeNpcImg({ commit }, { name, pos }) {
         commit("setNpc", { name, pos });
     },
     resetNpcImg({ state, commit }) {
@@ -232,11 +232,25 @@ const actions = {
         }
     },
 
-    updateOpacity(value, pos) {
-        this.$store.dispatch("updateNpcOpacity", {
-            opacity: value,
-            position: pos
+    changeOpacity({ commit }, { opacity, pos }) {
+        commit("setNpcOpacity", {
+            opacity: opacity,
+            pos: pos
         });
+    },
+    resetOpacity({ commit }, pos) {
+        commit("setNpcOpacity", {
+            opacity: 1,
+            pos: pos
+        });
+    },
+    resetAllOpacity({ state, dispatch }) {
+        for (let k of Object.keys(state.npc)) {
+            dispatch("changeOpacity", {
+                opacity: 1,
+                position: k
+            });
+        }
     },
 
     //ストア格納時の制御処理
