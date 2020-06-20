@@ -9,8 +9,9 @@
 </template>
 
 <script>
-import baseMixin from "../../mixins/baseMixin";
 import { mapGetters } from "vuex";
+
+import baseMixin from "../../mixins/baseMixin";
 
 import NpcViewer from "../molecules/NpcViewer";
 import MsgWindow from "../molecules/MsgWindow";
@@ -60,8 +61,14 @@ export default {
   methods: {
     //イベント進行管理
     getCurrentEvent() {
-      const vm = this;
-      this.scripts[this.scene.script][this.scene.no](vm);
+      this.scripts[this.scene.script][this.scene.no]();
+    },
+
+    clickEventViewer() {
+      if (this.scene.isEnd) {
+        this.$store.commit("setSe", "クリック.mp3");
+        this.updateSceneNo();
+      }
     },
 
     updateSceneNo() {
@@ -69,13 +76,6 @@ export default {
         this.$store.dispatch("increaseSceneNo");
       } else {
         console.log("イベント終了");
-      }
-    },
-
-    clickEventViewer() {
-      if (this.scene.isEnd) {
-        this.$store.commit("setSe", "クリック.mp3");
-        this.updateSceneNo();
       }
     },
 
@@ -91,52 +91,52 @@ export default {
     },
 
     //イベントタイプに応じた処理の振り分け
-    setEvent(event) {
-      if (event.type) {
-        switch (event.type) {
-          case "msg":
-            this.messageEvent(event.content);
-            break;
-          case "talk":
-            this.talkEvent(
-              event.content.text,
-              event.content.name,
-              event.content.pos
-            );
-            break;
-          case "select":
-            this.selectEvent(event.content);
-            break;
-          case "place":
-            this.changePlaceEvent(event.content.place, event.content.text);
-            break;
-          default:
-            this.eventError();
-            break;
-        }
-      } else {
-        this.eventError();
-      }
-    },
+    // setEvent(event) {
+    //   if (event.type) {
+    //     switch (event.type) {
+    //       case "msg":
+    //         this.messageEvent(event.content);
+    //         break;
+    //       case "talk":
+    //         this.talkEvent(
+    //           event.content.text,
+    //           event.content.name,
+    //           event.content.pos
+    //         );
+    //         break;
+    //       case "select":
+    //         this.selectEvent(event.content);
+    //         break;
+    //       case "place":
+    //         this.changePlaceEvent(event.content.place, event.content.text);
+    //         break;
+    //       default:
+    //         this.eventError();
+    //         break;
+    //     }
+    //   } else {
+    //     this.eventError();
+    //   }
+    // },
     // メッセージウィンドウへの文章表示処理
-    messageEvent(text) {
-      if (typeof text === "string") {
-        // 同じ文が続く場合、文の変更および完了イベントが発火しないので対応
-        if (this.message.text == text) {
-          this.$store.dispatch("updateSceneFlag", true);
-        }
-        this.$store.dispatch("updateMessage", { name: "", text: text });
-      } else {
-        this.eventError();
-      }
-    },
+    // messageEvent(text) {
+    //   if (typeof text === "string") {
+    //     // 同じ文が続く場合、文の変更および完了イベントが発火しないので対応
+    //     if (this.message.text == text) {
+    //       this.$store.dispatch("updateSceneFlag", true);
+    //     }
+    //     this.$store.dispatch("updateMessage", { name: "", text: text });
+    //   } else {
+    //     this.eventError();
+    //   }
+    // },
 
     // 話し手が存在するメッセージ処理。対象キャラの名前表示、強調表示つき
-    talkEvent(text, name, pos) {
-      this.$store.dispatch("updateMessage", { name: name, text: text });
-      this.toBackAllCharacter();
-      this.toForwardCharacter(pos);
-    },
+    // talkEvent(text, name, pos) {
+    //   this.$store.dispatch("updateMessage", { name: name, text: text });
+    //   this.toBackAllCharacter();
+    //   this.toForwardCharacter(pos);
+    // },
 
     selectEvent(selection) {
       if (Array.isArray(selection)) {
@@ -157,45 +157,44 @@ export default {
     },
 
     // キャラクター画像表示系
-    setNpcImg(name, pos) {
-      this.$store.dispatch("updateNpc", { name: name, position: pos });
-    },
-
-    resetNpcImg() {
-      for (let k of Object.keys(this.npc)) {
-        this.$store.dispatch("updateNpc", { name: "", position: k });
-        this.$store.dispatch("updateNpcOpacity", { opacity: 1, position: k });
-        this.$store.dispatch("updateNpcZIndex", { zIndex: 10, position: k });
-        this.$store.dispatch("updateNpcMotion", {
-          motion: "none",
-          position: k
-        });
-        this.$store.dispatch("updateNpcEffect", {
-          effect: "none",
-          position: k
-        });
-      }
-    },
-    setOpacity(value, pos) {
-      this.$store.dispatch("updateNpcOpacity", {
-        opacity: value,
-        position: pos
-      });
-    },
-    resetOpacity(pos) {
-      this.$store.dispatch("updateNpcOpacity", {
-        opacity: 1,
-        position: pos
-      });
-    },
-    resetAllOpacitye() {
-      for (let k of Object.keys(this.npc)) {
-        this.$store.dispatch("updateNpcOpacity", {
-          opacity: 1,
-          position: k
-        });
-      }
-    },
+    // setNpcImg(name, pos) {
+    //   this.$store.dispatch("updateNpc", { name: name, position: pos });
+    // },
+    // resetNpcImg() {
+    //   for (let k of Object.keys(this.npc)) {
+    //     this.$store.dispatch("updateNpc", { name: "", position: k });
+    //     this.$store.dispatch("updateNpcOpacity", { opacity: 1, position: k });
+    //     this.$store.dispatch("updateNpcZIndex", { zIndex: 10, position: k });
+    //     this.$store.dispatch("updateNpcMotion", {
+    //       motion: "none",
+    //       position: k
+    //     });
+    //     this.$store.dispatch("updateNpcEffect", {
+    //       effect: "none",
+    //       position: k
+    //     });
+    //   }
+    // },
+    // setOpacity(value, pos) {
+    //   this.$store.dispatch("updateNpcOpacity", {
+    //     opacity: value,
+    //     position: pos
+    //   });
+    // },
+    // resetOpacity(pos) {
+    //   this.$store.dispatch("updateNpcOpacity", {
+    //     opacity: 1,
+    //     position: pos
+    //   });
+    // },
+    // resetAllOpacitye() {
+    //   for (let k of Object.keys(this.npc)) {
+    //     this.$store.dispatch("updateNpcOpacity", {
+    //       opacity: 1,
+    //       position: k
+    //     });
+    //   }
+    // },
     setZIndex(value, pos) {
       this.$store.dispatch("updateNpcZIndex", { zIndex: value, position: pos });
     },
