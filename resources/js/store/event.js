@@ -94,7 +94,7 @@ const mutations = {
         state.scene.isEnd = boolean;
     },
     //舞台管理変数のSetter
-    setPlaceFlag(state, boolean) {
+    setPlacecDisplayFlag(state, boolean) {
         state.place.isDisplay = boolean;
     },
     setCurrentPlace(state, placeName) {
@@ -104,7 +104,7 @@ const mutations = {
         state.place.next = placeName;
     },
     //メッセージ管理変数のSetter
-    setMessageFlag(state, boolean) {
+    setMessageEndFlag(state, boolean) {
         state.message.isMessageEnd = boolean;
     },
     setMessageName(state, name) {
@@ -114,7 +114,7 @@ const mutations = {
         state.message.text = text;
     },
     //選択肢の表示管理用のSetter
-    setSelectionFlag(state, boolean) {
+    setSelectionDisplayFlag(state, boolean) {
         state.selection.isDisplay = boolean;
     },
     setSelectionContent(state, selectionList) {
@@ -187,21 +187,28 @@ const actions = {
     //メッセージウィンドウへの文章表示処理
     messageEvent({ state, commit }, text) {
         if (typeof text === "string") {
-            commit("setMessageFlag", false);
+            commit("setMessageEndFlag", false);
             // 同じ文が続く場合、文の変更および完了イベントが発火しないので対応
             if (state.message.text == text) {
                 commit("setMessageText", "");
             }
+            commit("setMessageName", "");
             commit("setMessageText", text);
         } else {
             this.eventError();
+        }
+    },
+    completeMessage({ state, commit }) {
+        commit("setMessageEndFlag", true);
+        if (state.sceneType === "msg" || state.sceneType === "talk") {
+            commit("setSceneEndFlag", true);
         }
     },
 
     // 話し手が存在するメッセージ処理。対象キャラの名前表示、強調表示つき
     talkEvent({ commit, dispatch }, { text, name, pos }) {
         if (typeof name === "string") {
-            commit("setMessageFlag", false);
+            commit("setMessageEndFlag", false);
             commit("setMessageName", name);
             dispatch("messageEvent", text);
         } else {
@@ -210,6 +217,22 @@ const actions = {
 
         this.toBackAllCharacter();
         this.toForwardCharacter(pos);
+    },
+    //選択肢イベント
+    selectEvent({ commit, selection }) {
+        commit("setSelectionContent", selection);
+        commit("setSelectionDisplayFlag", true);
+    },
+    doSelectedEvent({ state }, index) {
+        state.selection.content[index].event();
+        commit("setSelectionDisplayFlag", false);
+    },
+
+    //場面変更イベント
+    async placeEvent({ dispatch }, { place, text }) {
+        await dispatch("changeNextPlace", { place: place, time: 500 });
+        await dispatch("changeCurrentPlace", { place: place, time: 500 });
+        dispatch("messageEvent", text);
     },
 
     //NPCの表示制御処理
@@ -232,78 +255,137 @@ const actions = {
         }
     },
 
-    changeOpacity({ commit }, { opacity, pos }) {
+    changeNpcOpacity({ commit }, { opacity, pos }) {
         commit("setNpcOpacity", {
             opacity: opacity,
             pos: pos
         });
     },
-    resetOpacity({ commit }, pos) {
+    resetNpcOpacity({ commit }, pos) {
         commit("setNpcOpacity", {
             opacity: 1,
             pos: pos
         });
     },
-    resetAllOpacity({ state, dispatch }) {
+    resetAllNpcOpacity({ state, dispatch }) {
         for (let k of Object.keys(state.npc)) {
-            dispatch("changeOpacity", {
+            dispatch("changeNpcOpacity", {
                 opacity: 1,
+                pos: k
+            });
+        }
+    },
+    changeNpcZIndex({ commit }, { zIndex, pos }) {
+        commit("setNpcZIndex", {
+            zIndex: zIndex,
+            pos: pos
+        });
+    },
+    resetNpcZIndex({ commit }, pos) {
+        commit("setNpcZIndex", { zIndex: 10, pos: pos });
+    },
+    resetAllNpcZIndex({ state, dispatch }) {
+        for (let k of Object.keys(state.npc)) {
+            dispatch("changeZIndex", {
+                zIndex: 10,
                 position: k
             });
         }
+    },
+    changeNpcMotion({ commit }, { motion, pos }) {
+        commit("setNpcMotion", {
+            motion: motion,
+            pos: pos
+        });
+    },
+    changeNpcEffect({ commit }, { effect, pos }) {
+        commit("setNpcEffect", {
+            effect: effect,
+            pos: pos
+        });
+    },
+    //Talk処理用の重ね順、不透明度一括処理
+    toForwardNpc({ dispatch }, pos) {
+        dispatch("changeNpcOpacity", {
+            opacity: 1,
+            pos: pos
+        });
+        dispatch("changeNpcZIndex", {
+            zIndex: 20,
+            pos: pos
+        });
+        dispatch("changeNpcMotion", {
+            motion: "none",
+            pos: pos
+        });
+        dispatch("changeNpcEffect", {
+            effect: "none",
+            pos: pos
+        });
+    },
+    toForwardAllNpc({ state, dispatch }) {
+        for (let k of Object.keys(state.npc)) {
+            dispatch("toFowardNpc", k);
+        }
+    },
+    toBackNpc({ dispatch }, pos) {
+        dispatch("changeNpcOpacity", {
+            opacity: 0.8,
+            position: pos
+        });
+        dispatch("changeNpcZIndex", {
+            zIndex: 5,
+            position: pos
+        });
+        dispatch("changeNpcMotion", {
+            motion: "none",
+            position: pos
+        });
+        dispatch("changeNpcEffect", {
+            effect: "none",
+            position: pos
+        });
+    },
+    toBackAllNpc({ state, dispatch }) {
+        for (let k of Object.keys(state.npc)) {
+            dispatch("toBackNpc", k);
+        }
+    },
+
+    //メッセージウィンドウの初期化処理
+    resetMessage({ commit }) {
+        commit("setMessageEndFlag", false);
+        commit("setMessageName", "");
+        commit("setMessageText", "");
+    },
+
+    // 舞台演出関連
+    async changePlace({ commit, dispatch }, place) {
+        await dispatch("changeNextPlace", { place: place, time: 500 });
+        dispatch("changeCurrentPlace", { place: place, time: 0 });
+    },
+    changeCurrentPlace({ commit }, { place, time }) {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                commit("setCurrentPlace", place);
+                commit("setPlaceDisplayFlag", true);
+                resolve();
+            }, time);
+        });
+    },
+    changeNextPlace({ commit }, { place, time }) {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                commit("setNextPlace", place);
+                commit("setPlaceDisplayFlag", false);
+                resolve();
+            }, time);
+        });
     },
 
     //ストア格納時の制御処理
     eventStoreError() {
         console.log("イベントストアの処理でエラーが発生しました");
-    },
-
-    //旧処理
-    updateCurrentEvent({ commit }, eventName) {
-        commit("setCurrentEvent", eventName);
-    },
-    updateSceneNo({ commit }, sceneNo) {
-        commit("setSceneNo", sceneNo);
-    },
-    updateSceneFlag({ commit }, boolean) {
-        commit("setSceneFlag", boolean);
-    },
-    updatePlaceFlag({ commit }, boolean) {
-        commit("setPlaceFlag", boolean);
-    },
-    updateCurrentPlace({ commit }, placeName) {
-        commit("setCurrentPlace", placeName);
-    },
-    updateNextPlace({ commit }, placeName) {
-        commit("setNextPlace", placeName);
-    },
-    updateMessageFlag({ commit }, boolean) {
-        commit("setMessageFlag", boolean);
-    },
-    updateMessage({ commit }, { name, text }) {
-        commit("setMessageName", name);
-        commit("setMessageText", text);
-    },
-    updateSelectionFlag({ commit }, boolean) {
-        commit("setSelectionFlag", boolean);
-    },
-    updateSelectionContent({ commit }, selectionList) {
-        commit("setSelectionContent", selectionList);
-    },
-    updateNpc({ commit }, { name, position }) {
-        commit("setNpc", { name, position });
-    },
-    updateNpcOpacity({ commit }, { opacity, position }) {
-        commit("setNpcOpacity", { opacity, position });
-    },
-    updateNpcZIndex({ commit }, { zIndex, position }) {
-        commit("setNpcZIndex", { zIndex, position });
-    },
-    updateNpcMotion({ commit }, { motion, position }) {
-        commit("setNpcMotion", { motion, position });
-    },
-    updateNpcEffect({ commit }, { effect, position }) {
-        commit("setNpcEffect", { effect, position });
     }
 };
 export default {
