@@ -1,5 +1,5 @@
 <template>
-  <novel :scripts="eventScripts"></novel>
+  <novel :event-scripts="eventScripts"></novel>
 </template>
 
 <script>
@@ -15,77 +15,43 @@ export default {
         event1: [
           // 引数vmは、子コンポーネントのthis
           function(vm) {
-            vm.setEvent({
+            vm.$store.dispatch("mainEvent", {
               type: "msg",
               content: "シンプルなメッセージ\nかきくけこほにゃららら"
             });
-            vm.setNpcImg("スフィア1", "L");
+            vm.$store.dispatch("changeNpcImg", {
+              name: "スフィア1",
+              pos: "L"
+            });
           },
           async function(vm) {
-            vm.setEvent({
+            vm.$store.dispatch("mainEvent", {
               type: "talk",
               content: {
-                text: "トークイベント検証",
+                text: "トークイベント",
                 name: "スフィア",
                 pos: "L"
               }
             });
-
-            vm.setNpcMotion("right-slide", "L");
-            vm.setNpcEffect("death", "L");
           },
           function(vm) {
-            vm.setEvent({
+            vm.$store.dispatch("mainEvent", {
               type: "select",
               content: [
                 {
                   text: "選択肢1",
                   event: () => {
-                    vm.setEvent({
-                      type: "msg",
-                      content: "選択肢1"
-                    });
+                    console.log(1);
                   }
                 },
                 {
-                  text: "イベントチェンジ",
+                  text: "選択肢2",
                   event: () => {
-                    vm.changeTargetEvent("event2");
+                    console.log(2);
                   }
                 }
               ]
             });
-          },
-          function(vm) {
-            vm.setEvent({
-              type: "place",
-              content: {
-                place: "街",
-                text: "場面転換"
-              }
-            });
-          },
-          function(vm) {
-            vm.setEvent({
-              type: "msg",
-              content: "終了直前メッセージ"
-            });
-          }
-        ],
-        event2: [
-          function(vm) {
-            vm.setEvent({
-              type: "msg",
-              content: "イベントオブジェ変更"
-            });
-            vm.setNpcImg("スフィア1", "L");
-          },
-          function(vm) {
-            vm.setEvent({
-              type: "msg",
-              content: "イベントオブジェ変更1"
-            });
-            vm.setNpcImg("スフィア1", "L");
           }
         ]
       }

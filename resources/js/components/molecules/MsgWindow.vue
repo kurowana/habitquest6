@@ -2,7 +2,7 @@
   <div class="msg-container">
     <div class="name-area">{{message.name}}</div>
     <typed-text class="text-area" :msg-text="message.text"></typed-text>
-    <down-arrow class="next-icon" v-if="eventState.isSceneEnd"></down-arrow>
+    <down-arrow class="next-icon" v-if="scene.isEnd"></down-arrow>
   </div>
 </template>
 
@@ -24,7 +24,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      eventState: "getEventState",
+      scene: "getScene",
       message: "getMessage"
     })
   },

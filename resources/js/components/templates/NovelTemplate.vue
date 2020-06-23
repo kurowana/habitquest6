@@ -1,5 +1,5 @@
 <template>
-  <event-manager :event-list="eventList">
+  <event-manager :event-scripts="eventScripts">
     <game-menu></game-menu>
     <pomodoro-unit></pomodoro-unit>
     <habit-unit></habit-unit>
@@ -23,19 +23,13 @@ export default {
   },
   mixins: [baseMixin],
   props: {
-    eventList: {
+    eventScripts: {
       type: Object,
       required: true
     }
   },
   data: function() {
-    return {
-      isShowModal: false,
-      eventFlag: {
-        isMessageEnd: false,
-        isShowSelection: false
-      }
-    };
+    return {};
   },
   mounted: function() {},
   watch: {},
