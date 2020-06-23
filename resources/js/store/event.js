@@ -150,12 +150,12 @@ const actions = {
     },
 
     //イベントタイプに応じた処理の振り分け
-    mainEvent({ dispatch }, event) {
+    mainEvent({ commit, dispatch }, event) {
         if (event.type) {
             switch (event.type) {
                 case "msg":
                     commit("setSceneType", "msg");
-                    dispatch("messageEvent", { text: event.content });
+                    dispatch("messageEvent", event.content);
                     break;
                 case "talk":
                     commit("setSceneType", "talk");
@@ -195,7 +195,7 @@ const actions = {
             commit("setMessageName", "");
             commit("setMessageText", text);
         } else {
-            this.eventError();
+            console.log("error");
         }
     },
     completeMessage({ state, commit }) {

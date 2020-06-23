@@ -34,7 +34,7 @@ export default {
   methods: {
     hasCompletedType: function() {
       console.log(1);
-      this.$store.dispatch("updateMessageFlag", true);
+      this.$store.dispatch("completeMessage");
     }
   }
 };

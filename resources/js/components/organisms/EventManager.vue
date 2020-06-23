@@ -10,6 +10,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { mapActions } from "vuex";
 
 import baseMixin from "../../mixins/baseMixin";
 
@@ -27,7 +28,7 @@ export default {
     "background-img": BackgroundImg
   },
   props: {
-    scripts: {
+    eventScripts: {
       type: Object,
       required: true
     }
@@ -41,7 +42,8 @@ export default {
       message: "getMessage",
       selection: "getSelection",
       npc: "getNpc"
-    })
+    }),
+    ...mapActions(["mainEvent"])
   },
   mounted: function() {
     this.getCurrentEvent();
@@ -61,7 +63,7 @@ export default {
   methods: {
     //イベント進行管理
     getCurrentEvent() {
-      this.scripts[this.scene.script][this.scene.no]();
+      this.eventScripts[this.scene.script][this.scene.no](this);
     },
 
     clickEventViewer() {
@@ -72,7 +74,7 @@ export default {
     },
 
     updateSceneNo() {
-      if (this.scripts[this.scene.script].length > this.scene.no + 1) {
+      if (this.eventScripts[this.scene.script].length > this.scene.no + 1) {
         this.$store.dispatch("increaseSceneNo");
       } else {
         console.log("イベント終了");
@@ -80,15 +82,15 @@ export default {
     },
 
     changeEventScript(target) {
-      this.$dispatch("updateSceneScript", target);
-    },
+      this.$store.dispatch("updateSceneScript", target);
+    }
 
     //ここの処理、あとで考え直す
-    changeMessageEndFlag() {
-      if (this.message.isMessageEnd) {
-        this.$store.dispatch("updateSceneFlag", true);
-      }
-    },
+    // changeMessageEndFlag() {
+    //   if (this.message.isMessageEnd) {
+    //     this.$store.dispatch("updateSceneFlag", true);
+    //   }
+    // },
 
     //イベントタイプに応じた処理の振り分け
     // setEvent(event) {
@@ -305,9 +307,9 @@ export default {
     // },
 
     //イベント処理中に発生したエラーの共通処理
-    eventError() {
-      console.log("不正なイベントデータです");
-    }
+    // eventError() {
+    //   console.log("不正なイベントデータです");
+    // }
   }
 };
 </script>
