@@ -1,7 +1,7 @@
 <template>
   <div class="msg-container">
     <div class="name-area">{{message.name}}</div>
-    <typed-text class="text-area" :msg-text="message.text"></typed-text>
+    <typed-text class="text-area" :msg-text="message.text" @completed="changeMsgFlag"></typed-text>
     <down-arrow class="next-icon" v-if="scene.isEnd"></down-arrow>
   </div>
 </template>
@@ -28,7 +28,11 @@ export default {
       message: "getMessage"
     })
   },
-  methods: {}
+  methods: {
+    changeMsgFlag() {
+      this.$store.dispatch("completeMessage");
+    }
+  }
 };
 </script>
 

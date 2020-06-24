@@ -149,77 +149,36 @@ const actions = {
         commit("setSceneNo", 0);
     },
 
-    //イベントタイプに応じた処理の振り分け
-    mainEvent({ commit, dispatch }, event) {
-        if (event.type) {
-            switch (event.type) {
-                case "msg":
-                    commit("setSceneType", "msg");
-                    dispatch("messageEvent", event.content);
-                    break;
-                case "talk":
-                    commit("setSceneType", "talk");
-                    dispatch("talkEvent", {
-                        text: event.content.text,
-                        name: event.content.name,
-                        pos: event.content.pos
-                    });
-                    break;
-                case "select":
-                    commit("setSceneType", "select");
-                    dispatch("selectionEvent", event.content);
-                    break;
-                case "place":
-                    commit("setSceneType", "place");
-                    dispatch("placeEvent", {
-                        place: event.content.place,
-                        text: event.content.text
-                    });
-                    break;
-                default:
-                    commit("setSceneType", "none");
-                    dispatch("eventStoreError");
-                    break;
-            }
-        }
-    },
-
     //メッセージウィンドウへの文章表示処理
     messageEvent({ state, commit }, text) {
-        if (typeof text === "string") {
-            commit("setMessageEndFlag", false);
-            // 同じ文が続く場合、文の変更および完了イベントが発火しないので対応
-            if (state.message.text == text) {
-                commit("setMessageText", "");
-            }
-            commit("setMessageName", "");
-            commit("setMessageText", text);
-        } else {
-            console.log("error");
+        commit("setSceneType", "msg");
+        commit("setMessageEndFlag", false);
+        // 同じ文が続く場合、文の変更および完了イベントが発火しないので対応
+        if (state.message.text == text) {
+            commit("setMessageText", "");
         }
+        commit("setMessageName", "");
+        commit("setMessageText", text);
     },
     completeMessage({ state, commit }) {
         commit("setMessageEndFlag", true);
-        if (state.sceneType === "msg" || state.sceneType === "talk") {
+
+        if (state.scene.type === "msg" || state.scene.type === "talk") {
             commit("setSceneEndFlag", true);
         }
     },
 
     // 話し手が存在するメッセージ処理。対象キャラの名前表示、強調表示つき
     talkEvent({ commit, dispatch }, { text, name, pos }) {
-        if (typeof name === "string") {
-            commit("setMessageEndFlag", false);
-            commit("setMessageName", name);
-            dispatch("messageEvent", text);
-        } else {
-            dispatch("eventStoreError");
-        }
-
-        this.toBackAllCharacter();
-        this.toForwardCharacter(pos);
+        commit("setMessageEndFlag", false);
+        commit("setMessageName", name);
+        dispatch("messageEvent", text);
+        dispatch("toBackAllCharacter");
+        dispatch("toForwardCharacter", pos);
     },
     //選択肢イベント
     selectEvent({ commit, selection }) {
+        commit("setSceneType", "select");
         commit("setSelectionContent", selection);
         commit("setSelectionDisplayFlag", true);
     },
@@ -230,6 +189,7 @@ const actions = {
 
     //場面変更イベント
     async placeEvent({ dispatch }, { place, text }) {
+        commit("setSceneType", "place");
         await dispatch("changeNextPlace", { place: place, time: 500 });
         await dispatch("changeCurrentPlace", { place: place, time: 500 });
         dispatch("messageEvent", text);
