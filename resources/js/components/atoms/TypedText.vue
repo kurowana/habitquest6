@@ -33,8 +33,7 @@ export default {
   },
   methods: {
     hasCompletedType: function() {
-      console.log(1);
-      this.$store.dispatch("completeMessage");
+      this.$emit("completed");
     }
   }
 };

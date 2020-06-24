@@ -42,8 +42,7 @@ export default {
       message: "getMessage",
       selection: "getSelection",
       npc: "getNpc"
-    }),
-    ...mapActions(["mainEvent"])
+    })
   },
   mounted: function() {
     this.getCurrentEvent();
@@ -83,233 +82,90 @@ export default {
 
     changeEventScript(target) {
       this.$store.dispatch("updateSceneScript", target);
-    }
-
-    //ここの処理、あとで考え直す
-    // changeMessageEndFlag() {
-    //   if (this.message.isMessageEnd) {
-    //     this.$store.dispatch("updateSceneFlag", true);
-    //   }
-    // },
+    },
 
     //イベントタイプに応じた処理の振り分け
-    // setEvent(event) {
-    //   if (event.type) {
-    //     switch (event.type) {
-    //       case "msg":
-    //         this.messageEvent(event.content);
-    //         break;
-    //       case "talk":
-    //         this.talkEvent(
-    //           event.content.text,
-    //           event.content.name,
-    //           event.content.pos
-    //         );
-    //         break;
-    //       case "select":
-    //         this.selectEvent(event.content);
-    //         break;
-    //       case "place":
-    //         this.changePlaceEvent(event.content.place, event.content.text);
-    //         break;
-    //       default:
-    //         this.eventError();
-    //         break;
-    //     }
-    //   } else {
-    //     this.eventError();
-    //   }
-    // },
-    // メッセージウィンドウへの文章表示処理
-    // messageEvent(text) {
-    //   if (typeof text === "string") {
-    //     // 同じ文が続く場合、文の変更および完了イベントが発火しないので対応
-    //     if (this.message.text == text) {
-    //       this.$store.dispatch("updateSceneFlag", true);
-    //     }
-    //     this.$store.dispatch("updateMessage", { name: "", text: text });
-    //   } else {
-    //     this.eventError();
-    //   }
-    // },
-
-    // 話し手が存在するメッセージ処理。対象キャラの名前表示、強調表示つき
-    // talkEvent(text, name, pos) {
-    //   this.$store.dispatch("updateMessage", { name: name, text: text });
-    //   this.toBackAllCharacter();
-    //   this.toForwardCharacter(pos);
-    // },
-
-    // selectEvent(selection) {
-    //   if (Array.isArray(selection)) {
-    //     this.$store.dispatch("updateSelectionContent,selection");
-    //     this.$store.dispatch("updateSelectionFlag", true);
-    //   }
-    // },
-
-    // doSelectEvent: function(event) {
-    //   event();
-    //   this.$store.dispatch("updateSelectionFlag", false);
-    // },
-
-    // async changePlaceEvent(place, text) {
-    //   this.setPlace(place);
-    //   await this.$_sleep(1000);
-    //   this.messageEvent(text);
-    // },
-
-    // キャラクター画像表示系
-    // setNpcImg(name, pos) {
-    //   this.$store.dispatch("updateNpc", { name: name, position: pos });
-    // },
-    // resetNpcImg() {
-    //   for (let k of Object.keys(this.npc)) {
-    //     this.$store.dispatch("updateNpc", { name: "", position: k });
-    //     this.$store.dispatch("updateNpcOpacity", { opacity: 1, position: k });
-    //     this.$store.dispatch("updateNpcZIndex", { zIndex: 10, position: k });
-    //     this.$store.dispatch("updateNpcMotion", {
-    //       motion: "none",
-    //       position: k
-    //     });
-    //     this.$store.dispatch("updateNpcEffect", {
-    //       effect: "none",
-    //       position: k
-    //     });
-    //   }
-    // },
-    // setOpacity(value, pos) {
-    //   this.$store.dispatch("updateNpcOpacity", {
-    //     opacity: value,
-    //     position: pos
-    //   });
-    // },
-    // resetOpacity(pos) {
-    //   this.$store.dispatch("updateNpcOpacity", {
-    //     opacity: 1,
-    //     position: pos
-    //   });
-    // },
-    // resetAllOpacitye() {
-    //   for (let k of Object.keys(this.npc)) {
-    //     this.$store.dispatch("updateNpcOpacity", {
-    //       opacity: 1,
-    //       position: k
-    //     });
-    //   }
-    // },
-    // setZIndex(value, pos) {
-    //   this.$store.dispatch("updateNpcZIndex", { zIndex: value, position: pos });
-    // },
-    // resetZIndex(pos) {
-    //   this.$store.dispatch("updateNpcZIndex", { zIndex: 10, position: pos });
-    // },
-    // resetAllZIndex() {
-    //   for (let k of Object.keys(this.npc)) {
-    //     this.$store.dispatch("updateNpcZIndex", { zIndex: 10, position: k });
-    //   }
-    // },
-
-    //NPC画像のモーション
-    // setNpcMotion(motion, pos) {
-    //   for (let k of Object.keys(this.npc)) {
-    //     this.$store.dispatch("updateNpcZIndex", { zIndex: 10, position: k });
-    //   }
-    //   this.$store.dispatch("updateNpcZIndex", { zIndex: 20, position: pos });
-    //   this.$store.dispatch("updateNpcMotion", {
-    //     motion: motion,
-    //     position: pos
-    //   });
-    // },
-
-    // //NPC画像のエフェクト
-    // setNpcEffect(effect, pos) {
-    //   for (let k of Object.keys(this.npc)) {
-    //     this.$store.dispatch("updateNpcZIndex", { zIndex: 10, position: k });
-    //   }
-    //   this.$store.dispatch("updateNpcZIndex", { zIndex: 20, position: pos });
-    //   this.$store.dispatch("updateNpcEffect", {
-    //     effect: effect,
-    //     position: pos
-    //   });
-    // },
-
-    //Talk処理用の重ね順、不透明度一括処理
-    // toForwardCharacter(pos) {
-    //   if (
-    //     pos === "L" ||
-    //     pos === "LC" ||
-    //     pos === "C" ||
-    //     pos === "RC" ||
-    //     pos === "R"
-    //   ) {
-    //     this.$store.dispatch("updateNpcOpacity", { opacity: 1, position: pos });
-    //     this.$store.dispatch("updateNpcZIndex", { zIndex: 20, position: pos });
-    //     this.$store.dispatch("updateNpcMotion", {
-    //       motion: "none",
-    //       position: pos
-    //     });
-    //     this.$store.dispatch("updateNpcEffect", {
-    //       effect: "none",
-    //       position: pos
-    //     });
-    //   } else {
-    //     this.eventError();
-    //   }
-    // },
-    // toForwardAllCharacter() {
-    //   for (let k of Object.keys(this.npc)) {
-    //     this.toForwardCharacter(k);
-    //   }
-    // },
-    // toBackCharacter(pos) {
-    //   if (
-    //     pos === "L" ||
-    //     pos === "LC" ||
-    //     pos === "C" ||
-    //     pos === "RC" ||
-    //     pos === "R"
-    //   ) {
-    //     this.$store.dispatch("updateNpcOpacity", {
-    //       opacity: 0.8,
-    //       position: pos
-    //     });
-    //     this.$store.dispatch("updateNpcZIndex", { zIndex: 5, position: pos });
-    //     this.$store.dispatch("updateNpcMotion", {
-    //       motion: "none",
-    //       position: pos
-    //     });
-    //     this.$store.dispatch("updateNpcEffect", {
-    //       effect: "none",
-    //       position: pos
-    //     });
-    //   } else {
-    //     this.eventError();
-    //   }
-    // },
-    // toBackAllCharacter() {
-    //   for (let k of Object.keys(this.npc)) {
-    //     this.toBackCharacter(k);
-    //   }
-    // },
-
-    //メッセージウィンドウの初期化処理
-    // resetMessage() {
-    //   this.$store.dispatch("updateMessage", { name: "", text: "" });
-    // },
-
-    // // 舞台演出関連
-    // async setPlace(place) {
-    //   this.$store.dispatch("updateNextPlace", place);
-    //   this.$store.dispatch("updatePlaceFlag", false);
-    //   await this.$_sleep(500);
-    //   this.$store.dispatch("updateCurrentPlace", place);
-    //   this.$store.dispatch("updatePlaceFlag", true);
-    // },
+    mainEvent(type, content) {
+      if (type) {
+        switch (type) {
+          case "msg":
+            this.$store.dispatch("messageEvent", content);
+            break;
+          case "talk":
+            this.$store.dispatch("talkEvent", {
+              text: content.text,
+              name: content.name,
+              pos: content.pos
+            });
+            break;
+          case "select":
+            this.$store.dispatch("selectionEvent", content);
+            break;
+          case "place":
+            this.$store.dispatch("placeEvent", {
+              place: content.place,
+              text: content.text
+            });
+            break;
+          default:
+            this.$store.commit("setSceneType", "none");
+            break;
+        }
+      } else {
+        this.eventError();
+      }
+    },
+    subEvent(type, content) {
+      if (type) {
+        switch (type) {
+          case "npc":
+            this.$store.dispatch("changeNpcImg", {
+              name: content.name,
+              pos: content.pos
+            });
+            break;
+          case "opacity":
+            this.$store.dispatch("changeNpcOpacity", {
+              opacity: content.opacity,
+              pos: content.pos
+            });
+            break;
+          case "zIndex":
+            this.$store.dispatch("changeNpcZindex", {
+              zIndex: content.zIndex,
+              pos: content.pos
+            });
+            break;
+          case "motion":
+            this.$store.dispatch("changeNpcMotion", {
+              motion: content.motion,
+              pos: content.pos
+            });
+          case "effect":
+            this.$store.dispatch("changeNpcEffect", {
+              effect: content.effect,
+              pos: content.pos
+            });
+        }
+      } else {
+        this.eventError();
+      }
+    },
+    resetEvent(type, content) {
+      if (type) {
+        switch (type) {
+          case "init":
+            break;
+          case "npc":
+            break;
+        }
+      }
+    },
 
     //イベント処理中に発生したエラーの共通処理
-    // eventError() {
-    //   console.log("不正なイベントデータです");
-    // }
+    eventError() {
+      console.log("不正なイベントデータです");
+    }
   }
 };
 </script>
