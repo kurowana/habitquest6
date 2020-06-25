@@ -15,7 +15,12 @@ export default {
         event1: [
           // 引数vmは、子コンポーネントのthis
           function(vm) {
-            vm.mainEvent("msg", "シンプルなメッセージ\nかきくけこほにゃららら");
+            vm.coreEvent("msg", "シンプルなメッセージ\nかきくけこほにゃららら");
+            vm.addEvent("npc", "スフィア1", "L");
+          },
+          function(vm) {
+            vm.coreEvent("msg", "メッセージ2個目");
+            vm.addEvent("npc", "スフィア1", "R");
           }
         ]
       }

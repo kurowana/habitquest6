@@ -48,16 +48,16 @@ export default {
     this.getCurrentEvent();
   },
   watch: {
-    "eventState.sceneNo": function() {
+    "scene.no": function() {
       this.getCurrentEvent();
-    },
-    "message.isMessageEnd": function() {
-      this.changeMessageEndFlag();
-      console.log("msg");
-    },
-    "selection.isDisplay": function() {
-      console.log("select");
     }
+    // "message.isMessageEnd": function() {
+    //   this.changeMessageEndFlag();
+    //   console.log("msg");
+    // },
+    // "selection.isDisplay": function() {
+    //   console.log("select");
+    // }
   },
   methods: {
     //イベント進行管理
@@ -85,26 +85,23 @@ export default {
     },
 
     //イベントタイプに応じた処理の振り分け
-    mainEvent(type, content) {
+    coreEvent(type, ...params) {
       if (type) {
         switch (type) {
           case "msg":
-            this.$store.dispatch("messageEvent", content);
+            this.$store.dispatch("messageEvent", params[0]);
             break;
           case "talk":
             this.$store.dispatch("talkEvent", {
-              text: content.text,
-              name: content.name,
-              pos: content.pos
+              name: params[0],
+              pos: params[1],
+              text: params[2]
             });
-            break;
-          case "select":
-            this.$store.dispatch("selectionEvent", content);
             break;
           case "place":
             this.$store.dispatch("placeEvent", {
-              place: content.place,
-              text: content.text
+              place: params[0],
+              text: params[1]
             });
             break;
           default:
@@ -115,36 +112,39 @@ export default {
         this.eventError();
       }
     },
-    subEvent(type, content) {
+    addEvent(type, ...params) {
       if (type) {
         switch (type) {
+          case "select":
+            this.$store.dispatch("selectionEvent", params);
+            break;
           case "npc":
             this.$store.dispatch("changeNpcImg", {
-              name: content.name,
-              pos: content.pos
+              name: params[0],
+              pos: params[1]
             });
             break;
           case "opacity":
             this.$store.dispatch("changeNpcOpacity", {
-              opacity: content.opacity,
-              pos: content.pos
+              opacity: params[0],
+              pos: params[1]
             });
             break;
           case "zIndex":
             this.$store.dispatch("changeNpcZindex", {
-              zIndex: content.zIndex,
-              pos: content.pos
+              zIndex: params[0],
+              pos: params[1]
             });
             break;
           case "motion":
             this.$store.dispatch("changeNpcMotion", {
-              motion: content.motion,
-              pos: content.pos
+              motion: params[0],
+              pos: params[1]
             });
           case "effect":
             this.$store.dispatch("changeNpcEffect", {
-              effect: content.effect,
-              pos: content.pos
+              effect: params[0],
+              pos: params[1]
             });
         }
       } else {
@@ -155,8 +155,17 @@ export default {
       if (type) {
         switch (type) {
           case "init":
+            this.$store.dispatch("resetNpcImg");
+            this.$store.dispatch("messageEvent", "");
             break;
           case "npc":
+            this.$store.dispatch("resetNpcImg");
+            break;
+          case "opacity":
+            tihs.$store.dispatch("resetAllNpcOpacity");
+            break;
+          case "zIndex":
+            tihs.$store.dispatch("resetAllNpcZIndex");
             break;
         }
       }
