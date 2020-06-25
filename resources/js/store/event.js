@@ -183,8 +183,8 @@ const actions = {
         commit("setSelectionDisplayFlag", true);
     },
     doSelectedEvent({ state }, index) {
-        state.selection.content[index].event();
         commit("setSelectionDisplayFlag", false);
+        state.selection.content[index].event();
     },
 
     //場面変更イベント
