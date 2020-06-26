@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="(option, index) in selection" :key="index">
-      <select-button :selection-text="option.text" @click-event="selected(option.event)"></select-button>
+      <select-button :selection-text="option.text" @click-event="selected()"></select-button>
     </div>
   </div>
 </template>
@@ -19,11 +19,12 @@ export default {
     selection: getSelection
   },
   methods: {
-    selected: function(event) {
-      this.$emit("selected", event);
+    selected: function() {
+      console.log(3);
+      // this.$emit("selected", selectEvent);
     }
   }
 };
-</script>F
+</script>
 
 <style scoped></style>

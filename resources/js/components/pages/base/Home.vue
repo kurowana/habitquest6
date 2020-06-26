@@ -21,6 +21,22 @@ export default {
           function(vm) {
             vm.coreEvent("msg", "メッセージ2個目");
             vm.addEvent("npc", "スフィア1", "R");
+          },
+          function(vm) {
+            vm.addEvent("select", [
+              {
+                text: "test1",
+                event: function() {
+                  console.log(1);
+                }
+              },
+              {
+                text: "text2",
+                event: function() {
+                  console.log(2);
+                }
+              }
+            ]);
           }
         ]
       }
