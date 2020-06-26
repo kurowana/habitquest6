@@ -1,11 +1,11 @@
 <template>
-  <div class="selection-field" @click="doClickEvent">{{ SelectionText }}</div>
+  <div class="selection-field" @click="doClickEvent">{{ selectionText }}</div>
 </template>
 
 <script>
 export default {
   props: {
-    SelectionText: {
+    selectionText: {
       type: String,
       required: true
     },
@@ -17,8 +17,9 @@ export default {
   },
   methods: {
     doClickEvent: function() {
-      this.$emit("click-event");
       this.$store.commit("setSe", this.clickSound);
+      console.log(1);
+      this.$emit("click-event");
     }
   }
 };

@@ -21,7 +21,7 @@ const state = {
     //イベント中の選択肢処理を管理するstate
     selection: {
         isDisplay: false,
-        content: []
+        content: "test"
     },
     //Npc表示を管理するstate
     npc: {
@@ -118,7 +118,9 @@ const mutations = {
         state.selection.isDisplay = boolean;
     },
     setSelectionContent(state, selectionList) {
+        // console.log(selectionList);
         state.selection.content = selectionList;
+        // console.log(state.selection.content);
     },
     //NPC表示管理用のSetter
     setNpc(state, { name, pos }) {
@@ -179,7 +181,21 @@ const actions = {
     //選択肢イベント
     selectEvent({ commit, selection }) {
         commit("setSceneType", "select");
-        commit("setSelectionContent", selection);
+        // commit("setSelectionContent", selection);
+        commit("setSelectionContent", [
+            {
+                text: 111,
+                event: function() {
+                    console.log(2);
+                }
+            },
+            {
+                text: 111,
+                event: function() {
+                    console.log(2);
+                }
+            }
+        ]);
         commit("setSelectionDisplayFlag", true);
     },
     doSelectedEvent({ state }, index) {

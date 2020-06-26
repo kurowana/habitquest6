@@ -3,7 +3,7 @@
     <slot></slot>
     <npc-viewer class="char-img-container"></npc-viewer>
     <msg-window class="msg-window-container"></msg-window>
-    <selection-list class="selection-area" v-if="selection.isDisplay" @selected="doSelectEvent"></selection-list>
+    <selection-list class="selection-area" v-if="selection.isDisplay"></selection-list>
     <background-img class="bg-container"></background-img>
   </div>
 </template>
@@ -116,7 +116,9 @@ export default {
       if (type) {
         switch (type) {
           case "select":
-            this.$store.dispatch("selectionEvent", params);
+            // console.log(params[0]);
+            // params[0][0];
+            this.$store.dispatch("selectEvent", params[0]);
             break;
           case "npc":
             this.$store.dispatch("changeNpcImg", {
@@ -169,6 +171,9 @@ export default {
             break;
         }
       }
+    },
+    doSelectEvent(selectEvent) {
+      selectEvent();
     },
 
     //イベント処理中に発生したエラーの共通処理
