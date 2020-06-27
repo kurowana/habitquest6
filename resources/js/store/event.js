@@ -20,8 +20,8 @@ const state = {
     },
     //イベント中の選択肢処理を管理するstate
     selection: {
-        isDisplay: false,
-        content: "test"
+        isDisplay: false
+        // content: 10
     },
     //Npc表示を管理するstate
     npc: {
