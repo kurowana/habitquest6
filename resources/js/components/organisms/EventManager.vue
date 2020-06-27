@@ -3,7 +3,7 @@
     <slot></slot>
     <npc-viewer class="char-img-container"></npc-viewer>
     <msg-window class="msg-window-container"></msg-window>
-    <selection-list class="selection-area" v-if="selection.isDisplay"></selection-list>
+    <selection-list class="selection-area" v-if="selection.isDisplay" :selectin="selectionFunc"></selection-list>
     <background-img class="bg-container"></background-img>
   </div>
 </template>
@@ -34,7 +34,9 @@ export default {
     }
   },
   data: function() {
-    return {};
+    return {
+      selectionFunc: null
+    };
   },
   computed: {
     ...mapGetters({
@@ -118,7 +120,8 @@ export default {
           case "select":
             // console.log(params[0]);
             // params[0][0];
-            this.$store.dispatch("selectEvent", params[0]);
+            // this.$store.dispatch("selectEvent", params[0]);
+            this.selectionFunc = params[0];
             break;
           case "npc":
             this.$store.dispatch("changeNpcImg", {
