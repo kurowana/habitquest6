@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     selected: function() {
-      // this.$emit("selected", selectEvent);
+      this.$emit("selected", selectEvent);
     }
   }
 };
