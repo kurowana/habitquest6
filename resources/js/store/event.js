@@ -21,7 +21,7 @@ const state = {
     //イベント中の選択肢処理を管理するstate
     selection: {
         isDisplay: false
-        // content: 10
+        // selected: null
     },
     //Npc表示を管理するstate
     npc: {
@@ -117,10 +117,8 @@ const mutations = {
     setSelectionDisplayFlag(state, boolean) {
         state.selection.isDisplay = boolean;
     },
-    setSelectionContent(state, selectionList) {
-        // console.log(selectionList);
-        state.selection.content = selectionList;
-        // console.log(state.selection.content);
+    setSelectedIndex(state, index) {
+        state.selection.content = index;
     },
     //NPC表示管理用のSetter
     setNpc(state, { name, pos }) {
@@ -179,29 +177,15 @@ const actions = {
         dispatch("toForwardCharacter", pos);
     },
     //選択肢イベント
-    selectEvent({ commit, selection }) {
+    selectEvent({ commit }) {
         commit("setSceneType", "select");
-        // commit("setSelectionContent", selection);
-        commit("setSelectionContent", [
-            {
-                text: 111,
-                event: function() {
-                    console.log(2);
-                }
-            },
-            {
-                text: 111,
-                event: function() {
-                    console.log(2);
-                }
-            }
-        ]);
+        // commit("setSelectedContent", null);
         commit("setSelectionDisplayFlag", true);
     },
-    doSelectedEvent({ state }, index) {
-        commit("setSelectionDisplayFlag", false);
-        state.selection.content[index].event();
-    },
+    // selectedEvent({ commit }, index) {
+    //     commit("setSelectionDisplayFlag", false);
+    //     commit("setSelectedContent", index);
+    // },
 
     //場面変更イベント
     async placeEvent({ dispatch }, { place, text }) {

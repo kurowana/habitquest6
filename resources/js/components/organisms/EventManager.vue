@@ -3,7 +3,7 @@
     <slot></slot>
     <npc-viewer class="char-img-container"></npc-viewer>
     <msg-window class="msg-window-container"></msg-window>
-    <selection-list class="selection-area" v-if="selection.isDisplay" :selectin="selectionFunc"></selection-list>
+    <selection-list class="selection-area" v-if="selection.isDisplay" :selection="selectionList"></selection-list>
     <background-img class="bg-container"></background-img>
   </div>
 </template>
@@ -35,7 +35,7 @@ export default {
   },
   data: function() {
     return {
-      selectionFunc: null
+      selection: null
     };
   },
   computed: {
@@ -53,13 +53,6 @@ export default {
     "scene.no": function() {
       this.getCurrentEvent();
     }
-    // "message.isMessageEnd": function() {
-    //   this.changeMessageEndFlag();
-    //   console.log("msg");
-    // },
-    // "selection.isDisplay": function() {
-    //   console.log("select");
-    // }
   },
   methods: {
     //イベント進行管理
@@ -118,10 +111,8 @@ export default {
       if (type) {
         switch (type) {
           case "select":
-            // console.log(params[0]);
-            // params[0][0];
-            // this.$store.dispatch("selectEvent", params[0]);
-            this.selectionFunc = params[0];
+            this.selection = params[0];
+            this.$store.dispatch("selectEvent");
             break;
           case "npc":
             this.$store.dispatch("changeNpcImg", {
