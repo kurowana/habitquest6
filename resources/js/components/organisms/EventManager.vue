@@ -3,7 +3,7 @@
     <slot></slot>
     <npc-viewer class="char-img-container"></npc-viewer>
     <msg-window class="msg-window-container"></msg-window>
-    <selection-list class="selection-area" v-if="selection.isDisplay" :selection="selectionList"></selection-list>
+    <selection-list class="selection-area" v-if="selection.isDisplay"></selection-list>
     <background-img class="bg-container"></background-img>
   </div>
 </template>
@@ -35,7 +35,7 @@ export default {
   },
   data: function() {
     return {
-      selection: null
+      // selection: null
     };
   },
   computed: {
@@ -93,6 +93,9 @@ export default {
               text: params[2]
             });
             break;
+          case "select":
+            this.$store.dispatch("selectEvent", params[0]);
+            break;
           case "place":
             this.$store.dispatch("placeEvent", {
               place: params[0],
@@ -110,10 +113,6 @@ export default {
     addEvent(type, ...params) {
       if (type) {
         switch (type) {
-          case "select":
-            this.selection = params[0];
-            this.$store.dispatch("selectEvent");
-            break;
           case "npc":
             this.$store.dispatch("changeNpcImg", {
               name: params[0],

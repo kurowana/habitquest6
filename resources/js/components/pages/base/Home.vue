@@ -23,18 +23,14 @@ export default {
             vm.addEvent("npc", "スフィア1", "R");
           },
           function(vm) {
-            vm.addEvent("select", [
+            vm.coreEvent("select", [
               {
                 text: "test1",
-                event: function() {
-                  console.log(1);
-                }
+                script: "event2"
               },
               {
                 text: "text2",
-                event: function() {
-                  console.log(2);
-                }
+                script: "event3"
               }
             ]);
           }
