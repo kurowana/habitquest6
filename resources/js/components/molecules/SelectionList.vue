@@ -1,8 +1,10 @@
 <template>
   <div>
-    <div v-for="(option, index) in selection" :key="index">
+    <!-- <div v-for="(option, index) in selection" :key="index">
       <select-button :selection-text="option.text" @click-event="selected"></select-button>
-    </div>
+    </div>-->
+    <select-button :selection-text="selection[0].text" @click-event="selected"></select-button>
+    <select-button :selection-text="selection[1].text" @click-event="selected"></select-button>
   </div>
 </template>
 
@@ -16,13 +18,15 @@ export default {
     "select-button": SelectButton
   },
   props: {
-    selection: {
-      type: Object,
-      required: false
-    }
+    // selection: {
+    //   type: Object,
+    //   required: false
+    // }
   },
   computed: {
-    // selection: getSelection
+    ...mapGetters({
+      selection: "getSelection"
+    })
   },
   methods: {
     selected: function() {
