@@ -1,10 +1,12 @@
 <template>
   <div class="event-container" @click="clickEventViewer">
-    <slot></slot>
     <npc-viewer class="char-img-container"></npc-viewer>
     <msg-window class="msg-window-container"></msg-window>
     <selection-list class="selection-area" v-if="selection.isDisplay"></selection-list>
     <background-img class="bg-container"></background-img>
+    <modal-window v-slot:main v-if="isDisplayModal">
+      <slot name="modal"></slot>
+    </modal-window>
   </div>
 </template>
 
@@ -18,6 +20,7 @@ import NpcViewer from "../molecules/NpcViewer";
 import MsgWindow from "../molecules/MsgWindow";
 import SelectionList from "../molecules/SelectionList";
 import BackgroundImg from "../atoms/BackgroundImg";
+import ModalWindow from "../atoms/ModalWindow";
 
 export default {
   mixins: [baseMixin],
@@ -25,7 +28,8 @@ export default {
     "npc-viewer": NpcViewer,
     "msg-window": MsgWindow,
     "selection-list": SelectionList,
-    "background-img": BackgroundImg
+    "background-img": BackgroundImg,
+    "modal-window": ModalWindow
   },
   props: {
     eventScripts: {
@@ -35,6 +39,7 @@ export default {
   },
   data: function() {
     return {
+      isDisplayModal: false
       // selection: null
     };
   },

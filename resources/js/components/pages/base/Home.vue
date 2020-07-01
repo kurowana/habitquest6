@@ -1,5 +1,10 @@
 <template>
-  <novel :event-scripts="eventScripts"></novel>
+  <novel :event-scripts="eventScripts">
+    <template v-slot:modal>
+      <div v-if="test1">test1</div>
+      <div v-if="test2">test1</div>
+    </template>
+  </novel>
 </template>
 
 <script>
@@ -19,20 +24,15 @@ export default {
             vm.addEvent("npc", "スフィア1", "L");
           },
           function(vm) {
+            vm.isDisplayModal = true;
+            vm.test1 = true;
             vm.coreEvent("msg", "メッセージ2個目");
             vm.addEvent("npc", "スフィア1", "R");
           },
           function(vm) {
-            vm.coreEvent("select", [
-              {
-                text: "test1",
-                script: "event2"
-              },
-              {
-                text: "text2",
-                script: "event3"
-              }
-            ]);
+            vm.test1 = false;
+            vm.test2 = true;
+            vm.isDisplayModal = true;
           }
         ]
       }
