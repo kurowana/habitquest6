@@ -3,6 +3,9 @@
     <game-menu></game-menu>
     <pomodoro-unit></pomodoro-unit>
     <habit-unit></habit-unit>
+    <template v-slot:modal>
+      <slot name="modal"></slot>
+    </template>
   </event-manager>
 </template>
 
