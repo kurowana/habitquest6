@@ -4,9 +4,6 @@
     <msg-window class="msg-window-container"></msg-window>
     <selection-list class="selection-area" v-if="selection.isDisplay"></selection-list>
     <background-img class="bg-container"></background-img>
-    <modal-window v-slot:main v-if="isDisplayModal">
-      <slot name="modal"></slot>
-    </modal-window>
   </div>
 </template>
 
@@ -62,7 +59,14 @@ export default {
   methods: {
     //イベント進行管理
     getCurrentEvent() {
-      this.eventScripts[this.scene.script][this.scene.no](this);
+      for (event of this.eventScripts[this.scene.script][this.scene.no]) {
+        if (event[0] === "msg") {
+          this.coreEvent(...event);
+        } else {
+          this.addEvent(...event);
+        }
+      }
+      // this.eventScripts[this.scene.script][this.scene.no];
     },
 
     clickEventViewer() {
