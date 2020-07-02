@@ -23,6 +23,11 @@ const state = {
         isDisplay: false,
         list: null
     },
+    //モーダル制御
+    modal: {
+        isDisplay: false,
+        target: "none"
+    },
     //Npc表示を管理するstate
     npc: {
         L: {
