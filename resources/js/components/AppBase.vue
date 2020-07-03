@@ -1,6 +1,7 @@
 <template>
   <div class="content-wrapper">
     {{selection}}
+    {{message}}
     <sound-player></sound-player>
     <router-view name="gameUnit"></router-view>
     <router-view name="habitUnit"></router-view>
@@ -29,7 +30,8 @@ export default {
     ...mapGetters({
       windowWidth: "getWindowWidth",
       windowHeight: "getWindowHeight",
-      selection: "getSelection"
+      selection: "getSelection",
+      message: "getMessage"
     })
   },
   data: function() {

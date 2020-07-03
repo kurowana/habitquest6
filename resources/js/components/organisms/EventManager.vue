@@ -60,11 +60,7 @@ export default {
     //イベント進行管理
     getCurrentEvent() {
       for (event of this.eventScripts[this.scene.script][this.scene.no]) {
-        if (event[0] === "msg") {
-          this.coreEvent(...event);
-        } else {
-          this.addEvent(...event);
-        }
+        this.dispatchEvent(...event);
       }
       // this.eventScripts[this.scene.script][this.scene.no];
     },
@@ -89,39 +85,30 @@ export default {
     },
 
     //イベントタイプに応じた処理の振り分け
-    coreEvent(type, ...params) {
+    dispatchEvent(type, ...params) {
       if (type) {
         switch (type) {
-          case "msg":
+          //シーン番号の変更を伴うメイン処理
+          case "ev_msg":
             this.$store.dispatch("messageEvent", params[0]);
             break;
-          case "talk":
+          case "ev_talk":
             this.$store.dispatch("talkEvent", {
               name: params[0],
               pos: params[1],
               text: params[2]
             });
             break;
-          case "select":
+          case "ev_select":
             this.$store.dispatch("selectEvent", params[0]);
             break;
-          case "place":
+          case "ev_place":
             this.$store.dispatch("placeEvent", {
               place: params[0],
               text: params[1]
             });
             break;
-          default:
-            this.$store.commit("setSceneType", "none");
-            break;
-        }
-      } else {
-        this.eventError();
-      }
-    },
-    addEvent(type, ...params) {
-      if (type) {
-        switch (type) {
+          //シーン番号に影響しないサブ処理
           case "npc":
             this.$store.dispatch("changeNpcImg", {
               name: params[0],
@@ -150,6 +137,9 @@ export default {
               effect: params[0],
               pos: params[1]
             });
+          default:
+            this.$store.commit("setSceneType", "none");
+            break;
         }
       } else {
         this.eventError();
