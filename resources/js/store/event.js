@@ -174,12 +174,12 @@ const actions = {
     },
 
     // 話し手が存在するメッセージ処理。対象キャラの名前表示、強調表示つき
-    talkEvent({ commit, dispatch }, { text, name, pos }) {
+    talkEvent({ commit, dispatch }, { name, pos, text }) {
         commit("setMessageEndFlag", false);
         commit("setMessageName", name);
-        dispatch("messageEvent", text);
-        dispatch("toBackAllCharacter");
-        dispatch("toForwardCharacter", pos);
+        commit("setMessageText", text);
+        dispatch("toBackAllNpc");
+        dispatch("toForwardNpc", pos);
     },
     //選択肢イベント
     selectEvent({ commit }, list) {
@@ -291,20 +291,20 @@ const actions = {
     },
     toBackNpc({ dispatch }, pos) {
         dispatch("changeNpcOpacity", {
-            opacity: 0.8,
-            position: pos
+            opacity: 0.7,
+            pos: pos
         });
         dispatch("changeNpcZIndex", {
             zIndex: 5,
-            position: pos
+            pos: pos
         });
         dispatch("changeNpcMotion", {
             motion: "none",
-            position: pos
+            pos: pos
         });
         dispatch("changeNpcEffect", {
             effect: "none",
-            position: pos
+            pos: pos
         });
     },
     toBackAllNpc({ state, dispatch }) {
